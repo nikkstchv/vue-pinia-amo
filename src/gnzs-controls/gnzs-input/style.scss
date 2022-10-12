@@ -1,0 +1,77 @@
+.root{
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    input{
+        border: 1px solid #dbdedf;
+        border-radius: 3px;
+        font-size: 15px;
+        height: 32px;
+        width: 100%;
+        padding: 7px 9px 7px;
+        box-sizing: border-box;
+        color: #313942;
+        background: #fff;
+        user-select: text;
+        outline: 0;
+        line-height: 20px;
+        -moz-appearance: textfield;
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+        }
+    }
+
+    input.rightShift{
+        padding-right: 24px;
+        box-sizing: border-box;
+    }
+
+    input.leftShift{
+        padding-left: 24px;
+        box-sizing: border-box;
+    }
+
+}
+
+.dims{
+    width: 11px;
+    height: 11px;
+}
+
+.dateIcon{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 8px;
+    cursor: pointer;
+}
+
+.toggleButton{
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 4px 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 21px;
+    width: 18px;
+    box-sizing: border-box;
+    background: #fff;
+    border: none;
+    border-bottom: 1px dotted;
+    cursor: pointer;
+    color: #909090;
+    outline: none;
+
+    svg{
+        width: 18px;
+        height: 18px;
+    }
+}

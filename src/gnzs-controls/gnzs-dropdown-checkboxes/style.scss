@@ -1,0 +1,238 @@
+.root{
+    position: relative;
+    width: 100%;
+    font-size: 15px;
+
+    &_disabled{
+        color: #91959a;
+    }
+}
+
+.titleWrapper {
+    position: relative;
+    display: flex;
+    color: #313942;
+    padding: 5px;
+    border: 1px solid #dadadb;
+    border-radius: 3px;
+    cursor: pointer;
+    min-height: 15px;
+    background: -webkit-gradient(linear,left top,left bottom,from(#fcfcfc),to(#f8f8f9));
+    background: linear-gradient(to bottom,#fcfcfc 0%,#f8f8f9 100%);
+}
+
+.titleSelected{
+    position: relative;
+    overflow: hidden;
+    width: calc(100% - 45px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.titleItem {
+    white-space: nowrap;
+    overflow: hidden;
+    margin-bottom: 5px;
+    height: 18px;
+    line-height: 20px;
+
+    &:last-child{
+        margin-bottom: 0;
+    }
+}
+
+.checkboxMaster{
+    align-self: flex-start;
+    margin-right: 5px;
+    color: #9ea2a7;
+}
+
+
+
+.icon{
+    display: block;
+    position: absolute;
+    top: 9px;
+    width: 6px;
+    height: 6px;
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    margin-left: 7px;
+    right: 12px;
+    z-index: 10;
+}
+
+.container{
+    position: absolute;
+    display: none;
+    min-width: 100%;
+    max-width: 550px;
+    left: 0;
+    border: 1px solid #d4d5d8;
+    background-color: #fff;
+    padding: 0;
+    margin: 0;
+    border-radius: 3px;
+    bottom: auto;
+    top: 0;
+    list-style: none;
+    z-index: 30;
+    outline: none;
+    overflow-x: hidden;
+
+    &_opened{
+        display: block;
+    }
+}
+
+.list{
+    min-width: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
+    padding: 0;
+    height: auto;
+    margin: 0;
+    overflow: auto;
+    max-height: 211px;
+    list-style: none;
+    outline: none;
+}
+
+.listItem{
+    display: flex;
+    align-items: center;
+    padding: 0 5px 0 0;
+    cursor: pointer;
+    position: relative;
+    list-style-type: none;
+    margin: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+
+    &:hover{
+        background-color: #fbfbfb;
+    }
+}
+
+.groupItem{
+    width: 100%;
+
+    .list{
+        margin-left: 24px;
+    }
+}
+
+.groupCheckbox{
+    color: #9c9c9c;
+    font-weight: bold;
+    background-color: whitesmoke;
+    text-transform: uppercase;
+    font-size: 12px !important;
+}
+
+.listCheckbox{
+    width: 100%;
+    padding: 5px 5px 5px 5px;
+    cursor: pointer;
+    white-space: nowrap;
+    margin-right: 0;
+}
+
+.listItemInfo{
+    color: #8F9A9D;
+    margin-left: auto;
+    white-space: nowrap;
+    margin-right: 8px;
+}
+
+
+.groupInnerList{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.groupTitle{
+    display: block;
+    padding: 7px 22px;
+    color: #a8acaf;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 11px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    cursor: default;
+}
+
+.search {
+    padding: 2px 3px;
+    display: flex;
+    align-items: center;
+}
+
+.searchIcon {
+    width: 16px;
+    height: 16px;
+    margin-right: 9px;
+    margin-left: 4px;
+    fill: #6e747a;
+}
+
+.searchInput {
+    font-size: 15px;
+    padding: 3px 0 0 0;
+    outline: none;
+    border: none;
+    line-height: 26px;
+    height: 26px;
+    border-bottom: 1px solid #4c8bf7;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.inlineTitle{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.theme_card{
+
+    .container{
+        left: -30px;
+        width: calc(100% + 30px);
+    }
+
+    .titleSelected{
+        display: inline-block;
+        width: auto;
+        max-width: 85%;
+        padding-top: 7px;
+    }
+
+    .icon{
+        position: relative;
+        top: 0;
+        margin: 12px 0 0 20px;
+    }
+
+    .titleWrapper{
+        border: none;
+        background: none;
+        padding: 0;
+        min-height: 32px;
+
+        .checkboxMaster{
+            display: none;
+        }
+    }
+
+    .titleItem:not(:last-child){
+        margin-bottom: 6px;
+    }
+
+}

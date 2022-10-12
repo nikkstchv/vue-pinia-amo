@@ -1,0 +1,81 @@
+.cellEditor{
+    display: flex;
+}
+
+.button{
+    padding: 3px !important;
+    color: #b1b1b1;
+
+    svg{
+        width: 10px;
+        height: 10px;
+    }
+
+    &:hover{
+        color: #2e3640;
+        border-color: #9da0a2;
+    }
+}
+
+.form{
+    display: none;
+    position: absolute;
+    top: -6px;
+    min-width: 100%;
+    z-index: 1000;
+    background-color: #fff;
+    padding: 3px 13px 15px;
+    border: 1px solid #d4d5d8;
+    box-sizing: border-box;
+    box-shadow: 0 5px 10px 0 rgba(0,0,0,.1);
+    outline: none;
+
+    &_align{
+        &_left{
+            left: -4px;
+        }
+        &_right{
+            right: 0;
+        }
+    }
+
+    &_opened{
+        display: block;
+    }
+}
+
+.formControl{
+
+    input, 
+    textarea{
+        width: 100%;
+        line-height: 26px;
+        height: 26px;
+        border: none;
+        border-bottom: 1px solid #4c8bf7;
+        margin-bottom: 10px;
+        outline: none;
+    }
+
+    input{
+        // скрываем стрелки у инпута с type=number
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            //display: none;
+            -webkit-appearance: none;
+            margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+        }
+    }
+
+    textarea{
+        overflow: hidden;
+        overflow-wrap: break-word;
+        height: 80px;
+    }
+
+    &_align{
+        &_right input{
+            text-align: right;
+        }
+    }
+}
