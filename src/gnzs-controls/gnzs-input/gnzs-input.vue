@@ -20,7 +20,7 @@
     />
     <button v-if="clipboardEnabled" :class="$style.toggleButton" @click="copyToClipboard">
       <svg>
-        <use xlink:href="#gnzs-1c-icon__clipboard"></use>
+        <use xlink:href="#gnzs-docflow-icon__clipboard"></use>
       </svg>
     </button>
   </div>

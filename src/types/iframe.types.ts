@@ -4,3 +4,8 @@ export class IframeStore {
   windowHeight: number | null;
   asaidIsActive: boolean;
 }
+
+export class Jwt {
+  token: string;
+  widgetId: string;
+}

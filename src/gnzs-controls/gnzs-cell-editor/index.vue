@@ -2,7 +2,7 @@
   <div :class="$style.cellEditor" ref="control">
     <GnzsButton :class="$style.button" @click="showForm">
       <svg>
-        <use xlink:href="#gnzs-1c-icon__edit-pen"></use>
+        <use xlink:href="#gnzs-docflow-icon__edit-pen"></use>
       </svg>
     </GnzsButton>
 

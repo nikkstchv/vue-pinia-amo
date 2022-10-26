@@ -1,0 +1,73 @@
+<template>
+  <div class="">
+    <div :class="[$style.root, $style.bots]">
+      <div v-for="item in items" :key="item.id">
+        <GnzsNameEditor
+          :item-name="item.name"
+          :item-id="item.id"
+          @save-click="updateItem(item.id, $event)"
+          @remove-click="deleteType(item.id, item.name)"
+        />
+      </div>
+    </div>
+
+    <div :class="$style.rowFlex" v-if="!isAddMode"
+    >
+      <GnzsButton :class="$style.addButton" :type="`append`"
+      @click="addTypeButtonClick()"
+      >{{
+        localization.components.typeTemplate.buttons.message.add
+      }}</GnzsButton>
+    </div>
+    <GnzsNameEditor
+      v-if="isAddMode"
+      :is-add-mode="isAddMode"
+      @save-click="addItem"
+      @add-mode-toggle="itemAddModeToggle()"
+      @focusout="itemAddModeToggle()"
+    />
+  </div>
+</template>
+
+<script setup>
+import { computed, onMounted } from "vue";
+import { storeToRefs } from "pinia";
+
+import { useInitializationStore } from "@/stores/initialization.store";
+import { useDocTypeStore } from "@/stores/doctype.store";
+import { useIframeStore } from "@/stores/iframe.store";
+
+import GnzsNameEditor from "@/gnzs-controls/gnzs-name-editor/gnzs-name-editor.vue";
+import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";
+
+const localization = computed(() => initializationStore.localization);
+
+const { openConfirmModal } = useIframeStore();
+const initializationStore = useInitializationStore();
+
+const { items, isAddMode } = storeToRefs(useDocTypeStore());
+const { addItem, updateItem, itemAddModeToggle, loadItems } = useDocTypeStore();
+
+const addTypeButtonClick = () => {
+  itemAddModeToggle();
+};
+
+const deleteType = async (id, name) => {
+  await openConfirmModal({
+    name: name,
+    id: id, 
+    confirmEventName: 'deleteType',
+    text: localization.value.confirm.deleteQuestion.type,
+    declineText: localization.value.buttons.cancel,
+    acceptText: localization.value.buttons.yes
+  });
+}
+
+onMounted(async () => {
+  return await loadItems();
+});
+</script>
+
+<style lang="scss" module>
+@import "./style.scss";
+</style>s

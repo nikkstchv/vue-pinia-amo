@@ -1,7 +1,12 @@
 export default {
-  title: 'Уведомления в Telegram',
+  title: 'Документы 2.0',
 
   // tokenError: 'Токен авторизации истек !',
+
+  menu: {
+		main: 'Главная',
+		organizations: 'Юр. лица',
+	},
 
   buttons: {
     append: 'Добавить',
@@ -17,7 +22,7 @@ export default {
 
   confirm: {
     deleteQuestion: {
-      bot: 'Вы действительно хотите удалить этот бот?',
+      type: 'Вы действительно хотите удалить этот тип документа?',
       message: 'Вы действительно хотите удалить этот шаблон?'
     }
   },
@@ -26,27 +31,40 @@ export default {
     adSettings: {
       descriptions: {
         template: 'Настройте шаблоны документов',
-        type: 'Настройте типы документов'
+        type: 'Настройте типы документов',
+        organizations: 'Добавьте информацию о юр.лицах'
       },
       headers: {
         template: 'Шаблоны документов',
-        type: 'Типы документов'
+        type: 'Типы документов',
+        organizations: 'Юридические лица'
       }
     },
-    message: {
-      description: 'Для подстановки данных по сущности вы можете использовать маркеры',
+    organization: {
+      description: 'Заполните данные о юр. лице',
       headers: {
-        text: 'Текст'
+        text: 'Настройки'
       }
     },
-    newMessage: {
-      description: 'description',
+    newOrganization: {
+      description: 'Ведите название',
       headers: {
-        text: 'Создание нового шаблона сообщения'
+        text: 'Новое юр. лицо'
       }
     }
   },
   components: {
+    organizations: {
+      tables : {
+        headers: {
+          name: 'Название',
+          info: 'Инфо'
+        }
+      },
+      buttons : {
+        add: 'Добавить'
+      }
+    },
     bot: {
       buttons: {
         add: 'Добавить',

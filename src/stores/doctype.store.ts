@@ -22,24 +22,25 @@ export const useDocTypeStore = defineStore('doctype', {
         return error
       }
     },
-    async addItem() {
+    async addItem(inputValue: string) {
       try {
-        await api.addType(this.inputValue);
-        this.items = await api.getTypes();
         this.itemAddModeToggle();
+        await api.addType(inputValue);
+        this.items = await api.getTypes();
         this.inputValue = '';
       } catch (error) {
         return error
       }
     },
-    async updateItem(typeId: number, typeName: string) {
+    async updateItem(id: number, name: string) {
       try {
-        await api.updateType(typeId, typeName);
+        await api.updateType(id, name);
+        await this.loadItems()
       } catch (error) {
         return error
       }
     },
-    async removeType(typeId: number) {
+    async removeItem(typeId: number) {
       try {
         await api.deleteType(typeId);
         this.items = await api.getTypes();

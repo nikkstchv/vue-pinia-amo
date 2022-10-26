@@ -2,7 +2,7 @@
   <div :class="[$style.contextButton, { [$style.contextButton_opened]: opened }]">
     <button :class="$style.button" type="button" tabindex="-1" @click="open">
       <svg :class="$style.icon">
-        <use xlink:href="#gnzs-1c-icon__button-more"></use>
+        <use xlink:href="#gnzs-docflow-icon__button-more"></use>
       </svg>
     </button>
 

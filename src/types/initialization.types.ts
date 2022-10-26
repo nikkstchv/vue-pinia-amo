@@ -1,3 +1,4 @@
+import type { Ref } from "vue";
 import type { User } from "./general.types";
 
 export class InitializationState {
@@ -11,6 +12,7 @@ export class InitializationState {
   users: User[];
   tokenError: string | null;
   DNAInfo: DNAInfoDto | null;
+  currActiveTab: any;
 }
 
 export class DecodeTokenDto {

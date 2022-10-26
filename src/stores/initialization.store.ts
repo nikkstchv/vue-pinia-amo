@@ -1,15 +1,16 @@
 import { defineStore } from "pinia";
-// import { getAccountInfo, getDevJwtToken, getDNAInfo, verifyAndDecodeToken } from "@/api/gnzs-core-api";
+import { getAccountInfo, getDevJwtToken, getDNAInfo, verifyAndDecodeToken } from "@/api/gnzs-core-api";
 // import { getUserAvatar } from "@/utilities/stores/helper";
-// import { GNZS_WIDGET_ID } from "./constants";
-// import { useIframeStore } from "./iframe.store";
-// import setEvents from "@/utilities/events.util";
+import { GNZS_WIDGET_ID } from "./constants";
+import { useIframeStore } from "./iframe.store";
+import setEvents from "@/events";
 
 // types
 import type { AccountDataDto, DataToChatra, InitializationState, UsersAvatartDto } from "../types/initialization.types";
 
 // localizations
 import RU from "@/localizations/ru";
+import type { Ref } from "vue";
 // import EN from "@/localizations/en";
 // import ES from "@/localizations/es";
 // import PT from "@/localizations/pt";
@@ -29,6 +30,7 @@ export const useInitializationStore = defineStore({
     users: [],
     tokenError: null,
     DNAInfo: null,
+    currActiveTab: "account"
   }),
 
   getters: {
@@ -48,24 +50,27 @@ export const useInitializationStore = defineStore({
       return isUserAdmin || isAdminPanel ? true : false;
     },
 
-    getDataToChatra: (state): DataToChatra => {
-      const { amoUserId } = state;
-      const currentUser = state.accountData?.amoUsers.find(user => +user?.id === amoUserId);
-      return {
-        name: currentUser?.name,
-        email: currentUser?.login,
-        phone: currentUser?.phone_number,
-        amoAccountId: state.accountData?.id,
-        amoSubdomain: state.accountData?.amoSubdomain,
-      };
-    },
+    // getDataToChatra: (state): DataToChatra => {
+    //   const { amoUserId } = state;
+    //   const currentUser = state.accountData?.amoUsers.find(user => +user?.id === amoUserId);
+    //   return {
+    //     name: currentUser?.name,
+    //     email: currentUser?.login,
+    //     phone: currentUser?.phone_number,
+    //     amoAccountId: state.accountData?.id,
+    //     amoSubdomain: state.accountData?.amoSubdomain,
+    //   };
+    // },
 
     isAccountForTest: (state): boolean => state.amoAccountId === 28830832,
   },
 
   actions: {
-    async iframeInit(): Promise<void> {
+    saveActiveTab(currTab: any): void {
+      this.currActiveTab = currTab 
+    },
 
+    async iframeInit(): Promise<void> {
       const currUrl: URL = new URL(location.href);
       const lang: string = currUrl.searchParams.get("lang") || "ru";
       const iframeName: string = currUrl.searchParams.get("iframe-name") || "";
@@ -90,8 +95,8 @@ export const useInitializationStore = defineStore({
         this.amoAccountId = +this.decodeToken.account_id;
         this.accountData = await getAccountInfo();
         this.DNAInfo = await getDNAInfo();
-        this.amoUserId = +currUrl.searchParams.get("user-id") || +this.decodeToken.user_id || import.meta.env.VITE_APP_DEVELOPER_AMO_USER_ID;
-        this.setUsers();
+        this.amoUserId = +currUrl?.searchParams?.get("user-id") || +this.decodeToken.user_id || import.meta.env.VITE_APP_DEVELOPER_AMO_USER_ID;
+        // this.setUsers();  - пофиксить
 
         setEvents(iframeName);
         iframeStore.setIframeName(iframeName);

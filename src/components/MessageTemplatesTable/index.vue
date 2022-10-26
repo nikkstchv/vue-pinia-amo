@@ -41,8 +41,8 @@
   </div>
 </template>
 
-<script setup>
-import { computed, onMounted } from "vue";
+<script setup lang="ts">
+import { computed, onMounted, type ComputedRef } from "vue";
 import { useInitializationStore } from "@/stores/initialization.store";
 import { useDocTemplateStore } from "@/stores/doctemplate.store";
 
@@ -54,7 +54,7 @@ const initializationStore = useInitializationStore();
 
 // computed
 const localization = computed(() => initializationStore.localization);
-const items = computed(() => docTemplateStore.items);
+const items: ComputedRef<[]> = computed(() => docTemplateStore.items);
 
 onMounted(async () => {
   return await docTemplateStore.loadItems();
