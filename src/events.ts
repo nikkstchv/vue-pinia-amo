@@ -1,5 +1,8 @@
 import * as api from "@/api/docflow";
 import { useDocTypeStore } from "@/stores/doctype.store";
+import { useDocTemplateStore } from "@/stores/doctemplate.store";
+import { useOrganizationsStore } from "@/stores/organizations.store";
+import { useHeaderStore } from "./stores/header.store";
 
 
 export default (iframeName: string) => {
@@ -11,6 +14,28 @@ export default (iframeName: string) => {
         try {
           const docTypeStore = useDocTypeStore()
           await docTypeStore.removeItem(elementId);
+        } catch (error) {
+          return error
+        }
+        window.parent.postMessage({ event: `${iframeName}:closeConfirm`, data: { modalId } }, '*');
+        break;
+      };
+      case `${iframeName}:deleteOrganization`: {
+        let { elementId, modalId } = event.data.data;
+        try {
+          await useOrganizationsStore().removeItem(elementId);
+          useHeaderStore().goToMainRoute();
+        } catch (error) {
+          return error
+        }
+        window.parent.postMessage({ event: `${iframeName}:closeConfirm`, data: { modalId } }, '*');
+        break;
+      };
+      case `${iframeName}:deleteTemplate`: {
+        let { elementId, modalId } = event.data.data;
+        try {
+          await useDocTemplateStore().removeItem(elementId);
+          useHeaderStore().goToMainRoute();
         } catch (error) {
           return error
         }

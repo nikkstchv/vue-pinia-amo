@@ -1,12 +1,16 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { useHeaderStore } from "@/stores/header.store";
 import PATHS from "@/router/paths";
+
 
 
 // views
 import AdvancedSettings from "@/views/Main";
 import NewOrganization from "@/views/NewOrganization";
 import Organization from "@/views/Organization";
-import { useHeaderStore } from "@/stores/header.store";
+import NewTemplate from "@/views/NewTemplate";
+import Template from "@/views/Template";
+
 
 
 const router = createRouter({
@@ -39,7 +43,26 @@ const router = createRouter({
         next();
       },
     },
-  ],
+    ,
+    {
+      path: PATHS.TEMPLATE.path,
+      name: PATHS.TEMPLATE.name,
+      component: Template,
+      beforeEnter: (to, from, next) => {
+        useHeaderStore().setCurrentRouteName(<string>PATHS.TEMPLATE.name);
+        next();
+      },
+    },
+    {
+      path: PATHS.NEW_TEMPLATE.path,
+      name: PATHS.NEW_TEMPLATE.name,
+      component: NewTemplate,
+      beforeEnter: (to, from, next) => {
+        useHeaderStore().setCurrentRouteName(<string>PATHS.NEW_TEMPLATE.name);
+        next();
+      },
+    }
+  ]
 });
 
 export default router;

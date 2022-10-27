@@ -3,7 +3,7 @@
     <template v-slot:description>{{
       initializationStore.localization.views.adSettings.descriptions.template
     }}</template>
-    <MessageTemplatesTable />
+    <TemplatesTable />
   </Section>
 </template>
 
@@ -11,7 +11,7 @@
 import { computed } from "vue";
 import { useInitializationStore } from "@/stores/initialization.store";
 import Section from "@/gnzs-controls/gnzs-section/gnzs-section.vue";
-import MessageTemplatesTable from "@/components/MessageTemplatesTable";
+import TemplatesTable from "@/components/TemplatesTable";
 
 const initializationStore = useInitializationStore();
 

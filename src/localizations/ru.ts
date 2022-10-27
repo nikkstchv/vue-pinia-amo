@@ -4,9 +4,10 @@ export default {
   // tokenError: 'Токен авторизации истек !',
 
   menu: {
-		main: 'Главная',
-		organizations: 'Юр. лица',
-	},
+    main: 'Главная',
+    organizations: 'Юр. лица',
+
+  },
 
   buttons: {
     append: 'Добавить',
@@ -32,7 +33,7 @@ export default {
       descriptions: {
         template: 'Настройте шаблоны документов',
         type: 'Настройте типы документов',
-        organizations: 'Добавьте информацию о юр.лицах'
+        organizations: 'Добавьте новое юр.лицо'
       },
       headers: {
         template: 'Шаблоны документов',
@@ -40,28 +41,72 @@ export default {
         organizations: 'Юридические лица'
       }
     },
+    newTemplate: {
+      headers: {
+        text: 'Новый шаблон'
+      },
+      description: 'Заполните данные шаблона',
+      section: {
+        numbering: "Нумерация документов",
+        lead_data: "Заполнение данных в сделке"
+      },
+      inputs: {
+        name: "Наименование юр. лица",
+        required_sign: "Подпись и печать",
+        prefix: "Префикс",
+        suffix: "Суффикс",
+        next_number: "Следующий номер документа	",
+        doc_number: "Номер документа",
+        doc_date: "Дата документа"
+      }
+    },
     organization: {
-      description: 'Заполните данные о юр. лице',
+      description: 'Отредактируйте данные о юр. лице',
       headers: {
         text: 'Настройки'
+      },
+      buttons: {
+        delete: "Удалить юр.лицо"
       }
     },
     newOrganization: {
-      description: 'Ведите название',
       headers: {
         text: 'Новое юр. лицо'
+      },
+      description: 'Заполните данные о юр. лице',
+      inputs: {
+        name: "Наименование юр. лица",
+        inn: "ИНН",
+        kpp: "КПП",
+        ogrn: "ОГРН",
+        signatory_position: "Должность подписанта",
+        signatory_name: "ФИО подписанта",
+        signatory_short_name: "ФИО подписанта сокращенно",
+        accountant_fio: "ФИО главного бухгалтера",
+        based_on: "На основании",
+        signatory_fio: "В лице",
+        power_of_attorney: "Доверенность",
+        power_of_attorney_date: "Дата доверенности",
+        legal_address: "Юр. адрес",
+        postal_address: "Почтовый адрес",
+        other_address: "Другой адрес",
+        certificate_number: " Номер свидетельства ИП",
+        certificate_date: "Дата свидетельства ИП",
+        phone_number: "Номер телефона",
+        email: "E-mail",
+        web: "Сайт",
       }
     }
   },
   components: {
     organizations: {
-      tables : {
+      tables: {
         headers: {
           name: 'Название',
           info: 'Инфо'
         }
       },
-      buttons : {
+      buttons: {
         add: 'Добавить'
       }
     },
@@ -88,7 +133,7 @@ export default {
     },
     messageTemplate: {
       buttons: {
-        message:{
+        message: {
           add: 'Добавить',
           delete: 'Удалить шаблон'
         },
@@ -129,7 +174,7 @@ export default {
     },
     typeTemplate: {
       buttons: {
-        message:{
+        message: {
           add: 'Добавить',
           delete: 'Удалить'
         },

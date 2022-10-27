@@ -9,11 +9,11 @@
               localization.components.organizations.tables.headers.name
               }}
             </th>
-            <th data-code="text">
+            <!-- <th data-code="text">
               {{
               localization.components.organizations.tables.headers.info
               }}
-            </th>
+            </th> -->
           </tr>
         </thead>
         <tbody>
@@ -28,7 +28,7 @@
       </table>
     </div>
   </div>
-  <GnzsButton :class="$style.addButton" :type="`append`" @click="addOrganization">{{
+  <GnzsButton :class="$style.addButton" :type="`append`" @click="addItem">{{
   localization.components.organizations.buttons.add
   }}</GnzsButton>
 </template>
@@ -49,7 +49,7 @@ const localization = computed(() => initializationStore.localization);
 const { items } = storeToRefs(useOrganizationsStore());
 const { loadItems } = useOrganizationsStore();
 
-const addOrganization = () => {
+const addItem = () => {
   router.push('newOrganization')
 }
 

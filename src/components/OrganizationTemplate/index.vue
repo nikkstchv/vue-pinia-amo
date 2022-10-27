@@ -1,5 +1,5 @@
-<template>
-  <!-- <GnzsHeader :mainTitle="getMainTitle" :mainRoute="getMainRoute" :currentTitle="getCurrentTitle(routeId)"
+<!-- <template>
+  <GnzsHeader :mainTitle="getMainTitle" :mainRoute="getMainRoute" :currentTitle="getCurrentTitle(routeId)"
     :editableTitle="isEditableTitle" :isFullScreen="true" @onSaveCurrentTitle="onSaveResourceTitle">
     <template #buttons>
       <GnzsButton type="cancel" @click="onHeaderBtnCancelClick">{{
@@ -7,23 +7,34 @@
       <GnzsButton type="primary" :loading="isHeaderBtnPrimaryLoading" :disabled="isHeaderBtnPrimaryDisabled"
         @click="onHeaderBtnSaveClick">{{ getHeaderBtnPrimaryText }}</GnzsButton>
     </template>
-  </GnzsHeader> -->
+  </GnzsHeader>
+  <Section :header="localization.views.organization.headers.text">
+    <template v-slot:description>{{localization.views.organization.description}}</template>
+    <OrganizationTemplate />
+  </Section>
 </template>
 
-<script setup>
-import { computed } from '@vue/reactivity';
+<script setup lang="ts">
+import { useInitializationStore } from "@/stores/initialization.store";
+import { computed } from "@vue/reactivity";
+
 import { useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
 
 import { useHeaderStore } from "@/stores/header.store";
 import { useOrganizationsStore } from "@/stores/organizations.store";
-import { useInitializationStore } from '@/stores/initialization.store';
+
+
+import Section from "@/gnzs-controls/gnzs-section/gnzs-section.vue";
+import OrganizationTemplate from "@/components/OrganizationTemplate";
 
 import GnzsHeader from "@/gnzs-controls/gnzs-header/gnzs-header.vue";
 import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";
 
 import PATHS from "@/router/paths"
+
+const localization = computed(() => initializationStore.localization);
 
 const { getCurrentTitle } = storeToRefs(useOrganizationsStore());
 
@@ -45,8 +56,6 @@ const isEditableTitle = computed(() => isNotMainPage ? true : false);
 const getHeaderBtnCancelText = computed(() => initializationStore.localization.buttons.cancel);
 const getHeaderBtnPrimaryText = computed(() => initializationStore.localization.buttons.save);
 
-
-
 onMounted(() => {
   setCurrentRouteId(routeId)
 })
@@ -55,4 +64,4 @@ onMounted(() => {
 
 <style lang="scss" module>
 @import './style.scss';
-</style>
+</style> -->

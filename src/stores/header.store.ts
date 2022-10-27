@@ -40,24 +40,9 @@ export const useHeaderStore = defineStore("header", {
   },
 
   actions: {
-
-    onHeaderBtnCancelClick(): void {
+    goToMainRoute(): void {
+      console.log("goToMainRoute")
       router.push({ name: PATHS.ADVANCED_SETTINGS.name });
-    },  
-
-    // onSaveResourceTitle(callbacks: SaveResourceTitleCallbacksDto) {
-    //   if (this.isEditPage) {
-    //     store.dispatch("worktime/schedule/updateScheduleName", callbacks);
-    //   }
-    // },
-
-    async onSaveResourceTitle(name: string) {
-      try {
-        await api.updateOrganization(this.currentRouteId, name);
-        await useOrganizationsStore().loadItems()
-      } catch (error) {
-        return error
-      }
     },
 
     setCurrentRouteName(routeName: string): void {

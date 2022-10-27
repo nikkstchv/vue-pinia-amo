@@ -1,4 +1,4 @@
-type Organization = {
+export type Organization = {
   id: string,
   name: string,
   [key: string]: string,
@@ -6,5 +6,5 @@ type Organization = {
 
 export class OrganizationsState {
   items: Organization[];
-  currItem: {}
-}
+  newItem: {};
+}  

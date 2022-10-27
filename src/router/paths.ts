@@ -11,4 +11,12 @@ export default {
     name: "newOrganization",
     path: "/newOrganization",
   },
+  TEMPLATE: {
+    name: "Template",
+    path: "/template/:id",
+  },
+  NEW_TEMPLATE: {
+    name: "newTemplate",
+    path: "/newTemplate",
+  }
 };

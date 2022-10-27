@@ -47,6 +47,8 @@
 .rowFlex {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 }
 .sidebarWrapper {
   display: flex;
@@ -84,16 +86,20 @@
   margin-bottom: 15px;
 }
 
-.inputTitle {
+.inputSection {
   font-weight: bold;
-  margin-bottom: 3px;
+  margin-bottom: 10px;
+}
+
+.inputDesc {
+  width: 30%;
 }
 
 .orgInput {
-  width: 70%;
+  flex-basis: 50%;
 }
 
-.hrDotted {
+.gnzsHr {
   margin: 20px 0;
   padding: 0;
   height: 0;

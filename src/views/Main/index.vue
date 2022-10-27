@@ -5,9 +5,8 @@ import { useRoute } from "vue-router";
 import { computed } from "@vue/reactivity";
 
 import { useInitializationStore } from "@/stores/initialization.store";
-import { useHeaderStore } from "@/stores/header.store";
 
-import TemplateSetup from "@/components/TemplateSetup/TemplateSetup.vue";
+import TemplateSetup from "@/components/TemplateSetup/index.vue";
 import TemplateTypes from "@/components/TemplateTypes/TemplateTypes.vue";
 import Organizations from "@/components/Organizations/index.vue";
 import Variables from "@/components/Variables/Variables.vue";
@@ -15,11 +14,9 @@ import Account from "@/components/Account/Account.vue";
 import Tables from "@/components/Tables/Tables.vue";
 
 import GznsHeader from "@/gnzs-controls/gnzs-header/gnzs-header.vue";
-import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";
 import GnzsTabs from "@/gnzs-controls/gnzs-tabs/gnzs-tabs.vue";
 
 import init from "@/init";
-
 
 const { saveActiveTab } = useInitializationStore();
 const { currActiveTab } = storeToRefs(useInitializationStore());
@@ -35,16 +32,8 @@ const setActiveTab = (tab: any) => {
   activeTab.value = currActiveTab.value;
 };
 
-
 const initializationStore = useInitializationStore();
-const { isMainPage, isOrganizationPage } = useHeaderStore();
-
-// computed
-const getMainTitle = computed(() => {
-  if (isMainPage) return initializationStore.localization.title;
-  if (isOrganizationPage) return initializationStore.localization.menu.organizations;
-  return "";
-});
+const localization = computed(() => initializationStore.localization);
 
 const isChanged = true;
 
@@ -53,10 +42,9 @@ onMounted(async () => {
   await init(route)
 })
 </script>
-
 <template>
   <div :class="$style.container">
-    <GznsHeader :fixed="isChanged" :mainTitle="getMainTitle" />
+    <GznsHeader :fixed="isChanged" :mainTitle="localization.title" />
     <GnzsTabs :tabs="tabs" @change="setActiveTab">
       <div gnzs-tab-id="account" :class="$style.columnFlex">
         <Account />
