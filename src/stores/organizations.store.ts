@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-import { useHeaderStore } from "./header.store";
 import type { OrganizationsState, Organization } from "../types/organizations.types";
 import * as api from "@/api/docflow";
 
@@ -41,10 +40,15 @@ export const useOrganizationsStore = defineStore('organizations', {
   }),
   getters: {
     getCurrentItem(state) {
-      return (id: number) => state.items.find(org => +org.id == id);
+      return (id: number) => state.items.find(item => +item.id == id);
     },
     getCurrentTitle(state) {
-      return (id: number) => state.items.find(org => +org.id == id)?.name
+      return (id: number) => state.items.find(item => +item.id == id)?.name
+    },
+    hasNotChanged(state) {
+      return () => {
+        // const - ПОСМОТРЕТЬ РЕАЛИЗАЦИЮ В ТЕЛЕГРАМ!!!
+      }
     }
   },
   actions: {
@@ -55,6 +59,7 @@ export const useOrganizationsStore = defineStore('organizations', {
         return error
       }
     },
+    
     async getCurrItem(id: number) {
       const item  = await api.getOrganizationById(id).then(value => value)
       return item;

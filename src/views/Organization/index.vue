@@ -4,14 +4,13 @@
       :editableTitle="false" :isFullScreen="true">
       <template #buttons>
         <GnzsButton type="cancel" @click="goToMainRoute">{{
-            getHeaderBtnCancelText
+            localization.buttons.back
         }}</GnzsButton>
-        <GnzsButton type="primary" @click="onSaveClick">{{ getHeaderBtnPrimaryText }}</GnzsButton>
+        <GnzsButton disabled="hasNotChanged" type="primary" @click="onSaveClick">{{ localization.buttons.save }}</GnzsButton>
       </template>
     </GnzsHeader>
     <Section>
       <div :class="$style.orgHeader">{{ localization.views.organization.description }}</div>
-      <hr :class="$style.gnzsHr" />
       <div :class="$style.inputContainer" v-if="currItem">
         <div :class="$style.orgColumn">
           <div :class="$style.inputWrapper">
@@ -103,7 +102,7 @@
           </div>
         </div>
       </div>
-      <hr :class="$style.gnzsHr" />
+       
       <GnzsButton :type="`remove`" @click="onRemoveClick">
         {{ localization.views.organization.buttons.delete }}
       </GnzsButton>
@@ -113,59 +112,48 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
-import { onMounted, ref } from 'vue';
-import type { Ref } from 'vue'
-import { computed } from "@vue/reactivity";
 import { useRoute } from 'vue-router';
+import { computed } from "@vue/reactivity";
 
+import { useIframeStore } from "@/stores/iframe.store";
 import { useHeaderStore } from "@/stores/header.store";
 import { useOrganizationsStore } from "@/stores/organizations.store";
 import { useInitializationStore } from "@/stores/initialization.store";
 
+import GnzsInput from "@/gnzs-controls/gnzs-input/gnzs-input.vue";
 import Section from "@/gnzs-controls/gnzs-section/gnzs-section.vue";
 import GnzsHeader from "@/gnzs-controls/gnzs-header/gnzs-header.vue";
 import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";
-import GnzsInput from "@/gnzs-controls/gnzs-input/gnzs-input.vue";
-
 
 import PATHS from "@/router/paths"
-import { useIframeStore } from '@/stores/iframe.store';
-
-const localization = computed(() => initializationStore.localization);
-
-const { getCurrentTitle, items } = storeToRefs(useOrganizationsStore());
-const { loadItems, getCurrentItem } = useOrganizationsStore();
-
-const { openConfirmModal } = useIframeStore();
-
-const { setCurrentRouteId, isNotMainPage, goToMainRoute } = useHeaderStore();
-const initializationStore = useInitializationStore();
-
-const { saveItem, removeItem } = useOrganizationsStore();
 
 const route = useRoute();
 const routeId = +route.params.id;
 
+const { openConfirmModal } = useIframeStore();
+const initializationStore = useInitializationStore();
+const { loadItems, saveItem, getCurrentItem, getCurrentTitle, hasNotChanged } = useOrganizationsStore();
+const { setCurrentRouteId, isNotMainPage, goToMainRoute } = useHeaderStore();
+
+const localization = computed(() => initializationStore.localization);
+
 const currItem = getCurrentItem(routeId);
 const getMainRoute = computed(() => isNotMainPage ? PATHS.ADVANCED_SETTINGS.name : "");
-// const isEditableTitle = computed(() => isNotMainPage ? true : false);
-const getHeaderBtnCancelText = computed(() => initializationStore.localization.buttons.cancel);
-const getHeaderBtnPrimaryText = computed(() => initializationStore.localization.buttons.save);
 
 const onSaveClick = () => {
   if (currItem) {
     saveItem(routeId, currItem);
-    goToMainRoute();
   }
 }
 
-const onRemoveClick = async () => {
-  await openConfirmModal({
-    name: '',
+const onRemoveClick = () => {
+  openConfirmModal({
+    name: "",
     id: routeId, 
     confirmEventName: 'deleteOrganization',
-    text: localization.value.confirm.deleteQuestion.type,
+    text: localization.value.confirm.deleteQuestion.organization,
     declineText: localization.value.buttons.cancel,
     acceptText: localization.value.buttons.yes
   });

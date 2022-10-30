@@ -13,7 +13,6 @@
     <Section>
       <div :class="$style.orgHeader">{{ localization.views.newOrganization.headers.text }}</div>
       <div :class="$style.orgDescription">{{ localization.views.newOrganization.description }}</div>
-      <hr :class="$style.hrDotted" />
       <div :class="$style.inputContainer">
         <div :class="$style.orgColumn">
           <div :class="$style.inputWrapper">

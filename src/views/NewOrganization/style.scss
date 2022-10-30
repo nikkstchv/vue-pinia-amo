@@ -14,7 +14,7 @@
   }
 }
 .loaderCenter {
-  margin: 20px auto;
+  margin:  20px auto;
 }
 
 .container {
@@ -31,7 +31,7 @@
   background: #fff;
   border-radius: 3px;
   resize: none;
-  outline: none;
+  outline:none;
 }
 .title {
   position: relative;
@@ -40,7 +40,7 @@
   font-size: 15px;
 }
 .response {
-  color: #ff3333;
+  color: #FF3333;
   font-size: 15px;
 }
 
@@ -54,7 +54,84 @@
   flex-direction: column;
   .sidebar {
     margin-bottom: 20px;
+
     margin-top: -30px;
+
+    
+  }
+}
+
+.main {
+  width: 60%;
+}
+
+.isLoad {
+display: flex;
+justify-content: center;
+}
+
+.tableContainer{
+  margin: 10px -18px 10px;
+}
+.tableHeader {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.table{
+  width: 100%;
+  background: white;
+  table-layout: fixed;
+  border-collapse: collapse;
+  border-spacing: 0; 
+
+  thead{
+      th{
+          font-family: 'PT Sans Caption','Arial Black',sans-serif;
+          font-size: 12px;
+          font-weight: 700;
+          white-space: nowrap;
+          text-transform: uppercase;
+          text-align: left;
+          letter-spacing: 1px;
+          line-height: 19px;
+          padding: 12px 10px;
+          height: 42px;
+          box-sizing: border-box;
+          color: #bbc1cc;
+          overflow: hidden;
+
+          &:last-child{
+            border-right: none;
+          }
+          &:first-child{
+            padding-left: 18px;
+          }
+      }
+  }
+
+  td{
+      white-space: nowrap;
+      padding: 10px 5px 10px 10px;
+      margin-right: 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: middle;
+      position: relative;
+      &:first-child{
+        padding-left: 18px;
+      }
+  }
+
+  .cellInner{
+      display: flex;
+      align-items: center;
+  }
+
+  a{
+      color: #0057a9;
+      text-decoration: none;
   }
 }
 
@@ -63,12 +140,14 @@
 
 .inputContainer {
   display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
 }
 
 .orgColumn {
   display: flex;
   flex-direction: column;
-  flex-basis: 50%;
+  flex-basis: 45%;
 }
 
 .orgHeader {
@@ -81,22 +160,16 @@
 }
 
 .inputWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 15px;
 }
 
 .inputTitle {
-  font-weight: bold;
   margin-bottom: 3px;
 }
 
 .orgInput {
-  width: 70%;
-}
-
-.hrDotted {
-  margin: 20px 0;
-  padding: 0;
-  height: 0;
-  border: none;
-  border-top: 1px solid #ddd;
+  width: 300px;
 }

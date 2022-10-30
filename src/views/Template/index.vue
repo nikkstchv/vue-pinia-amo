@@ -10,117 +10,67 @@
       </template>
     </GnzsHeader>
     <Section>
-      <div :class="$style.orgHeader">{{ localization.views.organization.description }}</div>
+      <div :class="$style.orgHeader">{{ localization.views.newTemplate.headers.text }}</div>
+      <div :class="$style.orgDescription">{{ localization.views.newTemplate.description }}</div>
       <hr :class="$style.gnzsHr" />
-      <div :class="$style.inputContainer" v-if="currItem">
+      <div :class="$style.inputContainer">
         <div :class="$style.orgColumn">
           <div :class="$style.inputWrapper">
-            <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.name }}</div>
+            <div :class="$style.inputSection">{{ localization.views.newTemplate.inputs.name }}</div>
             <GnzsInput v-model="currItem.name" :class="[$style.inputName, $style.orgInput]" positive-only />
           </div>
+          <GnzsCheckBox :label="localization.views.newTemplate.inputs.required_sign" v-model="currItem.required_sign" />
+
+          <hr :class="$style.gnzsHr" />
+
           <div :class="$style.inputWrapper">
-            <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.inn }}</div>
-            <GnzsInput v-model="currItem.inn" :class="[$style.inputName, $style.orgInput]" positive-only />
+            <div :class="$style.inputSection">{{ localization.views.newTemplate.section.numbering }}</div>
+            <div :class="$style.rowFlex">
+              <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.prefix }}</div>
+              <GnzsInput v-model="currItem.prefix" :class="[$style.inputName, $style.orgInput]" positive-only />
+            </div>
+            <div :class="$style.rowFlex">
+              <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.suffix }}</div>
+              <GnzsInput v-model="currItem.suffix" :class="[$style.inputName, $style.orgInput]" positive-only />
+            </div>
+            <div :class="$style.rowFlex">
+              <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.next_number }}</div>
+              <GnzsInput v-model="currItem.next_number" :class="[$style.inputName, $style.orgInput]" positive-only />
+            </div>
           </div>
+
+          <hr :class="$style.gnzsHr" />
+
           <div :class="$style.inputWrapper">
-            <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.kpp }}</div>
-            <GnzsInput v-model="currItem.kpp" :class="[$style.inputName, $style.orgInput]" positive-only />
-          </div>
-          <div :class="$style.inputWrapper">
-            <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.ogrn }}</div>
-            <GnzsInput v-model="currItem.ogrn" :class="[$style.inputName, $style.orgInput]" positive-only />
-          </div>
-          <div :class="$style.inputWrapper">
-            <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.signatory_position }}</div>
-            <GnzsInput v-model="currItem.signatory_position" :class="[$style.inputName, $style.orgInput]"
-              positive-only />
-          </div>
-          <div :class="$style.inputWrapper">
-            <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.signatory_name }}</div>
-            <GnzsInput v-model="currItem.signatory_name" :class="[$style.inputName, $style.orgInput]" positive-only />
-          </div>
-          <div :class="$style.inputWrapper">
-            <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.signatory_short_name }}</div>
-            <GnzsInput v-model="currItem.signatory_short_name" :class="[$style.inputName, $style.orgInput]"
-              positive-only />
-          </div>
-          <div :class="$style.inputWrapper">
-            <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.accountant_fio }}</div>
-            <GnzsInput v-model="currItem.accountant_fio" :class="[$style.inputName, $style.orgInput]" positive-only />
-          </div>
-          <div :class="$style.inputWrapper">
-            <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.based_on }}</div>
-            <GnzsInput v-model="currItem.based_on" :class="[$style.inputName, $style.orgInput]" positive-only />
-          </div>
-          <div :class="$style.inputWrapper">
-            <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.signatory_fio }}</div>
-            <GnzsInput v-model="currItem.signatory_fio" :class="[$style.inputName, $style.orgInput]" positive-only />
-          </div>
-        </div>
-        <div :class="$style.orgColumn">
-          <div :class="$style.inputWrapper">
-            <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.power_of_attorney }}</div>
-            <GnzsInput v-model="currItem.power_of_attorney" :class="[$style.inputName, $style.orgInput]"
-              positive-only />
-          </div>
-          <div :class="$style.inputWrapper">
-            <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.power_of_attorney_date }}</div>
-            <GnzsInput v-model="currItem.power_of_attorney_date" :class="[$style.inputName, $style.orgInput]"
-              positive-only />
-          </div>
-          <div :class="$style.inputWrapper">
-            <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.legal_address }}</div>
-            <GnzsInput v-model="currItem.legal_address" :class="[$style.inputName, $style.orgInput]" positive-only />
-          </div>
-          <div :class="$style.inputWrapper">
-            <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.postal_address }}</div>
-            <GnzsInput v-model="currItem.postal_address" :class="[$style.inputName, $style.orgInput]" positive-only />
-          </div>
-          <div :class="$style.inputWrapper">
-            <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.other_address }}</div>
-            <GnzsInput v-model="currItem.other_address" :class="[$style.inputName, $style.orgInput]" positive-only />
-          </div>
-          <div :class="$style.inputWrapper">
-            <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.certificate_number }}</div>
-            <GnzsInput v-model="currItem.certificate_number" :class="[$style.inputName, $style.orgInput]"
-              positive-only />
-          </div>
-          <div :class="$style.inputWrapper">
-            <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.certificate_date }}</div>
-            <GnzsInput v-model="currItem.certificate_date" :class="[$style.inputName, $style.orgInput]" positive-only />
-          </div>
-          <div :class="$style.inputWrapper">
-            <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.phone_number }}</div>
-            <GnzsInput v-model="currItem.phone_number" :class="[$style.inputName, $style.orgInput]" positive-only />
-          </div>
-          <div :class="$style.inputWrapper">
-            <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.email }}</div>
-            <GnzsInput v-model="currItem.email" :class="[$style.inputName, $style.orgInput]" positive-only />
-          </div>
-          <div :class="$style.inputWrapper">
-            <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.web }}</div>
-            <GnzsInput v-model="currItem.web" :class="[$style.inputName, $style.orgInput]" positive-only />
+            <div :class="$style.inputSection">{{ localization.views.newTemplate.section.lead_data }}</div>
+            <div :class="$style.rowFlex">
+              <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.doc_number }}</div>
+              <GnzsInput v-model="currItem.doc_number" :class="[$style.inputName, $style.orgInput]" positive-only />
+            </div>
+            <div :class="$style.rowFlex">
+              <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.doc_date }}</div>
+              <GnzsInput v-model="currItem.doc_date" :class="[$style.inputName, $style.orgInput]" positive-only />
+            </div>
           </div>
         </div>
       </div>
       <hr :class="$style.gnzsHr" />
       <GnzsButton :type="`remove`" @click="onRemoveClick">
-        {{ localization.views.organization.buttons.delete }}
+        {{ localization.views.template.buttons.delete }}
       </GnzsButton>
     </Section>
   </div>
 
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { storeToRefs } from 'pinia';
 import { onMounted, ref } from 'vue';
-import type { Ref } from 'vue'
 import { computed } from "@vue/reactivity";
 import { useRoute } from 'vue-router';
 
 import { useHeaderStore } from "@/stores/header.store";
-import { useOrganizationsStore } from "@/stores/organizations.store";
+import { useDocTemplateStore } from "@/stores/doctemplate.store";
 import { useInitializationStore } from "@/stores/initialization.store";
 
 import Section from "@/gnzs-controls/gnzs-section/gnzs-section.vue";
@@ -130,26 +80,25 @@ import GnzsInput from "@/gnzs-controls/gnzs-input/gnzs-input.vue";
 
 
 import PATHS from "@/router/paths"
-import { useIframeStore } from '@/stores/iframe.store'; 
+import { useIframeStore } from '@/stores/iframe.store';
 
 const localization = computed(() => initializationStore.localization);
 
-const { getCurrentTitle, items } = storeToRefs(useOrganizationsStore());
-const { loadItems, getCurrentItem } = useOrganizationsStore();
+const { getCurrentTitle } = storeToRefs(useDocTemplateStore());
+const { loadItems, getCurrentItem } = useDocTemplateStore();
 
 const { openConfirmModal } = useIframeStore();
 
 const { setCurrentRouteId, isNotMainPage, goToMainRoute } = useHeaderStore();
 const initializationStore = useInitializationStore();
 
-const { saveItem } = useOrganizationsStore();
+const { saveItem } = useDocTemplateStore();
 
 const route = useRoute();
 const routeId = +route.params.id;
-
 const currItem = getCurrentItem(routeId);
+
 const getMainRoute = computed(() => isNotMainPage ? PATHS.ADVANCED_SETTINGS.name : "");
-// const isEditableTitle = computed(() => isNotMainPage ? true : false);
 const getHeaderBtnCancelText = computed(() => initializationStore.localization.buttons.cancel);
 const getHeaderBtnPrimaryText = computed(() => initializationStore.localization.buttons.save);
 
@@ -163,8 +112,8 @@ const onSaveClick = () => {
 const onRemoveClick = async () => {
   await openConfirmModal({
     name: '',
-    id: routeId, 
-    confirmEventName: 'deleteOrganization',
+    id: routeId,
+    confirmEventName: 'deleteTemplate',
     text: localization.value.confirm.deleteQuestion.type,
     declineText: localization.value.buttons.cancel,
     acceptText: localization.value.buttons.yes

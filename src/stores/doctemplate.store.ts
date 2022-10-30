@@ -1,16 +1,25 @@
 import { defineStore } from "pinia";
-import type { DocTemplateState } from "../types/doctemplate.types";
+import type { DocTemplateState, Template} from "../types/doctemplate.types";
 import * as api from "@/api/docflow";
 
 const initItem = () => ({
   name: "",
-  required_sign: "",
+  requiredSign: false,
   prefix: "",
   suffix: "",
-  next_number: "",
+  nextNumber: 0,
   doc_number: "",
   doc_date: "",
-  
+  numberLength: 0,
+  url: "",
+  isActive: false,
+  isDeleted: false,
+  accessUsers: {},
+  signUsers: false,
+  documentType: 0,// указать отношения
+  requiredSignStatuses: {},
+  createdAt: 0,
+  updatedAt: 0,
 })
 
 
@@ -20,7 +29,12 @@ export const useDocTemplateStore = defineStore('doctemplate', {
     newItem: initItem(),
   }),
   getters: {
-    // 
+    getCurrentItem(state) {
+      return (id: number) => state.items.find(item => +item.id == id);
+    },
+    getCurrentTitle(state) {
+      return (id: number) => state.items.find(item => +item.id == id)?.name
+    }
   },
   actions: {
     async loadItems() {
@@ -30,6 +44,24 @@ export const useDocTemplateStore = defineStore('doctemplate', {
         return error
       }
     },
+
+    async addItem() {
+      try {
+        await api.addTemplate(this.newItem);
+        this.newItem = initItem();
+      } catch (error) {
+        return error
+      }
+    },
+
+    async saveItem(id: number, currItem: Template) {
+      try {
+        await api.updateTemplate(id, currItem);
+      } catch (error) {
+        return error
+      }
+    },
+
     async removeItem(id: number) {
       try {
         await api.deleteTemplate(id);
@@ -40,3 +72,6 @@ export const useDocTemplateStore = defineStore('doctemplate', {
     }
   }
 })
+
+
+////// ДЕЛАЕМ СОХРАНЕНИЕ ШАБЛОНОВ

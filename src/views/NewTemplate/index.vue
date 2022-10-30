@@ -20,8 +20,11 @@
             <div :class="$style.inputSection">{{ localization.views.newTemplate.inputs.name }}</div>
             <GnzsInput v-model="newItem.name" :class="[$style.inputName, $style.orgInput]" positive-only />
           </div>
-          <GnzsCheckBox :label="localization.views.newTemplate.inputs.required_sign" />
-          
+          <GnzsCheckBox 
+          :label="localization.views.newTemplate.inputs.required_sign" 
+          v-model="newItem.required_sign"
+          />
+
           <hr :class="$style.gnzsHr" />
 
           <div :class="$style.inputWrapper">
@@ -46,11 +49,11 @@
             <div :class="$style.inputSection">{{ localization.views.newTemplate.section.lead_data }}</div>
             <div :class="$style.rowFlex">
               <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.doc_number }}</div>
-              <GnzsInput v-model="newItem.kpp" :class="[$style.inputName, $style.orgInput]" positive-only />
+              <GnzsInput v-model="newItem.doc_number" :class="[$style.inputName, $style.orgInput]" positive-only />
             </div>
             <div :class="$style.rowFlex">
               <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.doc_date }}</div>
-              <GnzsInput v-model="newItem.kpp" :class="[$style.inputName, $style.orgInput]" positive-only />
+              <GnzsInput v-model="newItem.doc_date" :class="[$style.inputName, $style.orgInput]" positive-only />
             </div>
           </div>
         </div>
@@ -66,7 +69,7 @@ import { computed } from "@vue/reactivity";
 import { useRoute } from 'vue-router';
 
 import { useHeaderStore } from "@/stores/header.store";
-import { useOrganizationsStore } from "@/stores/organizations.store";
+import { useDocTemplateStore } from "@/stores/doctemplate.store";
 import { useInitializationStore } from "@/stores/initialization.store";
 
 import Section from "@/gnzs-controls/gnzs-section/gnzs-section.vue";
@@ -75,25 +78,21 @@ import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";
 import GnzsInput from "@/gnzs-controls/gnzs-input/gnzs-input.vue";
 import GnzsCheckBox from "@/gnzs-controls/gnzs-checkbox/gnzs-checkbox.vue";
 
-
-
 import PATHS from "@/router/paths"
 
 const localization = computed(() => initializationStore.localization);
 
-const { isNotMainPage, isNewOrganizationPage, setCurrentRouteId, goToMainRoute, onSaveResourceTitle } = useHeaderStore();
+const { isNotMainPage, setCurrentRouteId, goToMainRoute, onSaveResourceTitle } = useHeaderStore();
 const initializationStore = useInitializationStore();
 
-const { addItem } = useOrganizationsStore();
-
-const { newItem } = storeToRefs(useOrganizationsStore());
-
+const { addItem } = useDocTemplateStore();
+const { newItem } = storeToRefs(useDocTemplateStore());
 
 const route = useRoute();
 const routeId = +route.params.id;
 
+// computed
 const getMainRoute = computed(() => isNotMainPage ? PATHS.ADVANCED_SETTINGS.name : "");
-const isEditableTitle = computed(() => isNotMainPage && !isNewOrganizationPage ? true : false);
 const getHeaderBtnCancelText = computed(() => initializationStore.localization.buttons.cancel);
 const getHeaderBtnPrimaryText = computed(() => initializationStore.localization.buttons.save);
 

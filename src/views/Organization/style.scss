@@ -140,12 +140,14 @@ justify-content: center;
 
 .inputContainer {
   display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
 }
 
 .orgColumn {
   display: flex;
   flex-direction: column;
-  flex-basis: 50%;
+  flex-basis: 45%;
 }
 
 .orgHeader {
@@ -158,22 +160,16 @@ justify-content: center;
 }
 
 .inputWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 15px;
 }
 
 .inputTitle {
-  font-weight: bold;
   margin-bottom: 3px;
 }
 
 .orgInput {
-  width: 70%;
-}
-
-.gnzsHr {
-  margin: 20px 0;
-  padding: 0;
-  height: 0;
-  border: none;
-  border-top: 1px solid #ddd;
+  width: 300px;
 }

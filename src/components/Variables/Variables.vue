@@ -2,7 +2,7 @@
   <GnzsSection>
     <div :class="$style.sectionContent">
     <div :class="$style.rowFlex">
-      ? формат: текст, картинка, выражение шаблонизатора
+      Переменные
     </div>
   </div>
   </GnzsSection>

@@ -46,7 +46,6 @@
     },
     methods: {
       onChange(tab) {
-        console.log("click", tab);
         this.activeId = tab.id;
         this.$emit("change", tab.id);
         this.showActiveContent();

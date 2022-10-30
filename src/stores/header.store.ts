@@ -41,7 +41,6 @@ export const useHeaderStore = defineStore("header", {
 
   actions: {
     goToMainRoute(): void {
-      console.log("goToMainRoute")
       router.push({ name: PATHS.ADVANCED_SETTINGS.name });
     },
 

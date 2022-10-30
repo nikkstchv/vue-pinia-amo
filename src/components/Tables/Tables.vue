@@ -2,8 +2,7 @@
   <GnzsSection>
     <div :class="$style.sectionContent">
       <div :class="$style.rowFlex">
-        Настройка столбцов (название, ?ширина), ? сопоставление столбца с полем
-        какого-либо списка amoCRM
+        Таблицы
       </div>
     </div></GnzsSection
   >

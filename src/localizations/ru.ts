@@ -23,6 +23,7 @@ export default {
 
   confirm: {
     deleteQuestion: {
+      organization: 'Вы действительно хотите удалить эту организацию?',
       type: 'Вы действительно хотите удалить этот тип документа?',
       message: 'Вы действительно хотите удалить этот шаблон?'
     }
@@ -41,6 +42,15 @@ export default {
         organizations: 'Юридические лица'
       }
     },
+    template: {
+      description: 'Настройте шаблон',
+      headers: {
+        text: 'Настройки'
+      },
+      buttons: {
+        delete: "Удалить шаблон"
+      }
+    },
     newTemplate: {
       headers: {
         text: 'Новый шаблон'
@@ -51,17 +61,17 @@ export default {
         lead_data: "Заполнение данных в сделке"
       },
       inputs: {
-        name: "Наименование юр. лица",
+        name: "Название шаблона",
         required_sign: "Подпись и печать",
         prefix: "Префикс",
         suffix: "Суффикс",
-        next_number: "Следующий номер документа	",
+        next_number: "Номер следующего документа",
         doc_number: "Номер документа",
         doc_date: "Дата документа"
       }
     },
     organization: {
-      description: 'Отредактируйте данные о юр. лице',
+      description: 'Введите данные о юр. лице',
       headers: {
         text: 'Настройки'
       },
@@ -75,7 +85,7 @@ export default {
       },
       description: 'Заполните данные о юр. лице',
       inputs: {
-        name: "Наименование юр. лица",
+        name: "Наименование",
         inn: "ИНН",
         kpp: "КПП",
         ogrn: "ОГРН",
@@ -103,7 +113,7 @@ export default {
       tables: {
         headers: {
           name: 'Название',
-          info: 'Инфо'
+          settlement_accounts: 'Рассчетные счета'
         }
       },
       buttons: {
