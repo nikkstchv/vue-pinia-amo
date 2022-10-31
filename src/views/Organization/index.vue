@@ -3,10 +3,14 @@
     <GnzsHeader :mainTitle="localization.title" :mainRoute="getMainRoute" :currentTitle="getCurrentTitle(routeId)"
       :editableTitle="false" :isFullScreen="true">
       <template #buttons>
-        <GnzsButton type="cancel" @click="goToMainRoute">{{
+        <GnzsButton v-if="isItemChanged" type="cancel" @click="goToMainRoute">{{
             localization.buttons.back
         }}</GnzsButton>
-        <GnzsButton disabled="hasNotChanged" type="primary" @click="onSaveClick">{{ localization.buttons.save }}</GnzsButton>
+        <GnzsButton v-else type="cancel" @click="cancelItemChanges">{{
+            localization.buttons.cancel
+        }}</GnzsButton>
+        <GnzsButton :disabled="isItemChanged" type="primary" @click="onSaveClick">{{ localization.buttons.save }}
+        </GnzsButton>
       </template>
     </GnzsHeader>
     <Section>
@@ -102,7 +106,7 @@
           </div>
         </div>
       </div>
-       
+
       <GnzsButton :type="`remove`" @click="onRemoveClick">
         {{ localization.views.organization.buttons.delete }}
       </GnzsButton>
@@ -134,24 +138,29 @@ const routeId = +route.params.id;
 
 const { openConfirmModal } = useIframeStore();
 const initializationStore = useInitializationStore();
-const { loadItems, saveItem, getCurrentItem, getCurrentTitle, hasNotChanged } = useOrganizationsStore();
+const { loadItems, saveItem, getCurrentItem, getCurrentTitle, setItemCopy, setCurrItem, cancelItemChanges } = useOrganizationsStore();
+
 const { setCurrentRouteId, isNotMainPage, goToMainRoute } = useHeaderStore();
+
+const { isItemChanged } = storeToRefs(useOrganizationsStore())
+const { currItem } = storeToRefs(useOrganizationsStore())
 
 const localization = computed(() => initializationStore.localization);
 
-const currItem = getCurrentItem(routeId);
+// const currItem = computed(() => getCurrentItem(routeId));
+
 const getMainRoute = computed(() => isNotMainPage ? PATHS.ADVANCED_SETTINGS.name : "");
 
 const onSaveClick = () => {
-  if (currItem) {
-    saveItem(routeId, currItem);
+  if (currItem.value) {
+    saveItem(routeId, currItem.value);
   }
 }
 
 const onRemoveClick = () => {
   openConfirmModal({
     name: "",
-    id: routeId, 
+    id: routeId,
     confirmEventName: 'deleteOrganization',
     text: localization.value.confirm.deleteQuestion.organization,
     declineText: localization.value.buttons.cancel,
@@ -159,9 +168,11 @@ const onRemoveClick = () => {
   });
 }
 
-onMounted(() => {
-  loadItems()
+onMounted(async () => {
+  await loadItems()
   setCurrentRouteId(routeId)
+  setCurrItem()
+  setItemCopy()
 })
 
 </script>

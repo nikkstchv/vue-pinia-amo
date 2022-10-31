@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import type { OrganizationsState, Organization } from "../types/organizations.types";
+import { useHeaderStore } from "@/stores/header.store";
 import * as api from "@/api/docflow";
 
 
@@ -36,6 +37,8 @@ const initItem = () => ({
 export const useOrganizationsStore = defineStore('organizations', {
   state: (): OrganizationsState => ({
     items: [],
+    currItem: {},
+    currItemCopy: {},
     newItem: initItem(),
   }),
   getters: {
@@ -45,13 +48,28 @@ export const useOrganizationsStore = defineStore('organizations', {
     getCurrentTitle(state) {
       return (id: number) => state.items.find(item => +item.id == id)?.name
     },
-    hasNotChanged(state) {
-      return () => {
-        // const - ПОСМОТРЕТЬ РЕАЛИЗАЦИЮ В ТЕЛЕГРАМ!!!
-      }
+    isItemChanged(state) {
+      // const currId: number = useHeaderStore().currentRouteId;
+      // return JSON.stringify(state.currItemCopy) === JSON.stringify(state.items.find(item => +item.id == currId))
+      return JSON.stringify(state.currItemCopy) === JSON.stringify(state.currItem)
+
     }
   },
   actions: {
+    cancelItemChanges() {
+      this.currItem = {...this.currItemCopy}
+    },
+
+    setCurrItem() {
+      const currId: number = useHeaderStore().currentRouteId;
+      this.currItem = {...this.getCurrentItem(currId)}
+    },
+
+    setItemCopy() {
+      const currId: number = useHeaderStore().currentRouteId;
+      this.currItemCopy = {...this.getCurrentItem(currId)}
+    },
+
     async loadItems() {
       try {
         this.items = (await api.getOrganizations());
@@ -59,11 +77,7 @@ export const useOrganizationsStore = defineStore('organizations', {
         return error
       }
     },
-    
-    async getCurrItem(id: number) {
-      const item  = await api.getOrganizationById(id).then(value => value)
-      return item;
-    },
+  
 
     async addItem() {
       try {

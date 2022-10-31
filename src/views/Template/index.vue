@@ -114,7 +114,7 @@ const onRemoveClick = async () => {
     name: '',
     id: routeId,
     confirmEventName: 'deleteTemplate',
-    text: localization.value.confirm.deleteQuestion.type,
+    text: localization.value.confirm.deleteQuestion.template,
     declineText: localization.value.buttons.cancel,
     acceptText: localization.value.buttons.yes
   });
