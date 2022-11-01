@@ -133,23 +133,21 @@ import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";
 
 import PATHS from "@/router/paths"
 
-const route = useRoute();
-const routeId = +route.params.id;
+const route = useRoute()
+const routeId = +route.params.id
 
-const { openConfirmModal } = useIframeStore();
-const initializationStore = useInitializationStore();
-const { loadItems, saveItem, getCurrentItem, getCurrentTitle, setItemCopy, setCurrItem, cancelItemChanges } = useOrganizationsStore();
+const { openConfirmModal } = useIframeStore()
+const initializationStore = useInitializationStore()
+const { loadItems, saveItem, getCurrentTitle, setItemCopy, setCurrItem, cancelItemChanges } = useOrganizationsStore()
 
-const { setCurrentRouteId, isNotMainPage, goToMainRoute } = useHeaderStore();
+const { setCurrentRouteId, isNotMainPage, goToMainRoute } = useHeaderStore()
 
 const { isItemChanged } = storeToRefs(useOrganizationsStore())
 const { currItem } = storeToRefs(useOrganizationsStore())
 
-const localization = computed(() => initializationStore.localization);
+const localization = computed(() => initializationStore.localization)
 
-// const currItem = computed(() => getCurrentItem(routeId));
-
-const getMainRoute = computed(() => isNotMainPage ? PATHS.ADVANCED_SETTINGS.name : "");
+const getMainRoute = computed(() => isNotMainPage ? PATHS.ADVANCED_SETTINGS.name : "")
 
 const onSaveClick = () => {
   if (currItem.value) {

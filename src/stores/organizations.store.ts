@@ -49,25 +49,22 @@ export const useOrganizationsStore = defineStore('organizations', {
       return (id: number) => state.items.find(item => +item.id == id)?.name
     },
     isItemChanged(state) {
-      // const currId: number = useHeaderStore().currentRouteId;
-      // return JSON.stringify(state.currItemCopy) === JSON.stringify(state.items.find(item => +item.id == currId))
       return JSON.stringify(state.currItemCopy) === JSON.stringify(state.currItem)
-
     }
   },
   actions: {
     cancelItemChanges() {
-      this.currItem = {...this.currItemCopy}
+      this.currItem = { ...this.currItemCopy }
     },
 
     setCurrItem() {
       const currId: number = useHeaderStore().currentRouteId;
-      this.currItem = {...this.getCurrentItem(currId)}
+      this.currItem = { ...this.getCurrentItem(currId) }
     },
 
     setItemCopy() {
       const currId: number = useHeaderStore().currentRouteId;
-      this.currItemCopy = {...this.getCurrentItem(currId)}
+      this.currItemCopy = { ...this.getCurrentItem(currId) }
     },
 
     async loadItems() {
@@ -77,7 +74,7 @@ export const useOrganizationsStore = defineStore('organizations', {
         return error
       }
     },
-  
+
 
     async addItem() {
       try {
@@ -91,6 +88,8 @@ export const useOrganizationsStore = defineStore('organizations', {
     async saveItem(id: number, currItem: Organization) {
       try {
         await api.updateOrganization(id, currItem);
+        await this.loadItems()
+        this.setItemCopy()
       } catch (error) {
         return error
       }

@@ -10,8 +10,7 @@
       </template>
     </GnzsHeader>
     <Section>
-      <div :class="$style.orgHeader">{{ localization.views.newTemplate.headers.text }}</div>
-      <div :class="$style.orgDescription">{{ localization.views.newTemplate.description }}</div>
+      <div :class="$style.orgHeader">{{ localization.views.template.description }}</div>
       <hr :class="$style.gnzsHr" />
       <div :class="$style.inputContainer">
         <div :class="$style.orgColumn">
@@ -20,9 +19,6 @@
             <GnzsInput v-model="currItem.name" :class="[$style.inputName, $style.orgInput]" positive-only />
           </div>
           <GnzsCheckBox :label="localization.views.newTemplate.inputs.required_sign" v-model="currItem.required_sign" />
-
-          <hr :class="$style.gnzsHr" />
-
           <div :class="$style.inputWrapper">
             <div :class="$style.inputSection">{{ localization.views.newTemplate.section.numbering }}</div>
             <div :class="$style.rowFlex">
@@ -65,7 +61,7 @@
 
 <script setup>
 import { storeToRefs } from 'pinia';
-import { onMounted, ref } from 'vue';
+import { onMounted } from 'vue';
 import { computed } from "@vue/reactivity";
 import { useRoute } from 'vue-router';
 
@@ -77,6 +73,8 @@ import Section from "@/gnzs-controls/gnzs-section/gnzs-section.vue";
 import GnzsHeader from "@/gnzs-controls/gnzs-header/gnzs-header.vue";
 import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";
 import GnzsInput from "@/gnzs-controls/gnzs-input/gnzs-input.vue";
+import GnzsCheckBox from "@/gnzs-controls/gnzs-checkbox/gnzs-checkbox.vue";
+
 
 
 import PATHS from "@/router/paths"
@@ -98,6 +96,7 @@ const route = useRoute();
 const routeId = +route.params.id;
 const currItem = getCurrentItem(routeId);
 
+// computed
 const getMainRoute = computed(() => isNotMainPage ? PATHS.ADVANCED_SETTINGS.name : "");
 const getHeaderBtnCancelText = computed(() => initializationStore.localization.buttons.cancel);
 const getHeaderBtnPrimaryText = computed(() => initializationStore.localization.buttons.save);
