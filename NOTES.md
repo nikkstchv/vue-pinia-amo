@@ -32,17 +32,19 @@
 - id - AI
 - amo_account_id - int
 - name - varchar(200) not null +
-- next_number - int not null comment 'Номер следующего документа’ +
-- number_length - int not null comment 'Кол-во знаков в номере, заполняемая нулями (00035) +
+- required_sign - tinyint not null comment 'Признак, нужно ли подписывать документ' +
 - prefix - varchar(20) not null +
 - suffix - varchar(20) not null +
+- next_number - int not null comment 'Номер следующего документа’ +
+- number_length - int not null comment 'Кол-во знаков в номере, заполняемая нулями (00035) +
 - url - varchar(500) ссылка на шаблон +
 - is_active - tinyint default 1 not null -  активен ли документ для отображения менеджерам + свитчер
+
 - is_deleted - tinyint default 0 not null - удален ли документ остаетися в базе но не отбражаентся
 - access_users - JSON {users: [2343, 444], group: [34, 33]}
 - sign_users - JSON {users: [2343, 444], group: [34, 33]}
 - document_type - **document_types.id** + выпадающий список типов
-- required_sign - tinyint not null comment 'Признак, нужно ли подписывать документ' +
+
 - required_sign_statuses - JSON [111, 333, 555] - статусы воронки, на которые нельзя перемещать сделку, пока не подписан документ 
 - created_at - date 
 - updated_at - date 

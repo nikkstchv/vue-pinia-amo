@@ -1,25 +1,23 @@
 import { defineStore } from "pinia";
-import type { DocTemplateState, Template} from "../types/doctemplate.types";
+import type { DocTemplateState, Template } from "../types/doctemplate.types";
 import * as api from "@/api/docflow";
 
 const initItem = () => ({
   name: "",
-  requiredSign: false,
+  required_sign: false,
   prefix: "",
   suffix: "",
-  nextNumber: 0,
-  doc_number: "",
-  doc_date: "",
-  numberLength: 0,
+  next_number: 0,
+  number_length: 0,
   url: "",
-  isActive: false,
-  isDeleted: false,
-  accessUsers: {},
-  signUsers: false,
-  documentType: 0,// указать отношения
-  requiredSignStatuses: {},
-  createdAt: 0,
-  updatedAt: 0,
+  is_active: false,
+  document_type: 0, // doctype id
+  is_deleted: false,
+  access_users: {},
+  sign_users: {},
+  required_sign_statuses: {},
+  created_at: 0,
+  updated_at: 0,
 })
 
 

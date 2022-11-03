@@ -15,37 +15,51 @@
       <div :class="$style.inputContainer">
         <div :class="$style.orgColumn">
           <div :class="$style.inputWrapper">
-            <div :class="$style.inputSection">{{ localization.views.newTemplate.inputs.name }}</div>
-            <GnzsInput v-model="currItem.name" :class="[$style.inputName, $style.orgInput]" positive-only />
-          </div>
-          <GnzsCheckBox :label="localization.views.newTemplate.inputs.required_sign" v-model="currItem.required_sign" />
-          <div :class="$style.inputWrapper">
-            <div :class="$style.inputSection">{{ localization.views.newTemplate.section.numbering }}</div>
+            <div :class="$style.rowFlex">
+              <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.name }}</div>
+              <GnzsInput v-model="currItem.name" :class="[$style.inputName, $style.orgInput]" positive-only />
+            </div>
+
             <div :class="$style.rowFlex">
               <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.prefix }}</div>
               <GnzsInput v-model="currItem.prefix" :class="[$style.inputName, $style.orgInput]" positive-only />
             </div>
+
             <div :class="$style.rowFlex">
               <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.suffix }}</div>
               <GnzsInput v-model="currItem.suffix" :class="[$style.inputName, $style.orgInput]" positive-only />
             </div>
+
             <div :class="$style.rowFlex">
               <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.next_number }}</div>
               <GnzsInput v-model="currItem.next_number" :class="[$style.inputName, $style.orgInput]" positive-only />
             </div>
-          </div>
 
-          <hr :class="$style.gnzsHr" />
-
-          <div :class="$style.inputWrapper">
-            <div :class="$style.inputSection">{{ localization.views.newTemplate.section.lead_data }}</div>
             <div :class="$style.rowFlex">
-              <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.doc_number }}</div>
-              <GnzsInput v-model="currItem.doc_number" :class="[$style.inputName, $style.orgInput]" positive-only />
+              <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.number_length }}</div>
+              <GnzsInput v-model="currItem.number_length" :class="[$style.inputName, $style.orgInput]" positive-only />
             </div>
+
             <div :class="$style.rowFlex">
-              <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.doc_date }}</div>
-              <GnzsInput v-model="currItem.doc_date" :class="[$style.inputName, $style.orgInput]" positive-only />
+              <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.url }}</div>
+              <GnzsInput v-model="currItem.url" :class="[$style.inputName, $style.orgInput]" positive-only />
+            </div>
+
+
+            <div :class="$style.rowFlex">
+              <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.is_active }}</div>
+              <GnzsSwitcher v-model="currItem.is_active" :class="[$style.inputName, $style.orgInput]" positive-only />
+            </div>
+
+            <div :class="$style.rowFlex">
+              <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.document_type }}</div>
+              <GnzsDropdown v-model="currItem.document_type" :class="[$style.inputName, $style.orgInput]"
+                positive-only />
+            </div>
+
+            <div :class="$style.rowFlex">
+              <GnzsCheckBox :label="localization.views.newTemplate.inputs.required_sign"
+                v-model="currItem.required_sign" />
             </div>
           </div>
         </div>
@@ -65,6 +79,9 @@ import { onMounted } from 'vue';
 import { computed } from "@vue/reactivity";
 import { useRoute } from 'vue-router';
 
+import PATHS from "@/router/paths"
+
+import { useIframeStore } from '@/stores/iframe.store';
 import { useHeaderStore } from "@/stores/header.store";
 import { useDocTemplateStore } from "@/stores/doctemplate.store";
 import { useInitializationStore } from "@/stores/initialization.store";
@@ -74,11 +91,8 @@ import GnzsHeader from "@/gnzs-controls/gnzs-header/gnzs-header.vue";
 import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";
 import GnzsInput from "@/gnzs-controls/gnzs-input/gnzs-input.vue";
 import GnzsCheckBox from "@/gnzs-controls/gnzs-checkbox/gnzs-checkbox.vue";
-
-
-
-import PATHS from "@/router/paths"
-import { useIframeStore } from '@/stores/iframe.store';
+import GnzsDropdown from "@/gnzs-controls/gnzs-dropdown/gnzs-dropdown.vue";
+import GnzsSwitcher from '@/gnzs-controls/gnzs-switcher/gnzs-switcher.vue';
 
 const localization = computed(() => initializationStore.localization);
 

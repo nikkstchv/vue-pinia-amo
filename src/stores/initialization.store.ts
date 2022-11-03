@@ -62,12 +62,12 @@ export const useInitializationStore = defineStore({
     //   };
     // },
 
-    isAccountForTest: (state): boolean => state.amoAccountId === 28830832,
+    // isAccountForTest: (state): boolean => state.amoAccountId === 28830832,
   },
 
   actions: {
     saveActiveTab(currTab: any): void {
-      this.currActiveTab = currTab 
+      this.currActiveTab = currTab
     },
 
     async iframeInit(): Promise<void> {
@@ -92,10 +92,10 @@ export const useInitializationStore = defineStore({
         this.token = token;
         this.lang = lang;
         this.decodeToken = await verifyAndDecodeToken(GNZS_WIDGET_ID);
-        this.amoAccountId = +this.decodeToken.account_id;
-        this.accountData = await getAccountInfo();
-        this.DNAInfo = await getDNAInfo();
-        this.amoUserId = +currUrl?.searchParams?.get("user-id") || +this.decodeToken.user_id || import.meta.env.VITE_APP_DEVELOPER_AMO_USER_ID;
+        // this.amoAccountId = +this.decodeToken.account_id;
+        // this.accountData = await getAccountInfo();
+        // this.DNAInfo = await getDNAInfo();
+        // this.amoUserId = +currUrl?.searchParams?.get("user-id") || +this.decodeToken.user_id || import.meta.env.VITE_APP_DEVELOPER_AMO_USER_ID;
         // this.setUsers();  - пофиксить
 
         setEvents(iframeName);
@@ -113,7 +113,7 @@ export const useInitializationStore = defineStore({
 
     setUsers(): void {
 
-      const { amoUsers, amoUserGroups, amoSubdomain, amoTopLevelDomain, amoObjectAmocrm } = <AccountDataDto> this.accountData;
+      const { amoUsers, amoUserGroups, amoSubdomain, amoTopLevelDomain, amoObjectAmocrm } = <AccountDataDto>this.accountData;
       let avatars: UsersAvatartDto[];
 
       amoObjectAmocrm ? avatars = amoObjectAmocrm._users_avatars : avatars = [];
@@ -128,7 +128,7 @@ export const useInitializationStore = defineStore({
           isAdmin: user.is_admin || false,
         };
       });
-      
+
     },
 
   },

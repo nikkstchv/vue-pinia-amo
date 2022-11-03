@@ -84,7 +84,7 @@ export class AmoObjectAmocrmDto {
   is_chats_inbox_enabled: boolean;
   is_contact_name_display_order_first: boolean;
   is_need_proxy: boolean;
-  is_retail_functions_enabled:boolean;
+  is_retail_functions_enabled: boolean;
   is_rpa_available: boolean;
   language: string;
   name: string;
@@ -110,7 +110,7 @@ export class AmoObjectAmocrmDto {
 }
 
 export class UsersAvatartDto {
-  id: number; 
+  id: number;
   avatar: string;
 }
 

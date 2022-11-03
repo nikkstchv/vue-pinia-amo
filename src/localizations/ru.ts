@@ -61,13 +61,15 @@ export default {
         lead_data: "Заполнение данных в сделке"
       },
       inputs: {
-        name: "Название шаблона",
+        name: "Название",
         required_sign: "Подпись и печать",
         prefix: "Префикс",
         suffix: "Суффикс",
         next_number: "Номер следующего документа",
-        doc_number: "Номер документа",
-        doc_date: "Дата документа"
+        number_length: "Кол-во знаков в номере, заполняемое нулями",
+        url: "Ссылка на шаблон",
+        is_active: "Документ активен",
+        document_type: "Тип документа"
       }
     },
     organization: {

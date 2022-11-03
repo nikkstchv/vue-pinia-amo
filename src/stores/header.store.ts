@@ -29,12 +29,12 @@ export const useHeaderStore = defineStore("header", {
     isNewOrganizationPage: (state) => state.currentRouteName === PATHS.NEW_ORGANIZATION.name,
 
 
-    async getCurrentTitle(state)  {
+    async getCurrentTitle(state) {
       if (this.isNewOrganizationPage) return useInitializationStore().localization.views.newOrganization.headers;
       if (this.isOrganizationPage) {
-        const result = await useOrganizationsStore().getCurrItem(state.currentRouteId)
-        return result.name;
-      } 
+        const result = await useOrganizationsStore().getCurrentItem(state.currentRouteId)
+        return result?.name;
+      }
       return "";
     }
   },
