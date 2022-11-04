@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import type { DocTemplateState, Template } from "../types/doctemplate.types";
 import * as api from "@/api/docflow";
+import { useHeaderStore } from "./header.store";
 
 const initItem = () => ({
   name: "",
@@ -24,17 +25,38 @@ const initItem = () => ({
 export const useDocTemplateStore = defineStore('doctemplate', {
   state: (): DocTemplateState => ({
     items: [],
+    currItem: {},
+    currItemCopy: {},
     newItem: initItem(),
   }),
+
   getters: {
     getCurrentItem(state) {
       return (id: number) => state.items.find(item => +item.id == id);
     },
     getCurrentTitle(state) {
       return (id: number) => state.items.find(item => +item.id == id)?.name
+    },
+    isItemChanged(state) {
+      return JSON.stringify(state.currItemCopy) === JSON.stringify(state.currItem)
     }
   },
+
   actions: {
+    cancelItemChanges() {
+      this.currItem = { ...this.currItemCopy }
+    },
+
+    setCurrItem() {
+      const currId: number = useHeaderStore().currentRouteId;
+      this.currItem = { ...this.getCurrentItem(currId) }
+    },
+
+    setItemCopy() {
+      const currId: number = useHeaderStore().currentRouteId;
+      this.currItemCopy = { ...this.getCurrentItem(currId) }
+    },
+
     async loadItems() {
       try {
         this.items = (await api.getTemplates());
@@ -55,6 +77,8 @@ export const useDocTemplateStore = defineStore('doctemplate', {
     async saveItem(id: number, currItem: Template) {
       try {
         await api.updateTemplate(id, currItem);
+        await this.loadItems()
+        this.setItemCopy()
       } catch (error) {
         return error
       }
@@ -70,6 +94,3 @@ export const useDocTemplateStore = defineStore('doctemplate', {
     }
   }
 })
-
-
-////// ДЕЛАЕМ СОХРАНЕНИЕ ШАБЛОНОВ

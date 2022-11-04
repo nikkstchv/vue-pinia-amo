@@ -136,17 +136,14 @@ import PATHS from "@/router/paths"
 const route = useRoute()
 const routeId = +route.params.id
 
-const { openConfirmModal } = useIframeStore()
-const initializationStore = useInitializationStore()
 const { loadItems, saveItem, getCurrentTitle, setItemCopy, setCurrItem, cancelItemChanges } = useOrganizationsStore()
-
 const { setCurrentRouteId, isNotMainPage, goToMainRoute } = useHeaderStore()
+const { openConfirmModal } = useIframeStore()
 
-const { isItemChanged } = storeToRefs(useOrganizationsStore())
-const { currItem } = storeToRefs(useOrganizationsStore())
+const { currItem, isItemChanged } = storeToRefs(useOrganizationsStore())
 
-const localization = computed(() => initializationStore.localization)
-
+// computed
+const localization = computed(() => useInitializationStore().localization)
 const getMainRoute = computed(() => isNotMainPage ? PATHS.ADVANCED_SETTINGS.name : "")
 
 const onSaveClick = () => {

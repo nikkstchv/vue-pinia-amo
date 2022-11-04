@@ -41,6 +41,7 @@ export const useOrganizationsStore = defineStore('organizations', {
     currItemCopy: {},
     newItem: initItem(),
   }),
+
   getters: {
     getCurrentItem(state) {
       return (id: number) => state.items.find(item => +item.id == id);
@@ -52,6 +53,7 @@ export const useOrganizationsStore = defineStore('organizations', {
       return JSON.stringify(state.currItemCopy) === JSON.stringify(state.currItem)
     }
   },
+
   actions: {
     cancelItemChanges() {
       this.currItem = { ...this.currItemCopy }

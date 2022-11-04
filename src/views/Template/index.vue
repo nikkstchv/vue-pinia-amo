@@ -3,10 +3,14 @@
     <GnzsHeader :mainTitle="localization.title" :mainRoute="getMainRoute" :currentTitle="getCurrentTitle(routeId)"
       :editableTitle="false" :isFullScreen="true">
       <template #buttons>
-        <GnzsButton type="cancel" @click="goToMainRoute">{{
-            getHeaderBtnCancelText
+        <GnzsButton v-if="isItemChanged" type="cancel" @click="goToMainRoute">{{
+            localization.buttons.back
         }}</GnzsButton>
-        <GnzsButton type="primary" @click="onSaveClick">{{ getHeaderBtnPrimaryText }}</GnzsButton>
+        <GnzsButton v-else type="cancel" @click="cancelItemChanges">{{
+            localization.buttons.cancel
+        }}</GnzsButton>
+        <GnzsButton :disabled="isItemChanged" type="primary" @click="onSaveClick">{{ localization.buttons.save }}
+        </GnzsButton>
       </template>
     </GnzsHeader>
     <Section>
@@ -53,8 +57,8 @@
 
             <div :class="$style.rowFlex">
               <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.document_type }}</div>
-              <GnzsDropdown v-model="currItem.document_type" :class="[$style.inputName, $style.orgInput]"
-                positive-only />
+              <GnzsDropdown :items="typesList" v-model="currItem.document_type"
+                :class="[$style.inputName, $style.orgInput]" positive-only />
             </div>
 
             <div :class="$style.rowFlex">
@@ -79,10 +83,9 @@ import { onMounted } from 'vue';
 import { computed } from "@vue/reactivity";
 import { useRoute } from 'vue-router';
 
-import PATHS from "@/router/paths"
-
 import { useIframeStore } from '@/stores/iframe.store';
 import { useHeaderStore } from "@/stores/header.store";
+import { useDocTypeStore } from "@/stores/doctype.store"
 import { useDocTemplateStore } from "@/stores/doctemplate.store";
 import { useInitializationStore } from "@/stores/initialization.store";
 
@@ -94,31 +97,34 @@ import GnzsCheckBox from "@/gnzs-controls/gnzs-checkbox/gnzs-checkbox.vue";
 import GnzsDropdown from "@/gnzs-controls/gnzs-dropdown/gnzs-dropdown.vue";
 import GnzsSwitcher from '@/gnzs-controls/gnzs-switcher/gnzs-switcher.vue';
 
-const localization = computed(() => initializationStore.localization);
-
-const { getCurrentTitle } = storeToRefs(useDocTemplateStore());
-const { loadItems, getCurrentItem } = useDocTemplateStore();
-
-const { openConfirmModal } = useIframeStore();
-
-const { setCurrentRouteId, isNotMainPage, goToMainRoute } = useHeaderStore();
-const initializationStore = useInitializationStore();
-
-const { saveItem } = useDocTemplateStore();
+import PATHS from "@/router/paths"
 
 const route = useRoute();
 const routeId = +route.params.id;
-const currItem = getCurrentItem(routeId);
+
+const localization = computed(() => useInitializationStore().localization);
+
+const { getCurrentTitle, currItem, isItemChanged } = storeToRefs(useDocTemplateStore());
+
+const { loadItems, saveItem, setItemCopy, setCurrItem, cancelItemChanges } = useDocTemplateStore();
+const { setCurrentRouteId, isNotMainPage, goToMainRoute } = useHeaderStore();
+const { items } = useDocTypeStore()
+const { openConfirmModal } = useIframeStore();
+
+const typesList = items.map(item => {
+  return {
+    value: item.id,
+    title: item.name
+  }
+})
+console.log(typesList)
 
 // computed
 const getMainRoute = computed(() => isNotMainPage ? PATHS.ADVANCED_SETTINGS.name : "");
-const getHeaderBtnCancelText = computed(() => initializationStore.localization.buttons.cancel);
-const getHeaderBtnPrimaryText = computed(() => initializationStore.localization.buttons.save);
 
 const onSaveClick = () => {
-  if (currItem) {
-    saveItem(routeId, currItem);
-    goToMainRoute();
+  if (currItem.value) {
+    saveItem(routeId, currItem.value);
   }
 }
 
@@ -136,6 +142,8 @@ const onRemoveClick = async () => {
 onMounted(() => {
   loadItems()
   setCurrentRouteId(routeId)
+  setCurrItem()
+  setItemCopy()
 })
 
 </script>
