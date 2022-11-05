@@ -1,17 +1,78 @@
 <template>
   <div :class="$style.container">
-    <GnzsHeader :mainTitle="localization.title" :mainRoute="getMainRoute"
-      :currentTitle="localization.views.newTemplate.headers.text" :editableTitle="false" :isFullScreen="true"
-      @onSaveCurrentTitle="onSaveResourceTitle">
+    <GnzsHeader :mainTitle="localization.title" :mainRoute="getMainRoute" :currentTitle="getCurrentTitle(routeId)"
+      :editableTitle="false" :isFullScreen="true">
       <template #buttons>
-        <GnzsButton type="cancel" @click="onHeaderBtnCancelClick">{{
-            getHeaderBtnCancelText
+        <GnzsButton v-if="isItemChanged" type="cancel" @click="goToMainRoute">{{
+            localization.buttons.back
         }}</GnzsButton>
-        <GnzsButton type="primary" @click="onAddClick">{{ getHeaderBtnPrimaryText }}</GnzsButton>
+        <GnzsButton v-else type="cancel" @click="cancelItemChanges">{{
+            localization.buttons.cancel
+        }}</GnzsButton>
+        <GnzsButton :disabled="isItemChanged" type="primary" @click="onSaveClick">{{ localization.buttons.save }}
+        </GnzsButton>
       </template>
     </GnzsHeader>
     <Section>
-      <div :class="$style.orgHeader">{{ localization.views.newTemplate.headers.text }}</div>
+      <div :class="$style.orgHeader">{{ localization.views.template.description }}</div>
+      <hr :class="$style.gnzsHr" />
+      <div :class="$style.inputContainer">
+        <div :class="$style.orgColumn">
+          <div :class="$style.inputWrapper">
+            <div :class="$style.rowFlex">
+              <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.name }}</div>
+              <GnzsInput v-model="currItem.name" :class="[$style.inputName, $style.orgInput]" positive-only />
+            </div>
+
+            <div :class="$style.rowFlex">
+              <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.prefix }}</div>
+              <GnzsInput v-model="currItem.prefix" :class="[$style.inputName, $style.orgInput]" positive-only />
+            </div>
+
+            <div :class="$style.rowFlex">
+              <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.suffix }}</div>
+              <GnzsInput v-model="currItem.suffix" :class="[$style.inputName, $style.orgInput]" positive-only />
+            </div>
+
+            <div :class="$style.rowFlex">
+              <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.next_number }}</div>
+              <GnzsInput v-model="currItem.next_number" :class="[$style.inputName, $style.orgInput]" positive-only />
+            </div>
+
+            <div :class="$style.rowFlex">
+              <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.number_length }}</div>
+              <GnzsInput v-model="currItem.number_length" :class="[$style.inputName, $style.orgInput]" positive-only />
+            </div>
+
+            <div :class="$style.rowFlex">
+              <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.url }}</div>
+              <GnzsInput v-model="currItem.url" :class="[$style.inputName, $style.orgInput]" positive-only />
+            </div>
+
+
+            <div :class="$style.rowFlex">
+              <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.is_active }}</div>
+              <GnzsSwitcher v-model="currItem.is_active" :class="[$style.inputName, $style.orgInput]" positive-only />
+            </div>
+
+            <div :class="$style.rowFlex">
+              <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.document_type }}</div>
+              <GnzsDropdown :items="typesList" v-model="currItem.document_type"
+                :class="[$style.inputName, $style.orgInput]" positive-only />
+            </div>
+
+            <div :class="$style.rowFlex">
+              <GnzsCheckBox :label="localization.views.newTemplate.inputs.required_sign"
+                v-model="currItem.required_sign" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr :class="$style.gnzsHr" />
+      <GnzsButton :type="`remove`" @click="onRemoveClick">
+        {{ localization.views.template.buttons.delete }}
+      </GnzsButton>
+      <!-- <div :class="$style.orgHeader">{{ localization.views.newTemplate.headers.text }}</div>
       <div :class="$style.orgDescription">{{ localization.views.newTemplate.description }}</div>
       <hr :class="$style.gnzsHr" />
       <div :class="$style.inputContainer">
@@ -20,10 +81,7 @@
             <div :class="$style.inputSection">{{ localization.views.newTemplate.inputs.name }}</div>
             <GnzsInput v-model="newItem.name" :class="[$style.inputName, $style.orgInput]" positive-only />
           </div>
-          <GnzsCheckBox 
-          :label="localization.views.newTemplate.inputs.required_sign" 
-          v-model="newItem.required_sign"
-          />
+          <GnzsCheckBox :label="localization.views.newTemplate.inputs.required_sign" v-model="newItem.required_sign" />
 
           <hr :class="$style.gnzsHr" />
 
@@ -57,7 +115,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </Section>
   </div>
 </template>
@@ -68,7 +126,9 @@ import { onMounted } from 'vue';
 import { computed } from "@vue/reactivity";
 import { useRoute } from 'vue-router';
 
+import { useIframeStore } from '@/stores/iframe.store';
 import { useHeaderStore } from "@/stores/header.store";
+import { useDocTypeStore } from "@/stores/doctype.store"
 import { useDocTemplateStore } from "@/stores/doctemplate.store";
 import { useInitializationStore } from "@/stores/initialization.store";
 
@@ -77,32 +137,43 @@ import GnzsHeader from "@/gnzs-controls/gnzs-header/gnzs-header.vue";
 import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";
 import GnzsInput from "@/gnzs-controls/gnzs-input/gnzs-input.vue";
 import GnzsCheckBox from "@/gnzs-controls/gnzs-checkbox/gnzs-checkbox.vue";
+import GnzsDropdown from "@/gnzs-controls/gnzs-dropdown/gnzs-dropdown.vue";
+import GnzsSwitcher from '@/gnzs-controls/gnzs-switcher/gnzs-switcher.vue';
 
 import PATHS from "@/router/paths"
-
-const localization = computed(() => initializationStore.localization);
-
-const { isNotMainPage, setCurrentRouteId, goToMainRoute, onSaveResourceTitle } = useHeaderStore();
-const initializationStore = useInitializationStore();
-
-const { addItem } = useDocTemplateStore();
-const { newItem } = storeToRefs(useDocTemplateStore());
 
 const route = useRoute();
 const routeId = +route.params.id;
 
-// computed
-const getMainRoute = computed(() => isNotMainPage ? PATHS.ADVANCED_SETTINGS.name : "");
-const getHeaderBtnCancelText = computed(() => initializationStore.localization.buttons.cancel);
-const getHeaderBtnPrimaryText = computed(() => initializationStore.localization.buttons.save);
+const { getCurrentTitle, currItem, isItemChanged } = storeToRefs(useDocTemplateStore());
 
-const onAddClick = () => {
-  addItem();
-  goToMainRoute();
+const { loadItems, saveItem, setItemCopy, setCurrItem, cancelItemChanges } = useDocTemplateStore();
+const { setCurrentRouteId, isNotMainPage, goToMainRoute } = useHeaderStore();
+const { items } = useDocTypeStore()
+// const { openConfirmModal } = useIframeStore();
+
+const typesList = items.map(item => {
+  return {
+    value: item.id,
+    title: item.name
+  }
+})
+
+// computed
+const localization = computed(() => useInitializationStore().localization);
+const getMainRoute = computed(() => isNotMainPage ? PATHS.ADVANCED_SETTINGS.name : "");
+
+const onSaveClick = () => {
+  if (currItem.value) {
+    saveItem(routeId, currItem.value);
+  }
 }
 
 onMounted(() => {
+  loadItems()
   setCurrentRouteId(routeId)
+  setCurrItem()
+  setItemCopy()
 })
 </script>
 

@@ -102,8 +102,6 @@ import PATHS from "@/router/paths"
 const route = useRoute();
 const routeId = +route.params.id;
 
-const localization = computed(() => useInitializationStore().localization);
-
 const { getCurrentTitle, currItem, isItemChanged } = storeToRefs(useDocTemplateStore());
 
 const { loadItems, saveItem, setItemCopy, setCurrItem, cancelItemChanges } = useDocTemplateStore();
@@ -117,9 +115,9 @@ const typesList = items.map(item => {
     title: item.name
   }
 })
-console.log(typesList)
 
 // computed
+const localization = computed(() => useInitializationStore().localization);
 const getMainRoute = computed(() => isNotMainPage ? PATHS.ADVANCED_SETTINGS.name : "");
 
 const onSaveClick = () => {
@@ -129,6 +127,7 @@ const onSaveClick = () => {
 }
 
 const onRemoveClick = async () => {
+  console.log('onRemoveClick')
   await openConfirmModal({
     name: '',
     id: routeId,

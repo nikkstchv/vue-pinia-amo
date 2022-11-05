@@ -49,6 +49,9 @@ export const useDocTemplateStore = defineStore('doctemplate', {
 
     setCurrItem() {
       const currId: number = useHeaderStore().currentRouteId;
+      if (currId === 0) {
+        this.currItem = initItem()
+      }
       this.currItem = { ...this.getCurrentItem(currId) }
     },
 
