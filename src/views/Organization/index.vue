@@ -3,11 +3,8 @@
     <GnzsHeader :mainTitle="localization.title" :mainRoute="getMainRoute" :currentTitle="getCurrentTitle(routeId)"
       :editableTitle="false" :isFullScreen="true">
       <template #buttons>
-        <GnzsButton v-if="isItemChanged" type="cancel" @click="goToMainRoute">{{
-            localization.buttons.back
-        }}</GnzsButton>
-        <GnzsButton v-else type="cancel" @click="cancelItemChanges">{{
-            localization.buttons.cancel
+        <GnzsButton type="cancel" @click="onCancelClick">{{
+            isItemChanged ? localization.buttons.back : localization.buttons.cancel
         }}</GnzsButton>
         <GnzsButton :disabled="isItemChanged" type="primary" @click="onSaveClick">{{ localization.buttons.save }}
         </GnzsButton>
@@ -107,7 +104,7 @@
         </div>
       </div>
 
-      <GnzsButton :type="`remove`" @click="onRemoveClick">
+      <GnzsButton v-if="!editMode" :type="`remove`" @click="onRemoveClick">
         {{ localization.views.organization.buttons.delete }}
       </GnzsButton>
     </Section>
@@ -126,8 +123,8 @@ import { useHeaderStore } from "@/stores/header.store";
 import { useOrganizationsStore } from "@/stores/organizations.store";
 import { useInitializationStore } from "@/stores/initialization.store";
 
-import GnzsInput from "@/gnzs-controls/gnzs-input/gnzs-input.vue";
 import Section from "@/gnzs-controls/gnzs-section/gnzs-section.vue";
+import GnzsInput from "@/gnzs-controls/gnzs-input/gnzs-input.vue";
 import GnzsHeader from "@/gnzs-controls/gnzs-header/gnzs-header.vue";
 import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";
 
@@ -136,19 +133,32 @@ import PATHS from "@/router/paths"
 const route = useRoute()
 const routeId = +route.params.id
 
-const { loadItems, saveItem, getCurrentTitle, setItemCopy, setCurrItem, cancelItemChanges } = useOrganizationsStore()
+const { getCurrentTitle, currItem, editMode, isItemChanged } = storeToRefs(useOrganizationsStore())
+
+
+const { loadItems, saveItem, setItemCopy, setCurrItem, setEditMode, cancelItemChanges, addItem } = useOrganizationsStore()
 const { setCurrentRouteId, isNotMainPage, goToMainRoute } = useHeaderStore()
 const { openConfirmModal } = useIframeStore()
 
-const { currItem, isItemChanged } = storeToRefs(useOrganizationsStore())
 
 // computed
 const localization = computed(() => useInitializationStore().localization)
 const getMainRoute = computed(() => isNotMainPage ? PATHS.ADVANCED_SETTINGS.name : "")
 
+const onCancelClick = () => {
+  if (isItemChanged.value) {
+    goToMainRoute();
+  } else {
+    cancelItemChanges()
+  }
+}
+
 const onSaveClick = () => {
-  if (currItem.value) {
+  if (currItem.value && editMode.value) {
     saveItem(routeId, currItem.value);
+  } else {
+    addItem();
+    goToMainRoute();
   }
 }
 
@@ -166,6 +176,7 @@ const onRemoveClick = () => {
 onMounted(async () => {
   await loadItems()
   setCurrentRouteId(routeId)
+  setEditMode()
   setCurrItem()
   setItemCopy()
 })

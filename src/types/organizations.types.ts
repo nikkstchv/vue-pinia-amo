@@ -7,4 +7,5 @@ export class OrganizationsState {
   currItem: Organization;
   currItemCopy: {};
   newItem: {};
+  editMode: boolean;
 }  

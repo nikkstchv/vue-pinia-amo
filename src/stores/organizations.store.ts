@@ -40,10 +40,15 @@ export const useOrganizationsStore = defineStore('organizations', {
     currItem: {},
     currItemCopy: {},
     newItem: initItem(),
+    editMode: false
   }),
 
   getters: {
     getCurrentItem(state) {
+      const currId: number = useHeaderStore().currentRouteId;
+      if (Number.isNaN(currId)) {
+        return () => state.newItem
+      }
       return (id: number) => state.items.find(item => +item.id == id);
     },
     getCurrentTitle(state) {
@@ -55,6 +60,15 @@ export const useOrganizationsStore = defineStore('organizations', {
   },
 
   actions: {
+    setEditMode() {
+      const currId: number = useHeaderStore().currentRouteId
+      if (Number.isNaN(currId)) {
+        this.editMode = false;
+      } else {
+        this.editMode = true;
+      }
+    },
+
     cancelItemChanges() {
       this.currItem = { ...this.currItemCopy }
     },
@@ -65,8 +79,7 @@ export const useOrganizationsStore = defineStore('organizations', {
     },
 
     setItemCopy() {
-      const currId: number = useHeaderStore().currentRouteId;
-      this.currItemCopy = { ...this.getCurrentItem(currId) }
+      this.currItemCopy = { ...this.currItem }      
     },
 
     async loadItems() {
@@ -80,7 +93,7 @@ export const useOrganizationsStore = defineStore('organizations', {
 
     async addItem() {
       try {
-        await api.addOrganization(this.newItem);
+        await api.addOrganization({...this.currItem});
         this.newItem = initItem();
       } catch (error) {
         return error

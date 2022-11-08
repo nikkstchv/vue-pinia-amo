@@ -2,15 +2,10 @@ import { createRouter, createWebHistory } from "vue-router";
 import { useHeaderStore } from "@/stores/header.store";
 import PATHS from "@/router/paths";
 
-
-
 // views
 import AdvancedSettings from "@/views/Main";
-import NewOrganization from "@/views/NewOrganization";
 import Organization from "@/views/Organization";
 import Template from "@/views/Template";
-
-
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -36,13 +31,12 @@ const router = createRouter({
     {
       path: PATHS.NEW_ORGANIZATION.path,
       name: PATHS.NEW_ORGANIZATION.name,
-      component: NewOrganization,
+      component: Organization,
       beforeEnter: (to, from, next) => {
         useHeaderStore().setCurrentRouteName(<string>PATHS.NEW_ORGANIZATION.name);
         next();
       },
     },
-    ,
     {
       path: PATHS.TEMPLATE.path,
       name: PATHS.TEMPLATE.name,

@@ -75,10 +75,10 @@
 </template>
 
 <script setup>
-import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
-import { computed } from "@vue/reactivity";
+import { storeToRefs } from 'pinia';
 import { useRoute } from 'vue-router';
+import { computed } from "@vue/reactivity";
 
 import { useIframeStore } from '@/stores/iframe.store';
 import { useHeaderStore } from "@/stores/header.store";
