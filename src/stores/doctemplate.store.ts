@@ -12,7 +12,7 @@ const initItem = () => ({
   number_length: 0,
   url: "",
   is_active: false,
-  document_type: 0, // doctype id
+  document_type: "",
   is_deleted: false,
   access_users: {},
   sign_users: {},
@@ -28,36 +28,48 @@ export const useDocTemplateStore = defineStore('doctemplate', {
     currItem: {},
     currItemCopy: {},
     newItem: initItem(),
+    editMode: false
   }),
 
   getters: {
     getCurrentItem(state) {
+      const currId: number = useHeaderStore().currentRouteId;
+      if (Number.isNaN(currId)) {
+        return () => state.newItem
+      }
       return (id: number) => state.items.find(item => +item.id == id);
     },
+
     getCurrentTitle(state) {
       return (id: number) => state.items.find(item => +item.id == id)?.name
     },
+
     isItemChanged(state) {
       return JSON.stringify(state.currItemCopy) === JSON.stringify(state.currItem)
     }
   },
 
   actions: {
+    setEditMode() {
+      const currId: number = useHeaderStore().currentRouteId
+      if (Number.isNaN(currId)) {
+        this.editMode = false;
+      } else {
+        this.editMode = true;
+      }
+    },
+
     cancelItemChanges() {
       this.currItem = { ...this.currItemCopy }
     },
 
     setCurrItem() {
       const currId: number = useHeaderStore().currentRouteId;
-      if (currId === 0) {
-        this.currItem = initItem()
-      }
       this.currItem = { ...this.getCurrentItem(currId) }
     },
 
     setItemCopy() {
-      const currId: number = useHeaderStore().currentRouteId;
-      this.currItemCopy = { ...this.getCurrentItem(currId) }
+      this.currItemCopy = { ...this.currItem }
     },
 
     async loadItems() {
@@ -70,7 +82,7 @@ export const useDocTemplateStore = defineStore('doctemplate', {
 
     async addItem() {
       try {
-        await api.addTemplate(this.newItem);
+        await api.addTemplate({ ...this.currItem });
         this.newItem = initItem();
       } catch (error) {
         return error

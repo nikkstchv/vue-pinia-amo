@@ -33,7 +33,7 @@ export default (iframeName: string) => {
         let { elementId, modalId } = event.data.data;
         try {
           await useDocTemplateStore().removeItem(elementId);
-          useHeaderStore().goToMainRoute();
+          // useHeaderStore().goToMainRoute();
         } catch (error) {
           return error
         }

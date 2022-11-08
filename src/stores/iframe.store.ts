@@ -49,7 +49,7 @@ export const useIframeStore = defineStore({
 
     openConfirmModal({ name, id, confirmEventName, text, declineText, acceptText }:
       { name: string, id: number, confirmEventName: string, text: string, declineText: string, acceptText: string }): void {
-        return window.parent.postMessage({
+      return window.parent.postMessage({
         event: `${this.iframeName}:openConfirmModal`,
 
         data: { elementName: name, elementId: id, confirmEventName, text, declineText, acceptText },

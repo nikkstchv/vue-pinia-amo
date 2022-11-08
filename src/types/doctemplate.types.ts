@@ -9,4 +9,5 @@ export class DocTemplateState {
   currItem: {};
   currItemCopy: {};
   newItem: {};
+  editMode: boolean;
 }

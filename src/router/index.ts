@@ -8,7 +8,6 @@ import PATHS from "@/router/paths";
 import AdvancedSettings from "@/views/Main";
 import NewOrganization from "@/views/NewOrganization";
 import Organization from "@/views/Organization";
-import NewTemplate from "@/views/NewTemplate";
 import Template from "@/views/Template";
 
 
@@ -56,7 +55,7 @@ const router = createRouter({
     {
       path: PATHS.NEW_TEMPLATE.path,
       name: PATHS.NEW_TEMPLATE.name,
-      component: NewTemplate,
+      component: Template,
       beforeEnter: (to, from, next) => {
         useHeaderStore().setCurrentRouteName(<string>PATHS.NEW_TEMPLATE.name);
         next();

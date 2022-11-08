@@ -3,11 +3,8 @@
     <GnzsHeader :mainTitle="localization.title" :mainRoute="getMainRoute" :currentTitle="getCurrentTitle(routeId)"
       :editableTitle="false" :isFullScreen="true">
       <template #buttons>
-        <GnzsButton v-if="isItemChanged" type="cancel" @click="goToMainRoute">{{
-            localization.buttons.back
-        }}</GnzsButton>
-        <GnzsButton v-else type="cancel" @click="cancelItemChanges">{{
-            localization.buttons.cancel
+        <GnzsButton type="cancel" @click="onCancelClick">{{
+            isItemChanged ? localization.buttons.back : localization.buttons.cancel
         }}</GnzsButton>
         <GnzsButton :disabled="isItemChanged" type="primary" @click="onSaveClick">{{ localization.buttons.save }}
         </GnzsButton>
@@ -19,6 +16,7 @@
       <div :class="$style.inputContainer">
         <div :class="$style.orgColumn">
           <div :class="$style.inputWrapper">
+
             <div :class="$style.rowFlex">
               <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.name }}</div>
               <GnzsInput v-model="currItem.name" :class="[$style.inputName, $style.orgInput]" positive-only />
@@ -49,7 +47,6 @@
               <GnzsInput v-model="currItem.url" :class="[$style.inputName, $style.orgInput]" positive-only />
             </div>
 
-
             <div :class="$style.rowFlex">
               <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.is_active }}</div>
               <GnzsSwitcher v-model="currItem.is_active" :class="[$style.inputName, $style.orgInput]" positive-only />
@@ -65,11 +62,11 @@
               <GnzsCheckBox :label="localization.views.newTemplate.inputs.required_sign"
                 v-model="currItem.required_sign" />
             </div>
+
           </div>
         </div>
       </div>
-      <hr :class="$style.gnzsHr" />
-      <GnzsButton :type="`remove`" @click="onRemoveClick">
+      <GnzsButton v-if="!editMode" :type="`remove`" @click="onRemoveClick">
         {{ localization.views.template.buttons.delete }}
       </GnzsButton>
     </Section>
@@ -102,33 +99,42 @@ import PATHS from "@/router/paths"
 const route = useRoute();
 const routeId = +route.params.id;
 
-const { getCurrentTitle, currItem, isItemChanged } = storeToRefs(useDocTemplateStore());
+const { getCurrentTitle, currItem, editMode, isItemChanged } = storeToRefs(useDocTemplateStore());
 
-const { loadItems, saveItem, setItemCopy, setCurrItem, cancelItemChanges } = useDocTemplateStore();
+const { loadItems, saveItem, setItemCopy, setCurrItem, setEditMode, cancelItemChanges, addItem } = useDocTemplateStore();
 const { setCurrentRouteId, isNotMainPage, goToMainRoute } = useHeaderStore();
 const { items } = useDocTypeStore()
 const { openConfirmModal } = useIframeStore();
 
-const typesList = items.map(item => {
-  return {
-    value: item.id,
-    title: item.name
-  }
-})
+const typesList = items.map(item => ({
+  value: item.id,
+  title: item.name
+}))
 
 // computed
 const localization = computed(() => useInitializationStore().localization);
 const getMainRoute = computed(() => isNotMainPage ? PATHS.ADVANCED_SETTINGS.name : "");
 
-const onSaveClick = () => {
-  if (currItem.value) {
-    saveItem(routeId, currItem.value);
+
+const onCancelClick = () => {
+  if (isItemChanged.value) {
+    goToMainRoute();
+  } else {
+    cancelItemChanges()
   }
 }
 
-const onRemoveClick = async () => {
-  console.log('onRemoveClick')
-  await openConfirmModal({
+const onSaveClick = () => {
+  if (currItem.value && editMode.value) {
+    saveItem(routeId, currItem.value);
+  } else {
+    addItem();
+    goToMainRoute();
+  }
+}
+
+const onRemoveClick = () => {
+  openConfirmModal({
     name: '',
     id: routeId,
     confirmEventName: 'deleteTemplate',
@@ -141,6 +147,7 @@ const onRemoveClick = async () => {
 onMounted(() => {
   loadItems()
   setCurrentRouteId(routeId)
+  setEditMode()
   setCurrItem()
   setItemCopy()
 })

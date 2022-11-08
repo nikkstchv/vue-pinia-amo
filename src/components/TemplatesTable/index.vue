@@ -10,11 +10,6 @@
                     localization.components.messageTemplate.tables.messages.name
                 }}
               </th>
-              <!-- <th data-code="text">
-                {{
-                    localization.components.messageTemplate.tables.messages.type
-                }}
-              </th> -->
             </tr>
           </thead>
           <tbody>
@@ -24,7 +19,6 @@
                     item.name
                 }}</router-link>
               </td>
-              <!-- <td data-code="text">{{ item.type }}</td> -->
             </tr>
           </tbody>
         </table>
