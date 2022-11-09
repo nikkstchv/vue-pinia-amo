@@ -25,7 +25,8 @@ export default {
     deleteQuestion: {
       organization: 'Вы действительно хотите удалить это юр.лицо?',
       type: 'Вы действительно хотите удалить этот тип документа?',
-      template: 'Вы действительно хотите удалить этот шаблон?'
+      template: 'Вы действительно хотите удалить этот шаблон?',
+      settlement: 'Вы действительно хотите удалить этот счёт?'
     }
   },
 
@@ -34,12 +35,14 @@ export default {
       descriptions: {
         template: 'Настройте шаблоны документов',
         type: 'Настройте типы документов',
-        organizations: 'Добавьте новое юр.лицо'
+        organizations: 'Добавьте новое юр.лицо',
+        settlements: 'Добавьте или отредактируйте рассчетный счет'
       },
       headers: {
         template: 'Шаблоны документов',
         type: 'Типы документов',
-        organizations: 'Юридические лица'
+        organizations: 'Юридические лица',
+        settlement: 'Рассчетные счета'
       }
     },
     template: {
@@ -111,6 +114,15 @@ export default {
     }
   },
   components: {
+    settlements: {
+      inputs: {
+        name: "Наименование р/счета",
+        bank_name: "Банк",
+        correspondent_account: "Корр. счет",
+        bic: "БИК",
+        settlement_account: "Расч. счет",
+      }
+    },
     organizations: {
       tables: {
         headers: {

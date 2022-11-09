@@ -103,8 +103,9 @@
           </div>
         </div>
       </div>
-
-      <GnzsButton v-if="!editMode" :type="`remove`" @click="onRemoveClick">
+      <SettlementTable />
+      <hr :class="$style.gnzsHr" />
+      <GnzsButton v-if="editMode" :type="`remove`" @click="onRemoveClick">
         {{ localization.views.organization.buttons.delete }}
       </GnzsButton>
     </Section>
@@ -124,9 +125,11 @@ import { useOrganizationsStore } from "@/stores/organizations.store";
 import { useInitializationStore } from "@/stores/initialization.store";
 
 import Section from "@/gnzs-controls/gnzs-section/gnzs-section.vue";
-import GnzsInput from "@/gnzs-controls/gnzs-input/gnzs-input.vue";
 import GnzsHeader from "@/gnzs-controls/gnzs-header/gnzs-header.vue";
 import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";
+import GnzsInput from "@/gnzs-controls/gnzs-input/gnzs-input.vue";
+
+import SettlementTable from '@/components/SettlementTable';
 
 import PATHS from "@/router/paths"
 
@@ -145,6 +148,7 @@ const { openConfirmModal } = useIframeStore()
 const localization = computed(() => useInitializationStore().localization)
 const getMainRoute = computed(() => isNotMainPage ? PATHS.ADVANCED_SETTINGS.name : "")
 
+//clicks
 const onCancelClick = () => {
   if (isItemChanged.value) {
     goToMainRoute();
@@ -180,7 +184,6 @@ onMounted(async () => {
   setCurrItem()
   setItemCopy()
 })
-
 </script>
 
 <style lang="scss" module>

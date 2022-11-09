@@ -1,0 +1,136 @@
+.current {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  padding: 12px 0px;
+
+  .title {
+    position: relative;
+    width: calc(100% - 20px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 18px;
+  }
+
+  .editButton {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: 5px;
+    margin-right: 10px;
+    top: 1px;
+
+    svg {
+      position: relative;
+      width: 10px;
+      height: 10px;
+      transform: scale(1.1);
+      color: #b3b3b3;
+    }
+  }
+
+  .editButton:hover svg {
+    color: #4e4e4e;
+  }
+
+  .name {
+    // flex-basis: 50%;
+    width: 350px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.edit {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  top: 1px;
+  padding: 12px 0px;
+
+  input {
+    // position: relative;
+    // top: -1px;
+    // flex-grow: 1;
+    // border: 0;
+    // outline: 0;
+    // background-color: transparent;
+    // font-size: 15px;
+    // box-shadow: 0px 2px 0px -1px #1579d2;
+  }
+
+  .saveButton {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: 0 5px;
+
+    svg {
+      position: relative;
+      width: 10px;
+      height: 10px;
+      transform: scale(1.6);
+      color: #b3b3b3;
+    }
+  }
+
+  .saveButton:hover svg {
+    color: #126d00;
+  }
+}
+
+.item {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  max-width: 28%;
+  overflow: hidden;
+  font-size: 18px;
+  color: #131420;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.buttons {
+  display: flex;
+  align-self: flex-end;
+  padding-left: 10px;
+}
+
+input.hasError {
+  box-shadow: 0 1px 0 0 #f37575;
+}
+
+.orgColumn {
+  display: flex;
+  flex-direction: column;
+  // flex-basis: 45%;
+}
+
+.inputWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.inputTitle {
+  margin-bottom: 3px;
+  margin-right: 30px;
+}
+
+.orgInput {
+  width: 300px;
+}
