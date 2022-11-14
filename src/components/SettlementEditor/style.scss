@@ -55,17 +55,6 @@
   top: 1px;
   padding: 12px 0px;
 
-  input {
-    // position: relative;
-    // top: -1px;
-    // flex-grow: 1;
-    // border: 0;
-    // outline: 0;
-    // background-color: transparent;
-    // font-size: 15px;
-    // box-shadow: 0px 2px 0px -1px #1579d2;
-  }
-
   .saveButton {
     position: relative;
     width: 20px;
@@ -105,8 +94,12 @@
 
 .buttons {
   display: flex;
-  align-self: flex-end;
-  padding-left: 10px;
+  // align-self: flex-end;
+  // padding-left: 10px;
+}
+
+.removeBtn {
+  margin-right: auto !important;
 }
 
 input.hasError {
@@ -116,7 +109,7 @@ input.hasError {
 .orgColumn {
   display: flex;
   flex-direction: column;
-  // flex-basis: 45%;
+  flex-basis: 38%;
 }
 
 .inputWrapper {
@@ -133,4 +126,12 @@ input.hasError {
 
 .orgInput {
   width: 300px;
+}
+
+.gnzsHr {
+  margin: 20px 0;
+  padding: 0;
+  height: 0;
+  border: none;
+  border-top: 1px solid #ddd;
 }

@@ -103,11 +103,12 @@
           </div>
         </div>
       </div>
-      <SettlementTable />
-      <hr :class="$style.gnzsHr" />
       <GnzsButton v-if="editMode" :type="`remove`" @click="onRemoveClick">
         {{ localization.views.organization.buttons.delete }}
       </GnzsButton>
+    </Section>
+    <Section>
+      <SettlementTable />
     </Section>
   </div>
 

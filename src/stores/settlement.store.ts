@@ -3,7 +3,7 @@ import type { SettlementState, Settlement } from "@/types/settlement.types";
 import * as api from "@/api/docflow";
 
 const initItem = () => ({
-  corporate_entity_id: 0,
+  corporate_entity_id: 0, // organization id
   name: "",
   bank_name: "",
   correspondent_account: "",
@@ -17,15 +17,51 @@ const initItem = () => ({
 export const useSettlementStore = defineStore('settlement', {
   state: (): SettlementState => ({
     items: [],
+    currItemsList: [],
+    currItem: {},
+    currItemCopy: {},
+    newItem: initItem(),
     isAddMode: false,
-    inputValue: ''
+
   }),
+
+  getters: {
+    getCurrItems(state) {
+      return (id: number) => state.items.filter(item => +item.corporate_entity_id == id);
+    },
+
+    getCurrentItem(state) {
+      return (id: number) => state.items.find(item => +item.id == id);
+    },
+
+    isItemChanged(state) {
+      return JSON.stringify(state.currItemCopy) !== JSON.stringify(state.currItem)
+    }
+  },
 
   actions: {
     itemAddModeToggle() {
       this.isAddMode = !this.isAddMode;
-      this.inputValue = '';
     },
+
+    setCurrItem(id: number) {
+      this.currItem = { ...this.getCurrentItem(id) }
+    },
+
+    setCurrItemsList(id: number) {
+      // console.log(id);
+      this.currItemsList = [...this.getCurrItems(id)]
+      // console.log(this.getCurrItems(id));
+    },
+
+    setItemCopy() {
+      this.currItemCopy = { ...this.currItem }      
+    },
+
+    cancelItemChanges() {
+      this.currItem = { ...this.currItemCopy }
+    },
+
     async loadItems() {
       try {
         this.items = await api.getSettlements();
@@ -38,7 +74,6 @@ export const useSettlementStore = defineStore('settlement', {
         this.itemAddModeToggle();
         await api.addSettlement(inputValue);
         this.items = await api.getSettlements();
-        this.inputValue = '';
       } catch (error) {
         return error
       }
@@ -47,6 +82,7 @@ export const useSettlementStore = defineStore('settlement', {
       try {
         await api.updateSettlement(id, item);
         await this.loadItems()
+        this.setItemCopy()
       } catch (error) {
         return error
       }

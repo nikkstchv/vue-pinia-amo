@@ -11,145 +11,140 @@
       <div :class="[$style.name]" data-code="name">
         {{ props.itemName }}
       </div>
-      <div :class="$style.editButton" @click="editOpen">
+      <div :class="$style.editButton" @click="onEditClick">
         <svg>
           <use xlink:href="#gnzs-docflow-icon__edit-pen"></use>
         </svg>
       </div>
     </div>
-    <div :class="[$style.edit]" ref="edit" tabindex="-1" @focusout="focusOut" v-if="isEditMode || props.isAddMode">
-      <!-- <input :class="{ [$style.hasError]: hasError }" ref="input" type="text" v-model="inputValue"
-        @input="event => isInputValueValid" /> -->
-      <div :class="$style.orgColumn">
-        <div :class="$style.inputWrapper">
-          <div :class="$style.inputTitle">{{ localization.components.settlements.inputs.name }}</div>
-          <GnzsInput :value="props.item.name" :class="[$style.orgInput]" positive-only />
-        </div>
-        <div :class="$style.inputWrapper">
-          <div :class="$style.inputTitle">{{ localization.components.settlements.inputs.bank_name }}</div>
-          <GnzsInput v-model="props.item.bank_name" :class="[$style.orgInput]" positive-only />
-        </div>
-        <div :class="$style.inputWrapper">
-          <div :class="$style.inputTitle">{{ localization.components.settlements.inputs.correspondent_account }}</div>
-          <GnzsInput v-model="props.item.correspondent_account" :class="[$style.orgInput]" positive-only />
-        </div>
-        <div :class="$style.inputWrapper">
-          <div :class="$style.inputTitle">{{ localization.components.settlements.inputs.bic }}</div>
-          <GnzsInput v-model="props.item.bic" :class="[$style.orgInput]" positive-only />
-        </div>
-        <div :class="$style.inputWrapper">
-          <div :class="$style.inputTitle">{{ localization.components.settlements.inputs.settlement_account }}</div>
-          <GnzsInput v-model="props.item.settlement_account" :class="[$style.orgInput]" positive-only />
-        </div>
-        <div :class="$style.buttons">
-          <!-- <GnzsButton type="cancel" @click="onCancelClick">{{
-            isItemChanged ? localization.buttons.back : localization.buttons.cancel
-        }}</GnzsButton>
-        <GnzsButton :disabled="isItemChanged" type="primary" @click="onSaveClick">{{ localization.buttons.save }}
-        </GnzsButton> -->
-          <GnzsButton v-if="!props.isAddMode" @mousedown="$emit('removeClick')" :type="`remove`" />
-          <!-- <div :class="$style.saveButton" @mousedown="onSaveClick" v-show="!hasError">
-          <svg>
-            <use xlink:href="#gnsz-icon__check"></use>
-          </svg>
-        </div> -->
+    <transition name="fade">
+      <div :class="[$style.edit]" ref="edit" tabindex="-1" @focusout="focusOut" v-if="isEditMode || props.isAddMode">
+        <div :class="$style.orgColumn">
+          <div :class="$style.inputWrapper">
+            <div :class="$style.inputTitle">{{ localization.components.settlements.inputs.name }}</div>
+            <GnzsInput v-model="currItem.name" :class="[$style.orgInput]" positive-only />
+          </div>
+          <div :class="$style.inputWrapper">
+            <div :class="$style.inputTitle">{{ localization.components.settlements.inputs.bank_name }}</div>
+            <GnzsInput v-model="currItem.bank_name" :class="[$style.orgInput]" positive-only />
+          </div>
+          <div :class="$style.inputWrapper">
+            <div :class="$style.inputTitle">{{ localization.components.settlements.inputs.correspondent_account }}</div>
+            <GnzsInput v-model="currItem.correspondent_account" :class="[$style.orgInput]" positive-only />
+          </div>
+          <div :class="$style.inputWrapper">
+            <div :class="$style.inputTitle">{{ localization.components.settlements.inputs.bic }}</div>
+            <GnzsInput v-model="currItem.bic" :class="[$style.orgInput]" positive-only />
+          </div>
+          <div :class="$style.inputWrapper">
+            <div :class="$style.inputTitle">{{ localization.components.settlements.inputs.settlement_account }}</div>
+            <GnzsInput v-model="currItem.settlement_account" :class="[$style.orgInput]" positive-only />
+          </div>
+          <!-- ========================== buttons ======================= -->
+          <div :class="$style.buttons">
+            <GnzsButton v-if="!props.isAddMode" :class="$style.removeBtn" @mousedown="$emit('removeClick')"
+              :type="`remove`">
+              {{ localization.components.settlements.buttons.remove }}
+            </GnzsButton>
+            <GnzsButton type="cancel" @click="onCancelClick">{{
+                !isItemChanged ? localization.buttons.back : localization.buttons.cancel
+            }}</GnzsButton>
+            <GnzsButton :disabled="!isItemChanged" type="primary" @click="onSaveClick">{{ localization.buttons.save }}
+            </GnzsButton>
+          </div>
+
         </div>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import {
   computed,
   nextTick,
   onMounted,
   ref,
-  useCssModule,
-  type Ref,
+  useCssModule
 } from "vue"
+
 import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue"
 import GnzsInput from "@/gnzs-controls/gnzs-input/gnzs-input.vue"
+
 import { useInitializationStore } from "@/stores/initialization.store"
+import { useSettlementStore } from "@/stores/settlement.store";
+import { storeToRefs } from "pinia";
+
+const { currItem, isAddMode, isItemChanged } = storeToRefs(useSettlementStore());
+
+const { setCurrItem, setItemCopy, cancelItemChanges, updateItem } = useSettlementStore()
 
 const emit = defineEmits(["saveClick", "removeClick", "addModeToggle", "focusout"]);
 
 const $style = useCssModule();
 
 const props = defineProps({
-  item: {
-    default: {},
-    type: Object
-  },
-  itemName: {
-    default: "",
-    type: String,
-  },
   itemId: {
     required: false,
     type: Number,
+  },
+  itemName: {
+    required: false,
+    type: String,
   },
   isAddMode: {
     type: Boolean,
   },
 });
 
-const localization = computed(() => useInitializationStore().localization);
 
-const input: Ref<HTMLInputElement | null> = ref(null);
+const input = ref(null);
 const edit = ref(null);
 const isEditMode = ref(false);
+const inputValue = ref(props.itemName);
 const hasError = ref(false);
 
-const inputValue = ref(props.itemName);
+const localization = computed(() => useInitializationStore().localization);
 
-
-
-const isInputValueValid = computed(() =>
-  inputValue.value ? (hasError.value = false) : (hasError.value = true)
-);
-
-const editOpen = async () => {
+const editOpen = () => {
   isEditMode.value = true;
-  await nextTick();
-  if (!input?.value) return;
-  input.value.value = props.itemName;
-  input.value.focus();
 };
 
 const editClose = () => {
   isEditMode.value = false;
 };
 
-const onSaveClick = () => {
-  if (!inputValue.value) {
-    return;
-  } else if (props.isAddMode) {
-    emit("addModeToggle");
+//clicks
+const onEditClick = () => {
+  setCurrItem(props.itemId)
+  setItemCopy()
+  editOpen();
+}
+
+const onCancelClick = () => {
+  if (isItemChanged.value) {
+    cancelItemChanges();
   } else {
-    editClose();
+
+    editClose()
   }
-  emit("saveClick", inputValue.value);
-};
+}
 
-// const focusOut = (event: any) => {
-//   hasError.value = false;
-//   emit("focusout");
-//   const isTargetChild =
-//     event &&
-//     event.rel &&
-//     edit.value === event.relatedTarget.closest(`.${$style.edit}`);
-//   if (isTargetChild) return;
-//   editClose();
-// };
-
-
-onMounted(() => {
-  if (!input?.value) return;
-  if (props.isAddMode) {
-    input.value.focus();
+const onSaveClick = () => {
+  if (currItem.value && isEditMode.value) {
+    updateItem(props.itemId, currItem.value);
+  } else {
+    addItem();
   }
-});
+}
+
+
+// onMounted(() => {
+//   if (!input?.value) return;
+//   if (props.isAddMode) {
+//     input.value.focus();
+//   }
+// });
 </script>
 
 

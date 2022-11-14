@@ -12,7 +12,6 @@
     </GnzsHeader>
     <Section>
       <div :class="$style.orgHeader">{{ localization.views.template.description }}</div>
-      <hr :class="$style.gnzsHr" />
       <div :class="$style.inputContainer">
         <div :class="$style.orgColumn">
           <div :class="$style.inputWrapper">

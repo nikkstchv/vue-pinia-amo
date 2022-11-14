@@ -1,11 +1,12 @@
 export type Settlement = {
-  id: string,
-  name: string,
   [key: string]: string,
 }
 
 export class SettlementState {
-  items: [];
+  items: Settlement[];
+  currItemsList: Settlement[];
+  currItem: Settlement;
+  currItemCopy: {};
   isAddMode: boolean;
-  inputValue: string;
+  newItem: {};
 }

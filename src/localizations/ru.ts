@@ -121,6 +121,9 @@ export default {
         correspondent_account: "Корр. счет",
         bic: "БИК",
         settlement_account: "Расч. счет",
+      },
+      buttons: {
+        remove: "Удалить счёт"
       }
     },
     organizations: {

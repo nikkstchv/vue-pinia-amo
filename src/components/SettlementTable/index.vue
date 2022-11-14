@@ -1,9 +1,9 @@
 <template>
   <div :class="$style.main">
     <div :class="$style.orgHeader">{{ initializationStore.localization.views.adSettings.headers.settlement }}</div>
-    <div v-for="item in items" :key="item.id">
-      <SettlementEditor :item="item" :item-name="item.name" :item-id="item.id" @save-click="updateItem(item.id, $event)"
-        @remove-click="deleteItem(item.id, item.name)" />
+    <div v-for="item in currItemsList" :key="item.id">
+      <SettlementEditor :item-id="item.id" :item-name="item.name" @save-click="updateItem(item.id, $event)"
+        @remove-click="deleteItem(item.id)" />
     </div>
   </div>
   <div :class="$style.rowFlex" v-if="!isAddMode">
@@ -16,31 +16,40 @@
 </template>
 
 <script setup>
-import { computed, onMounted } from "vue";
+import { computed, onMounted, toRaw } from "vue";
 import { storeToRefs } from "pinia";
+import { useRoute } from 'vue-router';
+
 
 import { useInitializationStore } from "@/stores/initialization.store";
+import { useOrganizationsStore } from "@/stores/organizations.store";
 import { useSettlementStore } from "@/stores/settlement.store";
 import { useIframeStore } from "@/stores/iframe.store";
 
 import SettlementEditor from "@/components/SettlementEditor";
 import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";
 
-const localization = computed(() => initializationStore.localization);
+const { addItem, updateItem, itemAddModeToggle, loadItems, setCurrItemsList } = useSettlementStore();
+const { currItemsList, isAddMode } = storeToRefs(useSettlementStore());
 
-const { openConfirmModal } = useIframeStore();
 const initializationStore = useInitializationStore();
+const { openConfirmModal } = useIframeStore();
 
-const { items, isAddMode } = storeToRefs(useSettlementStore());
-const { addItem, updateItem, itemAddModeToggle, loadItems } = useSettlementStore();
+const route = useRoute()
+const routeId = +route.params.id
+
+
+// computed
+const localization = computed(() => initializationStore.localization);
+// const itemsList = computed(() => getCurrItems(currOrganization.id))
 
 const addItemButtonClick = () => {
   itemAddModeToggle();
 };
 
-const deleteItem = (id, name) => {
+const deleteItem = (id) => {
   openConfirmModal({
-    name: name,
+    name: "",
     id: id,
     confirmEventName: 'deleteSettlement',
     text: localization.value.confirm.deleteQuestion.settlement,
@@ -50,7 +59,8 @@ const deleteItem = (id, name) => {
 }
 
 onMounted(async () => {
-  return await loadItems();
+  await loadItems();
+  setCurrItemsList(routeId)
 });
 </script>
 

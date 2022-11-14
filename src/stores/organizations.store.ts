@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import type { OrganizationsState, Organization } from "../types/organizations.types";
+import type { OrganizationsState, Organization, SettlementList } from "../types/organizations.types";
 import { useHeaderStore } from "@/stores/header.store";
 import * as api from "@/api/docflow";
 
@@ -37,6 +37,7 @@ const initItem = () => ({
 export const useOrganizationsStore = defineStore('organizations', {
   state: (): OrganizationsState => ({
     items: [],
+    currSettlementAccountlist: [],
     currItem: {},
     currItemCopy: {},
     newItem: initItem(),
@@ -76,7 +77,7 @@ export const useOrganizationsStore = defineStore('organizations', {
     setCurrItem() {
       const currId: number = useHeaderStore().currentRouteId;
       this.currItem = { ...this.getCurrentItem(currId) }
-    },
+    }, 
 
     setItemCopy() {
       this.currItemCopy = { ...this.currItem }      
