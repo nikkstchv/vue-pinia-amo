@@ -16,10 +16,8 @@
 </template>
 
 <script setup>
-import { computed, onMounted, toRaw } from "vue";
+import { computed, onMounted } from "vue";
 import { storeToRefs } from "pinia";
-import { useRoute } from 'vue-router';
-
 
 import { useInitializationStore } from "@/stores/initialization.store";
 import { useSettlementStore } from "@/stores/settlement.store";
@@ -33,10 +31,6 @@ const { currItemsList, isAddMode } = storeToRefs(useSettlementStore());
 
 const initializationStore = useInitializationStore();
 const { openConfirmModal } = useIframeStore();
-
-const route = useRoute()
-const routeId = +route.params.id
-
 
 // computed
 const localization = computed(() => initializationStore.localization);
@@ -60,7 +54,6 @@ const deleteItem = (id) => {
 
 onMounted(async () => {
   await loadItems();
-  // setCurrItemsList(routeId)
   setCurrItemsList()
 });
 </script>
