@@ -9,7 +9,7 @@
     </svg>
     <div :class="[$style.item, $style.current]" v-show="!isEditMode && !props.isAddMode">
       <div :class="[$style.name]" data-code="name">
-        {{ props.itemName }}
+        {{ item?.name }}
       </div>
       <div :class="$style.editButton" @click="onEditClick">
         <svg>
@@ -18,7 +18,7 @@
       </div>
     </div>
     <transition name="fade">
-      <div :class="[$style.edit]" ref="edit" tabindex="-1" @focusout="focusOut" v-if="isEditMode || props.isAddMode">
+      <div :class="[$style.edit]" tabindex="-1" v-if="isEditMode || props.isAddMode">
         <div :class="$style.orgColumn">
           <div :class="$style.inputWrapper">
             <div :class="$style.inputTitle">{{ localization.components.settlements.inputs.name }}</div>
@@ -40,10 +40,8 @@
             <div :class="$style.inputTitle">{{ localization.components.settlements.inputs.settlement_account }}</div>
             <GnzsInput v-model="currItem.settlement_account" :class="[$style.orgInput]" positive-only />
           </div>
-          <!-- ========================== buttons ======================= -->
           <div :class="$style.buttons">
-            <GnzsButton v-if="!props.isAddMode" :class="$style.removeBtn" @mousedown="$emit('removeClick')"
-              :type="`remove`">
+            <GnzsButton v-if="!props.isAddMode" :class="$style.removeBtn" @click="onRemoveClick" :type="`remove`">
               {{ localization.components.settlements.buttons.remove }}
             </GnzsButton>
             <GnzsButton type="cancel" @click="onCancelClick">{{
@@ -52,7 +50,6 @@
             <GnzsButton :disabled="!isItemChanged" type="primary" @click="onSaveClick">{{ localization.buttons.save }}
             </GnzsButton>
           </div>
-
         </div>
       </div>
     </transition>
@@ -62,35 +59,28 @@
 <script setup>
 import {
   computed,
-  nextTick,
-  onMounted,
   ref,
-  useCssModule
+  toRaw
 } from "vue"
+import { storeToRefs } from "pinia"
+import { useRoute } from "vue-router"
 
 import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue"
 import GnzsInput from "@/gnzs-controls/gnzs-input/gnzs-input.vue"
 
 import { useInitializationStore } from "@/stores/initialization.store"
-import { useSettlementStore } from "@/stores/settlement.store";
-import { storeToRefs } from "pinia";
+import { useSettlementStore } from "@/stores/settlement.store"
+import { useIframeStore } from "@/stores/iframe.store"
 
-const { currItem, isAddMode, isItemChanged } = storeToRefs(useSettlementStore());
+const { setCurrItem, setItemCopy, setCurrItemsList, cancelItemChanges, updateItem, addItem } = useSettlementStore()
+const { items, currItem, isItemChanged } = storeToRefs(useSettlementStore())
+const { openConfirmModal } = useIframeStore()
 
-const { setCurrItem, setItemCopy, cancelItemChanges, updateItem } = useSettlementStore()
-
-const emit = defineEmits(["saveClick", "removeClick", "addModeToggle", "focusout"]);
-
-const $style = useCssModule();
 
 const props = defineProps({
   itemId: {
     required: false,
     type: Number,
-  },
-  itemName: {
-    required: false,
-    type: String,
   },
   isAddMode: {
     type: Boolean,
@@ -98,18 +88,13 @@ const props = defineProps({
 });
 
 
-const input = ref(null);
-const edit = ref(null);
+const route = useRoute()
+const routeId = +route.params.id
+
 const isEditMode = ref(false);
-const inputValue = ref(props.itemName);
-const hasError = ref(false);
-
-const localization = computed(() => useInitializationStore().localization);
-
 const editOpen = () => {
   isEditMode.value = true;
 };
-
 const editClose = () => {
   isEditMode.value = false;
 };
@@ -125,26 +110,34 @@ const onCancelClick = () => {
   if (isItemChanged.value) {
     cancelItemChanges();
   } else {
-
     editClose()
   }
 }
 
-const onSaveClick = () => {
-  if (currItem.value && isEditMode.value) {
+const onSaveClick = async () => {
+  if (isEditMode.value) {
     updateItem(props.itemId, currItem.value);
   } else {
-    addItem();
+    currItem.value.corporate_entity_id = routeId
+    await addItem(currItem.value);
+    setCurrItemsList(routeId)
   }
 }
 
+const onRemoveClick = () => {
+  openConfirmModal({
+    name: "",
+    id: props.itemId,
+    confirmEventName: 'deleteSettlement',
+    text: localization.value.confirm.deleteQuestion.settlement,
+    declineText: localization.value.buttons.cancel,
+    acceptText: localization.value.buttons.yes
+  });
+}
 
-// onMounted(() => {
-//   if (!input?.value) return;
-//   if (props.isAddMode) {
-//     input.value.focus();
-//   }
-// });
+// computed
+const localization = computed(() => useInitializationStore().localization);
+const item = computed(() => toRaw(items.value).find(item => item.id === props.itemId));
 </script>
 
 

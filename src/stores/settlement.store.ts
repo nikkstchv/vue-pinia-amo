@@ -48,10 +48,12 @@ export const useSettlementStore = defineStore('settlement', {
       this.currItem = { ...this.getCurrentItem(id) }
     },
 
-    setCurrItemsList(id: number) {
-      // console.log(id);
-      this.currItemsList = [...this.getCurrItems(id)]
-      // console.log(this.getCurrItems(id));
+    setCurrItemAsNew(id: number) {
+      this.currItem = { ...this.newItem }
+    },
+
+    setCurrItemsList(routeId: number) {
+      this.currItemsList = [...this.getCurrItems(routeId)]
     },
 
     setItemCopy() {
@@ -69,11 +71,11 @@ export const useSettlementStore = defineStore('settlement', {
         return error
       }
     },
-    async addItem(inputValue: object) {
+    async addItem(item: object) {
       try {
-        this.itemAddModeToggle();
-        await api.addSettlement(inputValue);
+        await api.addSettlement(item);
         this.items = await api.getSettlements();
+        this.itemAddModeToggle();
       } catch (error) {
         return error
       }
@@ -87,9 +89,9 @@ export const useSettlementStore = defineStore('settlement', {
         return error
       }
     },
-    async removeItem(typeId: number) {
+    async removeItem(id: number) {
       try {
-        await api.deleteSettlement(typeId);
+        await api.deleteSettlement(id);
         this.items = await api.getSettlements();
       } catch (error) {
         return error

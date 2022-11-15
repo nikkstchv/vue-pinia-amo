@@ -2,7 +2,7 @@
   <div :class="$style.main">
     <div :class="$style.orgHeader">{{ initializationStore.localization.views.adSettings.headers.settlement }}</div>
     <div v-for="item in currItemsList" :key="item.id">
-      <SettlementEditor :item-id="item.id" :item-name="item.name" @save-click="updateItem(item.id, $event)"
+      <SettlementEditor :item-id="item.id" @save-click="updateItem(item.id, $event)"
         @remove-click="deleteItem(item.id)" />
     </div>
   </div>
@@ -12,7 +12,7 @@
     }}</GnzsButton>
   </div>
   <SettlementEditor v-if="isAddMode" :is-add-mode="isAddMode" @save-click="addItem"
-    @add-mode-toggle="itemAddModeToggle()" @focusout="itemAddModeToggle()" />
+    @add-mode-toggle="itemAddModeToggle()" />
 </template>
 
 <script setup>
@@ -29,7 +29,7 @@ import { useIframeStore } from "@/stores/iframe.store";
 import SettlementEditor from "@/components/SettlementEditor";
 import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";
 
-const { addItem, updateItem, itemAddModeToggle, loadItems, setCurrItemsList } = useSettlementStore();
+const { addItem, setCurrItemAsNew, setItemCopy, updateItem, itemAddModeToggle, loadItems, setCurrItemsList } = useSettlementStore();
 const { currItemsList, isAddMode } = storeToRefs(useSettlementStore());
 
 const initializationStore = useInitializationStore();
@@ -41,10 +41,11 @@ const routeId = +route.params.id
 
 // computed
 const localization = computed(() => initializationStore.localization);
-// const itemsList = computed(() => getCurrItems(currOrganization.id))
 
 const addItemButtonClick = () => {
   itemAddModeToggle();
+  setCurrItemAsNew();
+  setItemCopy()
 };
 
 const deleteItem = (id) => {
