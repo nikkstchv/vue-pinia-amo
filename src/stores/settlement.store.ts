@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import type { SettlementState, Settlement } from "@/types/settlement.types";
 import * as api from "@/api/docflow";
+import { useHeaderStore } from "./header.store";
 
 const initItem = () => ({
   corporate_entity_id: 0,
@@ -55,7 +56,8 @@ export const useSettlementStore = defineStore('settlement', {
       this.currItem = { ...this.newItem }
     },
 
-    setCurrItemsList(routeId: number) {
+    setCurrItemsList() {
+      const routeId: number = useHeaderStore().currentRouteId;
       this.currItemsList = [...this.getCurrItems(routeId)]
     },
 
@@ -96,7 +98,7 @@ export const useSettlementStore = defineStore('settlement', {
       try {
         await api.deleteSettlement(id);
         this.items = await api.getSettlements();
-        // обновить список
+        this.setCurrItemsList();
       } catch (error) {
         return error
       }

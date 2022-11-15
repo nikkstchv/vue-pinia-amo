@@ -61,7 +61,8 @@ const deleteItem = (id) => {
 
 onMounted(async () => {
   await loadItems();
-  setCurrItemsList(routeId)
+  // setCurrItemsList(routeId)
+  setCurrItemsList()
 });
 </script>
 
