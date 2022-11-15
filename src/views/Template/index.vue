@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.container">
-    <GnzsHeader :mainTitle="localization.title" :mainRoute="getMainRoute" :currentTitle="getCurrentTitle(routeId)"
-      :editableTitle="false" :isFullScreen="true">
+    <GnzsHeader :fixed="true" :mainTitle="localization.title" :mainRoute="getMainRoute"
+      :currentTitle="getCurrentTitle(routeId)" :editableTitle="false" :isFullScreen="true">
       <template #buttons>
         <GnzsButton type="cancel" @click="onCancelClick">{{
             isItemChanged ? localization.buttons.back : localization.buttons.cancel
@@ -85,15 +85,15 @@ import { useDocTypeStore } from "@/stores/doctype.store"
 import { useDocTemplateStore } from "@/stores/doctemplate.store";
 import { useInitializationStore } from "@/stores/initialization.store";
 
+import PATHS from "@/router/paths"
+
+import GnzsInput from "@/gnzs-controls/gnzs-input/gnzs-input.vue";
 import Section from "@/gnzs-controls/gnzs-section/gnzs-section.vue";
 import GnzsHeader from "@/gnzs-controls/gnzs-header/gnzs-header.vue";
 import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";
-import GnzsInput from "@/gnzs-controls/gnzs-input/gnzs-input.vue";
 import GnzsCheckBox from "@/gnzs-controls/gnzs-checkbox/gnzs-checkbox.vue";
 import GnzsDropdown from "@/gnzs-controls/gnzs-dropdown/gnzs-dropdown.vue";
 import GnzsSwitcher from '@/gnzs-controls/gnzs-switcher/gnzs-switcher.vue';
-
-import PATHS from "@/router/paths"
 
 const route = useRoute();
 const routeId = +route.params.id;
@@ -102,8 +102,8 @@ const { getCurrentTitle, currItem, editMode, isItemChanged } = storeToRefs(useDo
 
 const { loadItems, saveItem, setItemCopy, setCurrItem, setEditMode, cancelItemChanges, addItem } = useDocTemplateStore();
 const { setCurrentRouteId, isNotMainPage, goToMainRoute } = useHeaderStore();
-const { items } = useDocTypeStore()
 const { openConfirmModal } = useIframeStore();
+const { items } = useDocTypeStore()
 
 const typesList = items.map(item => ({
   value: item.id,

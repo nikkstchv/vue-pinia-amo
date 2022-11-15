@@ -1,5 +1,5 @@
 <template>
-  <label :class="[$style.checkbox]">
+  <label :class="$style.checkbox">
     <span :class="$style.text" v-if="label.length">
       {{ label }}
     </span>

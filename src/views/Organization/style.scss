@@ -139,13 +139,13 @@
   display: flex;
   justify-content: space-between;
   margin-top: 30px;
-  width: 85%;
+  width: 100%;
 }
 
 .orgColumn {
   display: flex;
   flex-direction: column;
-  flex-basis: 45%;
+  flex-basis: 47%;
 }
 
 .orgHeader {
@@ -170,7 +170,7 @@
 }
 
 .orgInput {
-  width: 300px;
+  width: 280px;
 }
 
 .gnzsHr {

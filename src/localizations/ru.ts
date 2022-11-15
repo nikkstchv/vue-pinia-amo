@@ -15,6 +15,7 @@ export default {
     save: 'Сохранить',
     cancel: 'Отмена',
     yes: 'Да',
+    close: 'Закрыть'
   },
 
   dropdowns: {
@@ -68,8 +69,8 @@ export default {
         required_sign: "Подпись и печать",
         prefix: "Префикс",
         suffix: "Суффикс",
-        next_number: "Номер следующего документа",
-        number_length: "Кол-во знаков в номере, заполняемое нулями",
+        next_number: "Номер след. документа",
+        number_length: "Кол-во знаков в номере",
         url: "Ссылка на шаблон",
         is_active: "Документ активен",
         document_type: "Тип документа"

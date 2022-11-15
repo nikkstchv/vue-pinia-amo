@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.container">
-    <GnzsHeader :mainTitle="localization.title" :mainRoute="getMainRoute" :currentTitle="getCurrentTitle(routeId)"
-      :editableTitle="false" :isFullScreen="true">
+    <GnzsHeader :fixed="true" :mainTitle="localization.title" :mainRoute="getMainRoute"
+      :currentTitle="getCurrentTitle(routeId)" :editableTitle="false" :isFullScreen="true">
       <template #buttons>
         <GnzsButton type="cancel" @click="onCancelClick">{{
             isItemChanged ? localization.buttons.back : localization.buttons.cancel

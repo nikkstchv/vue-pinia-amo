@@ -39,7 +39,6 @@
   }
 
   .name {
-    // flex-basis: 50%;
     width: 350px;
     white-space: nowrap;
     overflow: hidden;
@@ -83,7 +82,7 @@
   position: relative;
   display: flex;
   min-width: 0;
-  max-width: 28%;
+  max-width: 24%;
   overflow: hidden;
   font-size: 18px;
   color: #131420;
@@ -94,8 +93,6 @@
 
 .buttons {
   display: flex;
-  // align-self: flex-end;
-  // padding-left: 10px;
 }
 
 .removeBtn {
@@ -109,7 +106,7 @@ input.hasError {
 .orgColumn {
   display: flex;
   flex-direction: column;
-  flex-basis: 38%;
+  flex-basis: 47%;
 }
 
 .inputWrapper {
@@ -125,7 +122,7 @@ input.hasError {
 }
 
 .orgInput {
-  width: 300px;
+  width: 280px;
 }
 
 .btnsWrapper {

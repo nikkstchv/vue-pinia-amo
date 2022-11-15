@@ -46,7 +46,7 @@
             </GnzsButton>
             <div :class="$style.btnsWrapper">
               <GnzsButton type="cancel" @click="onCancelClick">{{
-                  !isItemChanged ? localization.buttons.back : localization.buttons.cancel
+                  !isItemChanged ? localization.buttons.close : localization.buttons.cancel
               }}</GnzsButton>
               <GnzsButton :disabled="!isItemChanged" type="primary" @click="onSaveClick">{{ localization.buttons.save }}
               </GnzsButton>
