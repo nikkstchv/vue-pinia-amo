@@ -3,7 +3,7 @@ import type { SettlementState, Settlement } from "@/types/settlement.types";
 import * as api from "@/api/docflow";
 
 const initItem = () => ({
-  corporate_entity_id: 0, // organization id
+  corporate_entity_id: 0,
   name: "",
   bank_name: "",
   correspondent_account: "",
@@ -22,7 +22,6 @@ export const useSettlementStore = defineStore('settlement', {
     currItemCopy: {},
     newItem: initItem(),
     isAddMode: false,
-
   }),
 
   getters: {
@@ -40,6 +39,10 @@ export const useSettlementStore = defineStore('settlement', {
   },
 
   actions: {
+    disableAddMode() {
+      this.isAddMode = false;
+    },
+
     itemAddModeToggle() {
       this.isAddMode = !this.isAddMode;
     },
@@ -93,6 +96,7 @@ export const useSettlementStore = defineStore('settlement', {
       try {
         await api.deleteSettlement(id);
         this.items = await api.getSettlements();
+        // обновить список
       } catch (error) {
         return error
       }

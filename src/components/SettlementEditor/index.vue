@@ -7,7 +7,7 @@
         </path>
       </symbol>
     </svg>
-    <div :class="[$style.item, $style.current]" v-show="!isEditMode && !props.isAddMode">
+    <div :class="[$style.item, $style.current]" v-show="!editMode && !props.isAddMode">
       <div :class="[$style.name]" data-code="name">
         {{ item?.name }}
       </div>
@@ -18,7 +18,7 @@
       </div>
     </div>
     <transition name="fade">
-      <div :class="[$style.edit]" tabindex="-1" v-if="isEditMode || props.isAddMode">
+      <div :class="[$style.edit]" tabindex="-1" v-show="editMode || props.isAddMode">
         <div :class="$style.orgColumn">
           <div :class="$style.inputWrapper">
             <div :class="$style.inputTitle">{{ localization.components.settlements.inputs.name }}</div>
@@ -44,11 +44,13 @@
             <GnzsButton v-if="!props.isAddMode" :class="$style.removeBtn" @click="onRemoveClick" :type="`remove`">
               {{ localization.components.settlements.buttons.remove }}
             </GnzsButton>
-            <GnzsButton type="cancel" @click="onCancelClick">{{
-                !isItemChanged ? localization.buttons.back : localization.buttons.cancel
-            }}</GnzsButton>
-            <GnzsButton :disabled="!isItemChanged" type="primary" @click="onSaveClick">{{ localization.buttons.save }}
-            </GnzsButton>
+            <div :class="$style.btnsWrapper">
+              <GnzsButton type="cancel" @click="onCancelClick">{{
+                  !isItemChanged ? localization.buttons.back : localization.buttons.cancel
+              }}</GnzsButton>
+              <GnzsButton :disabled="!isItemChanged" type="primary" @click="onSaveClick">{{ localization.buttons.save }}
+              </GnzsButton>
+            </div>
           </div>
         </div>
       </div>
@@ -57,11 +59,7 @@
 </template>
 
 <script setup>
-import {
-  computed,
-  ref,
-  toRaw
-} from "vue"
+import { computed, ref, toRaw } from "vue"
 import { storeToRefs } from "pinia"
 import { useRoute } from "vue-router"
 
@@ -72,10 +70,12 @@ import { useInitializationStore } from "@/stores/initialization.store"
 import { useSettlementStore } from "@/stores/settlement.store"
 import { useIframeStore } from "@/stores/iframe.store"
 
-const { setCurrItem, setItemCopy, setCurrItemsList, cancelItemChanges, updateItem, addItem } = useSettlementStore()
-const { items, currItem, isItemChanged } = storeToRefs(useSettlementStore())
+const { setCurrItem, setItemCopy, setCurrItemsList, cancelItemChanges, updateItem, addItem, disableAddMode } = useSettlementStore()
+const { items, currItem, isItemChanged, isEditMode } = storeToRefs(useSettlementStore())
 const { openConfirmModal } = useIframeStore()
 
+const route = useRoute()
+const routeId = +route.params.id
 
 const props = defineProps({
   itemId: {
@@ -87,22 +87,19 @@ const props = defineProps({
   },
 });
 
+const editMode = ref(false);
 
-const route = useRoute()
-const routeId = +route.params.id
-
-const isEditMode = ref(false);
 const editOpen = () => {
-  isEditMode.value = true;
+  editMode.value = true;
 };
 const editClose = () => {
-  isEditMode.value = false;
+  editMode.value = false;
 };
 
-//clicks
+// clicks
 const onEditClick = () => {
-  setCurrItem(props.itemId)
-  setItemCopy()
+  setCurrItem(props.itemId);
+  setItemCopy();
   editOpen();
 }
 
@@ -110,12 +107,13 @@ const onCancelClick = () => {
   if (isItemChanged.value) {
     cancelItemChanges();
   } else {
-    editClose()
+    editClose();
+    disableAddMode();
   }
 }
 
 const onSaveClick = async () => {
-  if (isEditMode.value) {
+  if (editMode.value) {
     updateItem(props.itemId, currItem.value);
   } else {
     currItem.value.corporate_entity_id = routeId
@@ -133,6 +131,7 @@ const onRemoveClick = () => {
     declineText: localization.value.buttons.cancel,
     acceptText: localization.value.buttons.yes
   });
+  editClose();
 }
 
 // computed

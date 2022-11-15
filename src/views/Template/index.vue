@@ -65,7 +65,7 @@
           </div>
         </div>
       </div>
-      <GnzsButton v-if="!editMode" :type="`remove`" @click="onRemoveClick">
+      <GnzsButton v-if="editMode" :type="`remove`" @click="onRemoveClick">
         {{ localization.views.template.buttons.delete }}
       </GnzsButton>
     </Section>
