@@ -7,11 +7,9 @@ import * as api from "@/api/docflow";
 
 import router from "@/router"
 import PATHS from "@/router/paths"
-// import store from "./router.store";
 
 // types
 import type { HeaderState } from "@/types/header.types";
-import type { SaveResourceTitleCallbacksDto } from "@/types/general.types";
 
 const getCurrItem = async (id: string) => await api.getOrganizationById(+id)
 

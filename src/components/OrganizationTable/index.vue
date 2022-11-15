@@ -32,27 +32,25 @@ import { storeToRefs } from "pinia";
 import { useRouter } from 'vue-router';
 import { computed } from "@vue/reactivity";
 
-import { useOrganizationsStore } from "@/stores/organizations.store";
 import { useInitializationStore } from "@/stores/initialization.store";
+import { useOrganizationsStore } from "@/stores/organizations.store";
 
 import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";
+
+const initializationStore = useInitializationStore();
+const { items } = storeToRefs(useOrganizationsStore());
+const { loadItems } = useOrganizationsStore();
 
 const localization = computed(() => initializationStore.localization);
 
 const router = useRouter();
-
-const initializationStore = useInitializationStore();
-
-const { items } = storeToRefs(useOrganizationsStore());
-
-const { loadItems } = useOrganizationsStore();
 
 const addItem = () => {
   router.push('newOrganization')
 }
 
 onMounted(async () => {
-  return await loadItems();
+  await loadItems();
 });
 </script>
 

@@ -38,7 +38,7 @@ const localization = computed(() => initializationStore.localization);
 const addItemButtonClick = () => {
   itemAddModeToggle();
   setCurrItemAsNew();
-  setItemCopy()
+  setItemCopy();
 };
 
 const deleteItem = (id) => {

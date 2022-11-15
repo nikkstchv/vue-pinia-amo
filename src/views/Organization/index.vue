@@ -122,6 +122,7 @@ import { computed } from "@vue/reactivity";
 
 import { useIframeStore } from "@/stores/iframe.store";
 import { useHeaderStore } from "@/stores/header.store";
+import { useSettlementStore } from "@/stores/settlement.store";
 import { useOrganizationsStore } from "@/stores/organizations.store";
 import { useInitializationStore } from "@/stores/initialization.store";
 
@@ -139,6 +140,7 @@ const routeId = +route.params.id
 
 const { getCurrentTitle, currItem, editMode, isItemChanged } = storeToRefs(useOrganizationsStore())
 
+const { setCurrItemsList: setCurrSettlementList } = useSettlementStore();
 
 const { loadItems, saveItem, setItemCopy, setCurrItem, setEditMode, cancelItemChanges, addItem } = useOrganizationsStore()
 const { setCurrentRouteId, isNotMainPage, goToMainRoute } = useHeaderStore()
@@ -180,6 +182,7 @@ const onRemoveClick = () => {
 
 onMounted(async () => {
   await loadItems()
+  setCurrSettlementList()
   setCurrentRouteId(routeId)
   setEditMode()
   setCurrItem()
