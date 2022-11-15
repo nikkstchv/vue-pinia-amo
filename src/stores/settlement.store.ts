@@ -14,7 +14,6 @@ const initItem = () => ({
   is_deleted: 0
 })
 
-
 export const useSettlementStore = defineStore('settlement', {
   state: (): SettlementState => ({
     items: [],

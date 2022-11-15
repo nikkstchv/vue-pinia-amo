@@ -71,7 +71,7 @@ import { useSettlementStore } from "@/stores/settlement.store"
 import { useIframeStore } from "@/stores/iframe.store"
 
 const { setCurrItem, setItemCopy, setCurrItemsList, cancelItemChanges, updateItem, addItem, disableAddMode } = useSettlementStore()
-const { items, currItem, isItemChanged, isEditMode } = storeToRefs(useSettlementStore())
+const { items, currItem, isItemChanged } = storeToRefs(useSettlementStore())
 const { openConfirmModal } = useIframeStore()
 
 const route = useRoute()

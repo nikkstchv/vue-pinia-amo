@@ -22,7 +22,6 @@ import { useRoute } from 'vue-router';
 
 
 import { useInitializationStore } from "@/stores/initialization.store";
-import { useOrganizationsStore } from "@/stores/organizations.store";
 import { useSettlementStore } from "@/stores/settlement.store";
 import { useIframeStore } from "@/stores/iframe.store";
 

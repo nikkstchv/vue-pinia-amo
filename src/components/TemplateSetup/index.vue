@@ -1,7 +1,7 @@
 <template>
   <Section :header="initializationStore.localization.views.adSettings.headers.template">
     <template v-slot:description>{{
-      initializationStore.localization.views.adSettings.descriptions.template
+        initializationStore.localization.views.adSettings.descriptions.template
     }}</template>
     <TemplatesTable />
   </Section>
@@ -14,8 +14,6 @@ import Section from "@/gnzs-controls/gnzs-section/gnzs-section.vue";
 import TemplatesTable from "@/components/TemplatesTable";
 
 const initializationStore = useInitializationStore();
-
-const localization = computed(() => initializationStore.localization);
 </script>
 
 <style lang="scss" module>
