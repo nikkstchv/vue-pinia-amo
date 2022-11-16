@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useInitializationStore } from "@/stores/initialization.store";
+import { useInitializationStore } from "@/stores/initializationStore";
 
 
 export const API_DOCFLOW = axios.create({

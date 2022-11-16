@@ -32,8 +32,8 @@ import { storeToRefs } from "pinia";
 import { useRouter } from 'vue-router';
 import { computed } from "@vue/reactivity";
 
-import { useInitializationStore } from "@/stores/initialization.store";
-import { useOrganizationsStore } from "@/stores/organizations.store";
+import { useInitializationStore } from "@/stores/initializationStore";
+import { useOrganizationsStore } from "@/stores/organizationsStore";
 
 import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";
 

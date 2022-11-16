@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { useInitializationStore } from "@/stores/initialization.store";
+import { useInitializationStore } from "@/stores/initializationStore";
 import Section from "@/gnzs-controls/gnzs-section/gnzs-section.vue";
 import TemplatesTable from "@/components/TemplatesTable";
 

@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import { useInitializationStore } from "./initialization.store";
-import { useOrganizationsStore } from "@/stores/organizations.store"
+import { useInitializationStore } from "@/stores/initializationStore";
+import { useOrganizationsStore } from "@/stores/organizationsStore"
 import * as api from "@/api/docflow";
 
 

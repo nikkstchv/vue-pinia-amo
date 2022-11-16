@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import type { SettlementState, Settlement } from "@/types/settlement.types";
 import * as api from "@/api/docflow";
-import { useHeaderStore } from "./header.store";
+import { useHeaderStore } from "./headerStore";
 
 const initItem = () => ({
   corporate_entity_id: 0,

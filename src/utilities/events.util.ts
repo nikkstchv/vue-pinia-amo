@@ -1,4 +1,4 @@
-import { useIframeStore } from "@/stores/iframe.store";
+import { useIframeStore } from "@/stores/iframeStore";
 import { PAYMENTS_IFRAME_NAME } from "@/stores/constants";
 
 export default (iframeName: string): void => {

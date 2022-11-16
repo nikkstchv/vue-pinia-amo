@@ -1,8 +1,8 @@
-import { useDocTypeStore } from "@/stores/doctype.store";
-import { useDocTemplateStore } from "@/stores/doctemplate.store";
-import { useOrganizationsStore } from "@/stores/organizations.store";
-import { useHeaderStore } from "./stores/header.store";
-import { useSettlementStore } from "@/stores/settlement.store"
+import { useDocTypeStore } from "@/stores/doctypeStore";
+import { useDocTemplateStore } from "@/stores/doctemplateStore";
+import { useOrganizationsStore } from "@/stores/organizationsStore";
+import { useHeaderStore } from "@/stores/headerStore";
+import { useSettlementStore } from "@/stores/settlementStore"
 
 
 export default (iframeName: string) => {

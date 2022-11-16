@@ -19,9 +19,9 @@
 import { computed, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 
-import { useInitializationStore } from "@/stores/initialization.store";
-import { useSettlementStore } from "@/stores/settlement.store";
-import { useIframeStore } from "@/stores/iframe.store";
+import { useInitializationStore } from "@/stores/initializationStore";
+import { useSettlementStore } from "@/stores/settlementStore";
+import { useIframeStore } from "@/stores/iframeStore";
 
 import SettlementEditor from "@/components/SettlementEditor";
 import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";

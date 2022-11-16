@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import type { OrganizationsState, Organization, SettlementList } from "../types/organizations.types";
-import { useHeaderStore } from "@/stores/header.store";
+import { useHeaderStore } from "@/stores/headerStore";
 import * as api from "@/api/docflow";
 
 

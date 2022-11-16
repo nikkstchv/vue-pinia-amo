@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { getAccountInfo, getDevJwtToken, getDNAInfo, verifyAndDecodeToken } from "@/api/gnzs-core-api";
 // import { getUserAvatar } from "@/utilities/stores/helper";
 import { GNZS_WIDGET_ID } from "./constants";
-import { useIframeStore } from "./iframe.store";
+import { useIframeStore } from "./iframeStore";
 import setEvents from "@/events";
 
 // types

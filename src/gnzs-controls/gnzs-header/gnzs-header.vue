@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import { computed, nextTick, onMounted, onUnmounted, ref, useCssModule, type Ref } from "vue";
-import { useIframeStore } from "@/stores/iframe.store";
+import { useIframeStore } from "@/stores/iframeStore";
 import { useRouter } from "vue-router";
 
 const props = defineProps({
@@ -110,7 +110,7 @@ const inputIsNotEmpty = computed((): boolean => {
 
 <template>
   <div :class="$style.root">
-    <div :class="[ $style.header, { [$style.fixed]: props.fixed && isScrolled } ]">
+    <div :class="[$style.header, { [$style.fixed]: props.fixed && isScrolled }]">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display: none">
         <symbol id="gnzs-1c-icon__edit-pen" viewbox="0 0 10 10">
           <path fill="currentColor"
@@ -127,7 +127,7 @@ const inputIsNotEmpty = computed((): boolean => {
         <div :class="$style.burger" v-if="windowWidth && windowWidth <= 1100" @click="onShowSidebar">
           <span></span>
         </div>
-        <div :class="[ $style.item, $style.main, { [$style.itsLink]: props.mainRoute.length !== 0 } ]"
+        <div :class="[$style.item, $style.main, { [$style.itsLink]: props.mainRoute.length !== 0 }]"
           @click="goToMainRoute">{{ mainTitle }}</div>
         <div :class="$style.separator" v-if="isNotMainPage">
           <div :class="$style.arrow"></div>

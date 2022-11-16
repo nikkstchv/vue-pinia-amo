@@ -66,9 +66,9 @@ import { useRoute } from "vue-router"
 import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue"
 import GnzsInput from "@/gnzs-controls/gnzs-input/gnzs-input.vue"
 
-import { useInitializationStore } from "@/stores/initialization.store"
-import { useSettlementStore } from "@/stores/settlement.store"
-import { useIframeStore } from "@/stores/iframe.store"
+import { useInitializationStore } from "@/stores/initializationStore"
+import { useSettlementStore } from "@/stores/settlementStore"
+import { useIframeStore } from "@/stores/iframeStore"
 
 const { setCurrItem, setItemCopy, setCurrItemsList, cancelItemChanges, updateItem, addItem, disableAddMode } = useSettlementStore()
 const { items, currItem, isItemChanged } = storeToRefs(useSettlementStore())

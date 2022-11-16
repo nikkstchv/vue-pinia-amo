@@ -4,7 +4,7 @@ import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
 import { computed } from "@vue/reactivity";
 
-import { useInitializationStore } from "@/stores/initialization.store";
+import { useInitializationStore } from "@/stores/initializationStore";
 
 import TemplateSetup from "@/components/TemplateSetup/index.vue";
 import TemplateTypes from "@/components/TemplateTypes/TemplateTypes.vue";

@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { useHeaderStore } from "@/stores/header.store";
+import { useHeaderStore } from "@/stores/headerStore";
 import PATHS from "@/router/paths";
 
 // views

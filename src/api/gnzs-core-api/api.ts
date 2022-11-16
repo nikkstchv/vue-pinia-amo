@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useInitializationStore } from "@/stores/initialization.store";
+import { useInitializationStore } from "@/stores/initializationStore";
 import { GNZS_WIDGET_ID } from "@/stores/constants";
 
 export const API_CORE = axios.create({

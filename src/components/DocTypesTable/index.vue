@@ -21,9 +21,9 @@
 import { computed, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 
-import { useInitializationStore } from "@/stores/initialization.store";
-import { useDocTypeStore } from "@/stores/doctype.store";
-import { useIframeStore } from "@/stores/iframe.store";
+import { useInitializationStore } from "@/stores/initializationStore";
+import { useDocTypeStore } from "@/stores/doctypeStore";
+import { useIframeStore } from "@/stores/iframeStore";
 
 import GnzsNameEditor from "@/gnzs-controls/gnzs-name-editor/gnzs-name-editor.vue";
 import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";

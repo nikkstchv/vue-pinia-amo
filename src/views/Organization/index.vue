@@ -120,11 +120,11 @@ import { storeToRefs } from 'pinia';
 import { useRoute } from 'vue-router';
 import { computed } from "@vue/reactivity";
 
-import { useIframeStore } from "@/stores/iframe.store";
-import { useHeaderStore } from "@/stores/header.store";
-import { useSettlementStore } from "@/stores/settlement.store";
-import { useOrganizationsStore } from "@/stores/organizations.store";
-import { useInitializationStore } from "@/stores/initialization.store";
+import { useIframeStore } from "@/stores/iframeStore";
+import { useHeaderStore } from "@/stores/headerStore";
+import { useSettlementStore } from "@/stores/settlementStore";
+import { useOrganizationsStore } from "@/stores/organizationsStore";
+import { useInitializationStore } from "@/stores/initializationStore";
 
 import Section from "@/gnzs-controls/gnzs-section/gnzs-section.vue";
 import GnzsHeader from "@/gnzs-controls/gnzs-header/gnzs-header.vue";

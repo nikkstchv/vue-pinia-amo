@@ -79,11 +79,11 @@ import { storeToRefs } from 'pinia';
 import { useRoute } from 'vue-router';
 import { computed } from "@vue/reactivity";
 
-import { useIframeStore } from '@/stores/iframe.store';
-import { useHeaderStore } from "@/stores/header.store";
-import { useDocTypeStore } from "@/stores/doctype.store"
-import { useDocTemplateStore } from "@/stores/doctemplate.store";
-import { useInitializationStore } from "@/stores/initialization.store";
+import { useIframeStore } from "@/stores/iframeStore";
+import { useHeaderStore } from "@/stores/headerStore";
+import { useDocTypeStore } from "@/stores/doctypeStore"
+import { useDocTemplateStore } from "@/stores/doctemplateStore";
+import { useInitializationStore } from "@/stores/initializationStore";
 
 import PATHS from "@/router/paths"
 

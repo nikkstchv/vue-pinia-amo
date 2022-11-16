@@ -1,5 +1,5 @@
-import { useInitializationStore } from "@/stores/initialization.store";
-import { useOrganizationsStore } from "./stores/organizations.store";
+import { useInitializationStore } from "@/stores/initializationStore";
+import { useOrganizationsStore } from "./stores/organizationsStore";
 
 
 export default async function (route: any) {

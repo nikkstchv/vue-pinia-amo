@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import type { DocTemplateState, Template } from "../types/doctemplate.types";
 import * as api from "@/api/docflow";
-import { useHeaderStore } from "./header.store";
+import { useHeaderStore } from "./headerStore";
 
 const initItem = () => ({
   name: "",
