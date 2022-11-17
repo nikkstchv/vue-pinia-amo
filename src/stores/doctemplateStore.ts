@@ -5,20 +5,20 @@ import { useHeaderStore } from "./headerStore";
 
 const initItem = () => ({
   name: "",
-  required_sign: false,
+  requiredSign: false,
   prefix: "",
   suffix: "",
-  next_number: 0,
-  number_length: 0,
+  nextNumber: 0,
+  numberLength: 0,
   url: "",
-  is_active: false,
-  document_type: "",
-  is_deleted: false,
-  access_users: {},
-  sign_users: {},
-  required_sign_statuses: {},
-  created_at: 0,
-  updated_at: 0,
+  isActive: false,
+  documentType: "",
+  isDeleted: false,
+  accessUsers: {},
+  signUsers: {},
+  requiredSignStatuses: {},
+  createdAt: 0,
+  updatedAt: 0,
 })
 
 

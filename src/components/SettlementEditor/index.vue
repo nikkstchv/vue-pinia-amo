@@ -26,11 +26,11 @@
           </div>
           <div :class="$style.inputWrapper">
             <div :class="$style.inputTitle">{{ localization.components.settlements.inputs.bank_name }}</div>
-            <GnzsInput v-model="currItem.bank_name" :class="[$style.orgInput]" positive-only />
+            <GnzsInput v-model="currItem.bankName" :class="[$style.orgInput]" positive-only />
           </div>
           <div :class="$style.inputWrapper">
             <div :class="$style.inputTitle">{{ localization.components.settlements.inputs.correspondent_account }}</div>
-            <GnzsInput v-model="currItem.correspondent_account" :class="[$style.orgInput]" positive-only />
+            <GnzsInput v-model="currItem.correspondentAccount" :class="[$style.orgInput]" positive-only />
           </div>
           <div :class="$style.inputWrapper">
             <div :class="$style.inputTitle">{{ localization.components.settlements.inputs.bic }}</div>
@@ -38,7 +38,7 @@
           </div>
           <div :class="$style.inputWrapper">
             <div :class="$style.inputTitle">{{ localization.components.settlements.inputs.settlement_account }}</div>
-            <GnzsInput v-model="currItem.settlement_account" :class="[$style.orgInput]" positive-only />
+            <GnzsInput v-model="currItem.settlementAccount" :class="[$style.orgInput]" positive-only />
           </div>
           <div :class="$style.buttons">
             <GnzsButton v-if="!props.isAddMode" :class="$style.removeBtn" @click="onRemoveClick" :type="`remove`">
@@ -116,7 +116,7 @@ const onSaveClick = async () => {
   if (editMode.value) {
     updateItem(props.itemId, currItem.value);
   } else {
-    currItem.value.corporate_entity_id = routeId
+    currItem.value.corporateEntityId = routeId
     await addItem(currItem.value);
     setCurrItemsList(routeId)
   }

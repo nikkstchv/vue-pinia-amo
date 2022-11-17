@@ -33,12 +33,12 @@
 
             <div :class="$style.rowFlex">
               <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.next_number }}</div>
-              <GnzsInput v-model="currItem.next_number" :class="[$style.inputName, $style.orgInput]" positive-only />
+              <GnzsInput v-model="currItem.nextNumber" :class="[$style.inputName, $style.orgInput]" positive-only />
             </div>
 
             <div :class="$style.rowFlex">
               <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.number_length }}</div>
-              <GnzsInput v-model="currItem.number_length" :class="[$style.inputName, $style.orgInput]" positive-only />
+              <GnzsInput v-model="currItem.numberLength" :class="[$style.inputName, $style.orgInput]" positive-only />
             </div>
 
             <div :class="$style.rowFlex">
@@ -48,18 +48,18 @@
 
             <div :class="$style.rowFlex">
               <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.is_active }}</div>
-              <GnzsSwitcher v-model="currItem.is_active" :class="[$style.inputName, $style.orgInput]" positive-only />
+              <GnzsSwitcher v-model="currItem.isActive" :class="[$style.inputName, $style.orgInput]" positive-only />
             </div>
 
             <div :class="$style.rowFlex">
               <div :class="$style.inputDesc">{{ localization.views.newTemplate.inputs.document_type }}</div>
-              <GnzsDropdown :items="typesList" v-model="currItem.document_type"
+              <GnzsDropdown :items="typesList" v-model="currItem.documentType"
                 :class="[$style.inputName, $style.orgInput]" positive-only />
             </div>
 
             <div :class="$style.rowFlex">
               <GnzsCheckBox :label="localization.views.newTemplate.inputs.required_sign"
-                v-model="currItem.required_sign" />
+                v-model="currItem.requiredSign" />
             </div>
 
           </div>

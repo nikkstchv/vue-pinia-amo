@@ -4,14 +4,14 @@ import * as api from "@/api/docflow";
 import { useHeaderStore } from "./headerStore";
 
 const initItem = () => ({
-  corporate_entity_id: 0,
+  corporateEntityId: 0,
   name: "",
-  bank_name: "",
-  correspondent_account: "",
+  bankName: "",
+  correspondentAccount: "",
   bic: "",
-  settlement_account: "",
-  is_active: 1,
-  is_deleted: 0
+  settlementAccount: "",
+  isActive: 1,
+  isDeleted: 0
 })
 
 export const useSettlementStore = defineStore('settlement', {
@@ -26,7 +26,7 @@ export const useSettlementStore = defineStore('settlement', {
 
   getters: {
     getCurrItems(state) {
-      return (id: number) => state.items.filter(item => +item.corporate_entity_id == id);
+      return (id: number) => state.items.filter(item => +item.corporateEntityId == id);
     },
 
     getCurrentItem(state) {

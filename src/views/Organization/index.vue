@@ -32,66 +32,65 @@
           </div>
           <div :class="$style.inputWrapper">
             <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.signatory_position }}</div>
-            <GnzsInput v-model="currItem.signatory_position" :class="[$style.inputName, $style.orgInput]"
+            <GnzsInput v-model="currItem.signatoryPosition" :class="[$style.inputName, $style.orgInput]"
               positive-only />
           </div>
           <div :class="$style.inputWrapper">
             <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.signatory_name }}</div>
-            <GnzsInput v-model="currItem.signatory_name" :class="[$style.inputName, $style.orgInput]" positive-only />
+            <GnzsInput v-model="currItem.signatoryName" :class="[$style.inputName, $style.orgInput]" positive-only />
           </div>
           <div :class="$style.inputWrapper">
             <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.signatory_short_name }}</div>
-            <GnzsInput v-model="currItem.signatory_short_name" :class="[$style.inputName, $style.orgInput]"
+            <GnzsInput v-model="currItem.signatoryShortName" :class="[$style.inputName, $style.orgInput]"
               positive-only />
           </div>
           <div :class="$style.inputWrapper">
             <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.accountant_fio }}</div>
-            <GnzsInput v-model="currItem.accountant_fio" :class="[$style.inputName, $style.orgInput]" positive-only />
+            <GnzsInput v-model="currItem.accountantFio" :class="[$style.inputName, $style.orgInput]" positive-only />
           </div>
           <div :class="$style.inputWrapper">
             <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.based_on }}</div>
-            <GnzsInput v-model="currItem.based_on" :class="[$style.inputName, $style.orgInput]" positive-only />
+            <GnzsInput v-model="currItem.basedOn" :class="[$style.inputName, $style.orgInput]" positive-only />
           </div>
           <div :class="$style.inputWrapper">
             <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.signatory_fio }}</div>
-            <GnzsInput v-model="currItem.signatory_fio" :class="[$style.inputName, $style.orgInput]" positive-only />
+            <GnzsInput v-model="currItem.signatoryFio" :class="[$style.inputName, $style.orgInput]" positive-only />
           </div>
         </div>
         <div :class="$style.orgColumn">
           <div :class="$style.inputWrapper">
             <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.power_of_attorney }}</div>
-            <GnzsInput v-model="currItem.power_of_attorney" :class="[$style.inputName, $style.orgInput]"
-              positive-only />
+            <GnzsInput v-model="currItem.powerOfAttorney" :class="[$style.inputName, $style.orgInput]" positive-only />
           </div>
           <div :class="$style.inputWrapper">
             <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.power_of_attorney_date }}</div>
-            <GnzsInput v-model="currItem.power_of_attorney_date" :class="[$style.inputName, $style.orgInput]"
+            <GnzsInput v-model="currItem.powerOfAttorneyDate" :class="[$style.inputName, $style.orgInput]"
               positive-only />
           </div>
           <div :class="$style.inputWrapper">
             <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.legal_address }}</div>
-            <GnzsInput v-model="currItem.legal_address" :class="[$style.inputName, $style.orgInput]" positive-only />
+            <GnzsInput v-model="currItem.legalAddress" :class="[$style.inputName, $style.orgInput]" positive-only />
           </div>
           <div :class="$style.inputWrapper">
             <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.postal_address }}</div>
-            <GnzsInput v-model="currItem.postal_address" :class="[$style.inputName, $style.orgInput]" positive-only />
+            <GnzsInput v-model="currItem.postalAddress" :class="[$style.inputName, $style.orgInput]" positive-only />
           </div>
           <div :class="$style.inputWrapper">
             <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.other_address }}</div>
-            <GnzsInput v-model="currItem.other_address" :class="[$style.inputName, $style.orgInput]" positive-only />
+            <GnzsInput v-model="currItem.otherAddress" :class="[$style.inputName, $style.orgInput]" positive-only />
           </div>
           <div :class="$style.inputWrapper">
             <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.certificate_number }}</div>
-            <GnzsInput v-model="currItem.certificate_number" :class="[$style.inputName, $style.orgInput]"
+            <GnzsInput v-model="currItem.certificateNumber" :class="[$style.inputName, $style.orgInput]"
               positive-only />
           </div>
           <div :class="$style.inputWrapper">
             <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.certificate_date }}</div>
-            <GnzsInput v-model="currItem.certificate_date" :class="[$style.inputName, $style.orgInput]" positive-only />
+            <GnzsInput v-model="currItem.certificateDate" :class="[$style.inputName, $style.orgInput]" positive-only />
           </div>
           <div :class="$style.inputWrapper">
             <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.phone_number }}</div>
-            <GnzsInput v-model="currItem.phone_number" :class="[$style.inputName, $style.orgInput]" positive-only />
+            <GnzsInput v-model="currItem.phoneNumber" :class="[$style.inputName, $style.orgInput]" positive-only />
           </div>
           <div :class="$style.inputWrapper">
             <div :class="$style.inputTitle">{{ localization.views.newOrganization.inputs.email }}</div>
