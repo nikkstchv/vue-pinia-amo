@@ -76,7 +76,7 @@ export const useDocTemplateStore = defineStore('doctemplate', {
       try {
         this.items = (await api.getTemplates());
       } catch (error) {
-        return error
+       console.debug(error)
       }
     },
 
@@ -85,7 +85,7 @@ export const useDocTemplateStore = defineStore('doctemplate', {
         await api.addTemplate({ ...this.currItem });
         this.newItem = initItem();
       } catch (error) {
-        return error
+       console.debug(error)
       }
     },
 
@@ -95,7 +95,7 @@ export const useDocTemplateStore = defineStore('doctemplate', {
         await this.loadItems()
         this.setItemCopy()
       } catch (error) {
-        return error
+       console.debug(error)
       }
     },
 
@@ -104,7 +104,7 @@ export const useDocTemplateStore = defineStore('doctemplate', {
         await api.deleteTemplate(id);
         await this.loadItems()
       } catch (error) {
-        return error
+       console.debug(error)
       }
     }
   }

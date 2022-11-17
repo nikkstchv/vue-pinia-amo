@@ -72,7 +72,7 @@ export const useSettlementStore = defineStore('settlement', {
       try {
         this.items = await api.getSettlements();
       } catch (error) {
-        return error
+       console.debug(error)
       }
     },
     async addItem(item: object) {
@@ -81,7 +81,7 @@ export const useSettlementStore = defineStore('settlement', {
         this.items = await api.getSettlements();
         this.itemAddModeToggle();
       } catch (error) {
-        return error
+       console.debug(error)
       }
     },
     async updateItem(id: number, item: Settlement) {
@@ -90,7 +90,7 @@ export const useSettlementStore = defineStore('settlement', {
         await this.loadItems()
         this.setItemCopy()
       } catch (error) {
-        return error
+       console.debug(error)
       }
     },
     async removeItem(id: number) {
@@ -99,7 +99,7 @@ export const useSettlementStore = defineStore('settlement', {
         this.items = await api.getSettlements();
         this.setCurrItemsList();
       } catch (error) {
-        return error
+       console.debug(error)
       }
     },
   }

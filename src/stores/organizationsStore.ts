@@ -87,7 +87,7 @@ export const useOrganizationsStore = defineStore('organizations', {
       try {
         this.items = (await api.getOrganizations());
       } catch (error) {
-        return error
+       console.debug(error)
       }
     },
 
@@ -97,7 +97,7 @@ export const useOrganizationsStore = defineStore('organizations', {
         await api.addOrganization({...this.currItem});
         this.newItem = initItem();
       } catch (error) {
-        return error
+       console.debug(error)
       }
     },
 
@@ -107,7 +107,7 @@ export const useOrganizationsStore = defineStore('organizations', {
         await this.loadItems()
         this.setItemCopy()
       } catch (error) {
-        return error
+       console.debug(error)
       }
     },
 
@@ -116,7 +116,7 @@ export const useOrganizationsStore = defineStore('organizations', {
         await api.deleteOrganization(id);
         await this.loadItems()
       } catch (error) {
-        return error
+       console.debug(error)
       }
     }
   }

@@ -14,7 +14,7 @@ export default (iframeName: string) => {
         try {
           await useDocTypeStore().removeItem(elementId);
         } catch (error) {
-          return error
+         console.debug(error)
         }
         window.parent.postMessage({ event: `${iframeName}:closeConfirm`, data: { modalId } }, '*');
         break;
@@ -25,7 +25,7 @@ export default (iframeName: string) => {
           await useOrganizationsStore().removeItem(elementId);
           useHeaderStore().goToMainRoute();
         } catch (error) {
-          return error
+         console.debug(error)
         }
         window.parent.postMessage({ event: `${iframeName}:closeConfirm`, data: { modalId } }, '*');
         break;
@@ -35,7 +35,7 @@ export default (iframeName: string) => {
         try {
           await useDocTemplateStore().removeItem(elementId);
         } catch (error) {
-          return error
+         console.debug(error)
         }
         window.parent.postMessage({ event: `${iframeName}:closeConfirm`, data: { modalId } }, '*');
         break;
@@ -45,7 +45,7 @@ export default (iframeName: string) => {
         try {
           await useSettlementStore().removeItem(elementId);
         } catch (error) {
-          return error
+         console.debug(error)
         }
         window.parent.postMessage({ event: `${iframeName}:closeConfirm`, data: { modalId } }, '*');
         break;
