@@ -6,6 +6,9 @@ import PATHS from "@/router/paths";
 import AdvancedSettings from "@/views/Main";
 import Organization from "@/views/Organization";
 import Template from "@/views/Template";
+import DocumentTab from "@/views/DocumentTab";
+
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -54,7 +57,17 @@ const router = createRouter({
         useHeaderStore().setCurrentRouteName(<string>PATHS.NEW_TEMPLATE.name);
         next();
       },
-    }
+    },
+    {
+      path: PATHS.DOCUMENT_TAB.path,
+      name: PATHS.DOCUMENT_TAB.name,
+      component: DocumentTab,
+      beforeEnter: (to, from, next) => {
+        useHeaderStore().setCurrentRouteName(<string>PATHS.NEW_TEMPLATE.name);
+        next();
+      },
+    },
+
   ]
 });
 

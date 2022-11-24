@@ -9,13 +9,22 @@ export default {
 
   },
 
+  tab: {
+    titles: {
+      organization: 'Юр.лицо',
+      settlement: 'Р/счет',
+      document: 'Документ'
+    }
+  },
+
   buttons: {
     append: 'Добавить',
     back: 'Назад',
     save: 'Сохранить',
     cancel: 'Отмена',
     yes: 'Да',
-    close: 'Закрыть'
+    close: 'Закрыть',
+    create: 'Создать'
   },
 
   dropdowns: {

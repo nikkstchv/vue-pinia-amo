@@ -6,9 +6,13 @@ export type SettlementList = {
   [key: string]: string,
 }
 
+export type mappedOrgs = {
+  [key: string]: string,
+}
+
 export class OrganizationsState {
   items: Organization[];
-  currSettlementAccountlist: SettlementList[];
+  mappedOrgs: mappedOrgs[];
   currItem: Organization;
   currItemCopy: {};
   newItem: {};

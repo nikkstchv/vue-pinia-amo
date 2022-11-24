@@ -37,7 +37,7 @@ const initItem = () => ({
 export const useOrganizationsStore = defineStore('organizations', {
   state: (): OrganizationsState => ({
     items: [],
-    currSettlementAccountlist: [],
+    mappedOrgs: [],
     currItem: {},
     currItemCopy: {},
     newItem: initItem(),
@@ -61,6 +61,13 @@ export const useOrganizationsStore = defineStore('organizations', {
   },
 
   actions: {
+    setmappedOrgs() {
+      this.mappedOrgs = this.items.map(item => ({
+        value: item.id,
+        title: item.name
+      }))
+    },
+
     setEditMode() {
       const currId: number = useHeaderStore().currentRouteId
       if (Number.isNaN(currId)) {

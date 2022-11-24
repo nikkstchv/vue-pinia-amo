@@ -18,5 +18,9 @@ export default {
   NEW_TEMPLATE: {
     name: "newTemplate",
     path: "/newTemplate",
-  }
+  },
+  DOCUMENT_TAB: {
+    name: "documentTab",
+    path: "/tab",
+  },
 };
