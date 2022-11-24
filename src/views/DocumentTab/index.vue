@@ -24,7 +24,7 @@
 
     <div :class="$style.columnFlex">
       <div v-for="document in documents" :class="$style.rowFlexDocField">
-        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48" viewBox="0 0 48 48">
+        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48" viewBox="7 0 48 48">
           <path fill="#2196f3"
             d="M37,45H11c-1.657,0-3-1.343-3-3V6c0-1.657,1.343-3,3-3h19l10,10v29C40,43.657,38.657,45,37,45z"></path>
           <path fill="#bbdefb" d="M40 13L30 13 30 3z"></path>
