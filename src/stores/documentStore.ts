@@ -73,7 +73,7 @@ export const useDocumentStore = defineStore('document', {
     },
     async addItem() {
       try {
-        await api.addDocument({...this.newItem, templateId: +this.currTemplateId, organizationId: +this.currOrgId, settlementAccountId: +this.currSettlmentId });
+        await api.addDocument({...this.newItem, templateId: +this.currTemplateId, organizationId: +this.currOrgId, settlementAccountId: +this.currSettlmentId, createdAt: new Date().toLocaleDateString('ru-RU', {}) });
         this.loadItems()
       } catch (error) {
        console.debug(error)

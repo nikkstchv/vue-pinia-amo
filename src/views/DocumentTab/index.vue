@@ -31,9 +31,10 @@
           <path fill="#1565c0" d="M30 13L40 23 40 13z"></path>
           <path fill="#e3f2fd" d="M15 23H33V25H15zM15 27H33V29H15zM15 31H33V33H15zM15 35H25V37H15z"></path>
         </svg>
-        <div :class="$style.inputDesc">
-          <p>{{ getCurrTemplateName(document.templateId) }} №{{ document.number }}</p>
-          <p>{{ getCurrOrganizationName(document.organizationId) }},
+        <div>
+          <p>{{ getCurrTemplateName(document.templateId) }} №{{ document.number || "--" }} от {{ document.createdAt }}
+          </p>
+          <p :class="$style.docDescription">{{ getCurrOrganizationName(document.organizationId) }},
             {{ getCurrSettlementName(document.settlementAccountId) }}</p>
         </div>
         <!--
