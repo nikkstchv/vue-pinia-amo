@@ -6,15 +6,15 @@ import { useOrganizationsStore } from "./organizationsStore";
 import * as api from "@/api/docflow";
 
 const initItem = () => ({
-  amoEntityType: 0,
-  amoEntityId: 0, 
+  entityType: 0,
+  entityId: 0, 
   url: '',
   number: '',
   templateId: 0,
   organizationId: 0,
   settlementAccountId: 0,
   isSigned: '',
-  amoUserId: '',
+  userId: '',
   isDeleted: '',
   createdAt: 0
 })
