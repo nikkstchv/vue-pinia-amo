@@ -37,10 +37,6 @@
           <p :class="$style.docDescription">{{ getCurrOrganizationName(document.organizationId) }},
             {{ getCurrSettlementName(document.settlementAccountId) }}</p>
         </div>
-        <!--
-            {Название шаблона} №{Номер документа} от {Дата создания документа}
-            {Юр. лицо} {Р/C}
-          -->
       </div>
     </div>
   </Section>
