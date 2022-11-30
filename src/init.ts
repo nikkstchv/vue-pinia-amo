@@ -14,7 +14,7 @@ export default async function (route: any) {
     };
     case PATHS.DOCUMENT_TAB.name: {
       await useOrganizationsStore().loadItems()
-      useOrganizationsStore().setmappedOrgs()
+      useOrganizationsStore().setMappedOrgs()
       await useSettlementStore().loadItems()
       await useDocTemplateStore().loadItems()
 

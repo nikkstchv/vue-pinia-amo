@@ -50,6 +50,10 @@ export const useDocumentStore = defineStore('document', {
       }))
     },
 
+    getCurrTemplate(state) {
+      return (id: number) => useDocTemplateStore().items.find(item => +item.id == id)
+    },
+
     getCurrTemplateName(state) {
       return (id: number) => useDocTemplateStore().items.find(item => +item.id == id)?.name
     },
@@ -74,7 +78,37 @@ export const useDocumentStore = defineStore('document', {
     async addItem() {
       try {
         // true прелоадер
-        await api.addDocument({...this.newItem, templateId: +this.currTemplateId, organizationId: +this.currOrgId, settlementAccountId: +this.currSettlmentId, createdAt: new Date().toLocaleDateString('ru-RU', {}) });
+        if (!String.prototype.padStart) {
+          String.prototype.padStart = function padStart(targetLength,padString) {
+              targetLength = targetLength>>0; //floor if number or convert non-number to 0;
+              padString = String(padString || ' ');
+              if (this.length > targetLength) {
+                  return String(this);
+              }
+              else {
+                  targetLength = targetLength-this.length;
+                  if (targetLength > padString.length) {
+                      padString += padString.repeat(targetLength/padString.length); //append to original to ensure we are longer than needed
+                  }
+                  return padString.slice(0,targetLength) + String(this);
+              }
+          };
+      }
+        const template = await api.getTemplateById(+this.currTemplateId)
+        const counter = template.nextNumber.toString().padStart(template.numberLength , "0")
+        const number = `${template.prefix}${counter}${template.suffix}`
+
+        await api.addDocument({
+          ...this.newItem,
+          number: number,
+          templateId: +this.currTemplateId,
+          organizationId: +this.currOrgId,
+          settlementAccountId: +this.currSettlmentId,
+          createdAt: new Date().toLocaleDateString('ru-RU', {})
+        });
+
+        const nextNumber = template.nextNumber + 1;
+        await api.updateTemplate(+this.currTemplateId, {...template, nextNumber: nextNumber});
         this.loadItems()
       } catch (error) {
        console.debug(error)

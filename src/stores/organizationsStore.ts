@@ -61,7 +61,7 @@ export const useOrganizationsStore = defineStore('organizations', {
   },
 
   actions: {
-    setmappedOrgs() {
+    setMappedOrgs() {
       this.mappedOrgs = this.items.map(item => ({
         value: item.id,
         title: item.name
