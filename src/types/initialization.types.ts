@@ -7,7 +7,7 @@ export class InitializationState {
   accountData: AccountDataDto | null;
   token: string | null;
   lang: string | null;
-  amoAccountId: number | null;
+  extAccountId: number | null;
   amoUserId: number | null;
   users: User[];
   tokenError: string | null;
@@ -147,7 +147,7 @@ export class PartnerDto {
 }
 
 export class UsersDto {
-  amoAccountId: number;
+  extAccountId: number;
   amoUserId: number
 }
 
@@ -161,6 +161,6 @@ export class DataToChatra {
   name: string;
   email: string;
   phone: string;
-  amoAccountId: number;
+  extAccountId: number;
   amoSubdomain: string;
 }

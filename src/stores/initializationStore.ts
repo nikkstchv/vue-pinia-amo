@@ -25,7 +25,7 @@ export const useInitializationStore = defineStore({
     accountData: null,
     token: null,
     lang: null,
-    amoAccountId: null,
+    extAccountId: null,
     amoUserId: null,
     users: [],
     tokenError: null,
@@ -57,12 +57,12 @@ export const useInitializationStore = defineStore({
     //     name: currentUser?.name,
     //     email: currentUser?.login,
     //     phone: currentUser?.phone_number,
-    //     amoAccountId: state.accountData?.id,
+    //     extAccountId: state.accountData?.id,
     //     amoSubdomain: state.accountData?.amoSubdomain,
     //   };
     // },
 
-    // isAccountForTest: (state): boolean => state.amoAccountId === 28830832,
+    // isAccountForTest: (state): boolean => state.extAccountId === 28830832,
   },
 
   actions: {
@@ -92,7 +92,7 @@ export const useInitializationStore = defineStore({
         this.token = token;
         this.lang = lang;
         this.decodeToken = await verifyAndDecodeToken(GNZS_WIDGET_ID);
-        // this.amoAccountId = +this.decodeToken.account_id;
+        // this.extAccountId = +this.decodeToken.account_id;
         // this.accountData = await getAccountInfo();
         // this.DNAInfo = await getDNAInfo();
         // this.amoUserId = +currUrl?.searchParams?.get("user-id") || +this.decodeToken.user_id || import.meta.env.VITE_APP_DEVELOPER_AMO_USER_ID;

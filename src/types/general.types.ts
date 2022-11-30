@@ -20,7 +20,7 @@ export class scheduleType {
 }
 
 export class Schedule {
-  amoAccountId: number | null;
+  extAccountId: number | null;
   id: string | null;
   name: string | null;
   type: number | null;
