@@ -23,6 +23,7 @@ const initItem = () => ({
 export const useDocumentStore = defineStore('document', {
   state: (): DocumentState => ({
     items: [],
+    isLoading: false,
     currOrgId: '',
     currSettlmentId: '',
     currSettlment: {},
@@ -30,6 +31,15 @@ export const useDocumentStore = defineStore('document', {
     currTemplateId: '',
     newItem: initItem(),
   }),
+
+  // Документы в формате списка:
+  // №
+  // Название (Шаблон)
+  // Тип документа
+  // Сущность (ID сущности, ссылка)
+  // Организация
+  // Отв-й
+  // Дата создания
 
   getters: {
     getSettlementsList(state) {
@@ -77,7 +87,7 @@ export const useDocumentStore = defineStore('document', {
     },
     async addItem() {
       try {
-        // true прелоадер
+        // padStart polyfill START
         if (!String.prototype.padStart) {
           String.prototype.padStart = function padStart(targetLength,padString) {
               targetLength = targetLength>>0; //floor if number or convert non-number to 0;
@@ -93,10 +103,15 @@ export const useDocumentStore = defineStore('document', {
                   return padString.slice(0,targetLength) + String(this);
               }
           };
-      }
+        }
+        // padStart polyfill END
+
+        this.isLoading = true;
+
         const template = await api.getTemplateById(+this.currTemplateId)
         const counter = template.nextNumber.toString().padStart(template.numberLength , "0")
         const number = `${template.prefix}${counter}${template.suffix}`
+        const nextNumber = template.nextNumber + 1
 
         await api.addDocument({
           ...this.newItem,
@@ -105,15 +120,15 @@ export const useDocumentStore = defineStore('document', {
           organizationId: +this.currOrgId,
           settlementAccountId: +this.currSettlmentId,
           createdAt: new Date().toLocaleDateString('ru-RU', {})
-        });
+        })
 
-        const nextNumber = template.nextNumber + 1;
-        await api.updateTemplate(+this.currTemplateId, {...template, nextNumber: nextNumber});
+        await api.updateTemplate(+this.currTemplateId, {...template, nextNumber: nextNumber})
+
         this.loadItems()
       } catch (error) {
        console.debug(error)
       } finally {
-        // false прелоадер
+        this.isLoading = false;
       }
     },
   }

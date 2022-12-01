@@ -12,6 +12,7 @@ export type Template = {
 
 export class DocumentState {
   items: Document[];
+  isLoading: boolean;
   currOrgId: string;
   currSettlmentId: string;
   currSettlment: Settlement;

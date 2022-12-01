@@ -18,7 +18,7 @@
         <div :class="$style.inputDesc">{{ localization.tab.titles.document }}</div>
         <GnzsDropdown :items="getTemplatesList" v-model="currTemplateId" :class="$style.orgInput" positive-only />
       </div>
-      <GnzsButton @click="addItem" :class="$style.templateBtn"> {{ localization.buttons.create }}
+      <GnzsButton :loading="isLoading" @click="addItem" :class="$style.templateBtn"> {{ localization.buttons.create }}
       </GnzsButton>
     </div>
 
@@ -66,7 +66,7 @@ import GnzsDropdown from "@/gnzs-controls/gnzs-dropdown/gnzs-dropdown.vue";
 import init from "@/init";
 
 const { mappedOrgs } = storeToRefs(useOrganizationsStore());
-const { items: documents, currOrgId, currSettlmentId, currTemplateId, getSettlementsList, getTemplatesList, getCurrTemplateName, getCurrOrganizationName, getCurrSettlementName } = storeToRefs(useDocumentStore());
+const { items: documents, isLoading, currOrgId, currSettlmentId, currTemplateId, getSettlementsList, getTemplatesList, getCurrTemplateName, getCurrOrganizationName, getCurrSettlementName } = storeToRefs(useDocumentStore());
 const { loadItems: loadDocuments, addItem } = useDocumentStore()
 
 // computed

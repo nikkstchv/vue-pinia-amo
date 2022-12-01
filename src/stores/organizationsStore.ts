@@ -50,7 +50,9 @@ export const useOrganizationsStore = defineStore('organizations', {
       if (Number.isNaN(currId)) {
         return () => state.newItem
       }
-      return (id: number) => state.items.find(item => +item.id == id);
+      return (id: number | string) => {
+        return state.items.find(item => +item.id == id)
+      };
     },
     getCurrentTitle(state) {
       return (id: number) => state.items.find(item => +item.id == id)?.name

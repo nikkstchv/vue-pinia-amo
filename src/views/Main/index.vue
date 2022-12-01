@@ -1,3 +1,25 @@
+<template>
+  <div :class="$style.container">
+    <GznsHeader :fixed="isChanged" :mainTitle="localization.title" />
+    <GnzsTabs :tabs="tabs" @change="setActiveTab">
+      <div gnzs-tab-id="account" :class="$style.columnFlex">
+        <Account />
+        <Organizations />
+      </div>
+      <div gnzs-tab-id="templates" :class="$style.columnFlex">
+        <TemplateSetup />
+        <TemplateTypes />
+      </div>
+      <div gnzs-tab-id="tables">
+        <Tables />
+      </div>
+      <div gnzs-tab-id="variables">
+        <Variables />
+      </div>
+    </GnzsTabs>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { storeToRefs } from "pinia";
@@ -42,27 +64,6 @@ onMounted(async () => {
   await init(route)
 })
 </script>
-<template>
-  <div :class="$style.container">
-    <GznsHeader :fixed="isChanged" :mainTitle="localization.title" />
-    <GnzsTabs :tabs="tabs" @change="setActiveTab">
-      <div gnzs-tab-id="account" :class="$style.columnFlex">
-        <Account />
-        <Organizations />
-      </div>
-      <div gnzs-tab-id="templates" :class="$style.columnFlex">
-        <TemplateSetup />
-        <TemplateTypes />
-      </div>
-      <div gnzs-tab-id="tables">
-        <Tables />
-      </div>
-      <div gnzs-tab-id="variables">
-        <Variables />
-      </div>
-    </GnzsTabs>
-  </div>
-</template>
 
 <style lang="scss" module>
 @import "./style.scss";

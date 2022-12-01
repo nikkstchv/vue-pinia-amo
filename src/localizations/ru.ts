@@ -124,6 +124,20 @@ export default {
     }
   },
   components: {
+    documents: {
+      header: 'Реестр документов',
+      tables: {
+        headers: {
+          number: '№',
+          name: 'Название',
+          type: 'Тип',
+          entity: 'Сущность',
+          organization: 'Организация',
+          responsible: 'Ответственный',
+          created: 'Дата создания'
+        }
+      }
+    },
     settlements: {
       inputs: {
         name: "Наименование р/счета",

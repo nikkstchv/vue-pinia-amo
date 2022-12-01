@@ -10,6 +10,14 @@ export const useDocTypeStore = defineStore('doctype', {
     inputValue: ''
   }),
 
+  getters: {
+    getCurrentItem(state) {
+      return (id: number) => {
+        return state.items.find(item => +item.id == id)
+      }
+    }
+  },
+
   actions: {
     itemAddModeToggle() {
       this.isAddMode = !this.isAddMode;

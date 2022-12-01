@@ -37,7 +37,15 @@ export const useDocTemplateStore = defineStore('doctemplate', {
       if (Number.isNaN(currId)) {
         return () => state.newItem
       }
-      return (id: number) => state.items.find(item => +item.id == id);
+      return (id: number) => {
+        return state.items.find(item => +item.id == id)
+      }
+    },
+
+    getTypeId(state){
+      return (id: number) => {
+        return state.items.find(item => +item.id == id)?.documentType
+      }
     },
 
     getCurrentTitle(state) {
