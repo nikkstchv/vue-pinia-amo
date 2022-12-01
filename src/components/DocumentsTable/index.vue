@@ -53,13 +53,13 @@
               {{ getCurrentType(+getTypeId(doc.templateId)).name }}
             </td>
             <td :class="$style.blueText" data-code="entity">
-              {{ doc.templateId }}
+              {{ doc.entityType }}
             </td>
             <td :class="$style.blueText" data-code="organization">
               {{ getCurrentOrg(doc.organizationId)?.name }}
             </td>
             <td :class="$style.blueText" data-code="responsible">
-              {{ doc.templateId }}
+              {{ doc.userId }}
             </td>
             <td :class="$style.blueText" data-code="created">
               {{ doc.createdAt }}

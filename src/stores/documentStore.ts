@@ -25,7 +25,7 @@ export const useDocumentStore = defineStore('document', {
     items: [],
     isLoading: false,
     currOrgId: '',
-    currSettlmentId: '',
+      currSettlmentId: '',
     currSettlment: {},
     currOrganization: {},
     currTemplateId: '',
