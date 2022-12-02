@@ -20,98 +20,98 @@ const initItem = () => ({
 })
 
 
-export const useDocumentStore = defineStore('document', {
+export const useDocumentStore = defineStore("document", {
   state: (): DocumentState => ({
     items: [],
     isLoading: false,
-    currOrgId: '',
-      currSettlmentId: '',
+    currOrgId: "",
+    currSettlmentId: "",
     currSettlment: {},
     currOrganization: {},
-    currTemplateId: '',
+    currTemplateId: "",
     newItem: initItem(),
   }),
 
-  // Документы в формате списка:
-  // №
-  // Название (Шаблон)
-  // Тип документа
-  // Сущность (ID сущности, ссылка)
-  // Организация
-  // Отв-й
-  // Дата создания
-
   getters: {
     getSettlementsList(state) {
-      return useSettlementStore().items
-      .filter(item => {
-        return item.corporateEntityId === state.currOrgId
-      })
-      .map(item => ({
-        value: item.id,
-        title: item.name
-      }))
+      return useSettlementStore()
+        .items.filter((item) => {
+          return item.corporateEntityId === state.currOrgId;
+        })
+        .map((item) => ({
+          value: item.id,
+          title: item.name,
+        }));
     },
 
     getTemplatesList(state) {
-      return useDocTemplateStore().items.map(item => ({
+      return useDocTemplateStore().items.map((item) => ({
         value: item.id,
-        title: item.name
-      }))
+        title: item.name,
+      }));
     },
 
     getCurrTemplate(state) {
-      return (id: number) => useDocTemplateStore().items.find(item => +item.id == id)
+      return (id: number) =>
+        useDocTemplateStore().items.find((item) => +item.id == id);
     },
 
     getCurrTemplateName(state) {
-      return (id: number) => useDocTemplateStore().items.find(item => +item.id == id)?.name
+      return (id: number) =>
+        useDocTemplateStore().items.find((item) => +item.id == id)?.name;
     },
 
     getCurrOrganizationName(state) {
-      return (id: number) => useOrganizationsStore().items.find(item => +item.id == id)?.name
+      return (id: number) =>
+        useOrganizationsStore().items.find((item) => +item.id == id)?.name;
     },
 
     getCurrSettlementName(state) {
-      return (id: number) => useSettlementStore().items.find(item => +item.id == id)?.name
+      return (id: number) =>
+        useSettlementStore().items.find((item) => +item.id == id)?.name;
     },
   },
 
   actions: {
     async loadItems() {
       try {
-        this.items = (await api.getDocuments());
+        // this.items = await api.getDocuments();
+        this.items = await api.getPaginatedDocuments(1, 2, "ю");
       } catch (error) {
-       console.debug(error)
+        console.debug(error);
       }
     },
     async addItem() {
       try {
         // padStart polyfill START
         if (!String.prototype.padStart) {
-          String.prototype.padStart = function padStart(targetLength,padString) {
-              targetLength = targetLength>>0; //floor if number or convert non-number to 0;
-              padString = String(padString || ' ');
-              if (this.length > targetLength) {
-                  return String(this);
+          String.prototype.padStart = function padStart(
+            targetLength,
+            padString
+          ) {
+            targetLength = targetLength >> 0; //floor if number or convert non-number to 0;
+            padString = String(padString || " ");
+            if (this.length > targetLength) {
+              return String(this);
+            } else {
+              targetLength = targetLength - this.length;
+              if (targetLength > padString.length) {
+                padString += padString.repeat(targetLength / padString.length); //append to original to ensure we are longer than needed
               }
-              else {
-                  targetLength = targetLength-this.length;
-                  if (targetLength > padString.length) {
-                      padString += padString.repeat(targetLength/padString.length); //append to original to ensure we are longer than needed
-                  }
-                  return padString.slice(0,targetLength) + String(this);
-              }
+              return padString.slice(0, targetLength) + String(this);
+            }
           };
         }
         // padStart polyfill END
 
         this.isLoading = true;
 
-        const template = await api.getTemplateById(+this.currTemplateId)
-        const counter = template.nextNumber.toString().padStart(template.numberLength , "0")
-        const number = `${template.prefix}${counter}${template.suffix}`
-        const nextNumber = template.nextNumber + 1
+        const template = await api.getTemplateById(+this.currTemplateId);
+        const counter = template.nextNumber
+          .toString()
+          .padStart(template.numberLength, "0");
+        const number = `${template.prefix}${counter}${template.suffix}`;
+        const nextNumber = template.nextNumber + 1;
 
         await api.addDocument({
           ...this.newItem,
@@ -119,17 +119,20 @@ export const useDocumentStore = defineStore('document', {
           templateId: +this.currTemplateId,
           organizationId: +this.currOrgId,
           settlementAccountId: +this.currSettlmentId,
-          createdAt: new Date().toLocaleDateString('ru-RU', {})
-        })
+          createdAt: new Date().toLocaleDateString("ru-RU", {}),
+        });
 
-        await api.updateTemplate(+this.currTemplateId, {...template, nextNumber: nextNumber})
+        await api.updateTemplate(+this.currTemplateId, {
+          ...template,
+          nextNumber: nextNumber,
+        });
 
-        this.loadItems()
+        this.loadItems();
       } catch (error) {
-       console.debug(error)
+        console.debug(error);
       } finally {
         this.isLoading = false;
       }
     },
-  }
-}) 
+  },
+}); 

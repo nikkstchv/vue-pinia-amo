@@ -47,10 +47,10 @@
               {{ doc.number }}
             </td>
             <td :class="$style.blueText" data-code="name">
-              {{ getCurrentTemplate(doc.templateId).name }}
+              {{ getCurrentTemplate(doc.templateId)?.name }}
             </td>
             <td :class="$style.blueText" data-code="type">
-              {{ getCurrentType(+getTypeId(doc.templateId)).name }}
+              {{ getCurrentType(+getTypeId(doc.templateId))?.name }}
             </td>
             <td :class="$style.blueText" data-code="entity">
               {{ doc.entityType }}
@@ -69,12 +69,25 @@
       </table>
     </div>
   </div>
+  <Pagination />
+  <!-- v-if="isDataNotEmpty"
+                 :page-count="documents?.pageCount"
+                 :current-page="documents?.page"
+                 :limit=""
+                 @on-prev-page=""
+                 @on-next-page=""
+                 @on-select-page=""
+                 @on-change-limit=""
+                      -->
 </template>
 
+
 <script setup>
-import { onMounted, toRaw } from "vue";
+import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { computed } from "@vue/reactivity";
+
+import Pagination from "@/gnzs-controls/gnzs-pagination/gnzs-pagination.vue"
 
 import { useInitializationStore } from "@/stores/initializationStore";
 import { useDocumentStore } from "@/stores/documentStore";
@@ -85,10 +98,9 @@ import { useOrganizationsStore } from "@/stores/organizationsStore";
 const initializationStore = useInitializationStore();
 const localization = computed(() => initializationStore.localization);
 
-
+const { getCurrentItem: getCurrentTemplate, getTypeId } = storeToRefs(useDocTemplateStore());
 const { getCurrentItem: getCurrentOrg } = storeToRefs(useOrganizationsStore());
 const { getCurrentItem: getCurrentType } = storeToRefs(useDocTypeStore());
-const { getCurrentItem: getCurrentTemplate, getTypeId } = storeToRefs(useDocTemplateStore());
 const { items: documents } = storeToRefs(useDocumentStore());
 
 const { loadItems } = useDocumentStore();

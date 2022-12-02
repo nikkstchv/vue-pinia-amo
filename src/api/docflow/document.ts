@@ -5,6 +5,14 @@ export const getDocuments = async () => {
   return API_DOCFLOW.get('document').then(response => response?.data);
 }
 
+export const getPaginatedDocuments = async (page: number, limit: number, search: string) => {
+  return API_DOCFLOW.get(
+    `document/paginated?page=${page}&limit=${limit}&search=${search}`
+  ).then((response) => response?.data.data);
+};
+
+// ?page=1&limit=2&search=%D0%BA'
+
 export const getDocumentById = async (id: number) => {
   return API_DOCFLOW.get(`document/${id}`).then(response => response?.data);
 }

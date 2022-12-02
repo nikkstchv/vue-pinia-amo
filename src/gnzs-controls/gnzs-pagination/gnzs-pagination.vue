@@ -3,7 +3,7 @@
   import { computed, onMounted, ref, watch, type PropType, type Ref } from "vue";
   import { LOCALIZATION, displayItemsLimits } from "./constants";
 
-  import GnzsDropdown from "../gnzs-dropdown/gnzs-dropdown.vue";
+import GnzsDropdown from "@/gnzs-controls/gnzs-dropdown-new/gnzs-dropdown.vue";
 
   //types
   import type { displayItemsLimit } from "./types";
