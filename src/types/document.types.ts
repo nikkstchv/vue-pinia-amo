@@ -18,7 +18,7 @@ export class DocumentState {
   items: Document[];
   paginated: Paginated[];
   page: number;
-  limit: 25;
+  limit: number;
   total: number;
   isLoading: boolean;
   currOrgId: string;

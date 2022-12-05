@@ -24,7 +24,7 @@ export const useDocumentStore = defineStore("document", {
     items: [],
     paginated: [],
     page: 1,
-    limit: 0,
+    limit: 25,
     total: 0,
     isLoading: false,
     currOrgId: "",
@@ -77,7 +77,6 @@ export const useDocumentStore = defineStore("document", {
 
   actions: {
     async nextPage(total: number) {
-      console.log("%cdocumentStore.ts line:80 total", "color: #007acc;", total);
       if (this.page < total) {
         this.page = this.page + 1;
         await this.loadPaginated();
