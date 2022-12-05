@@ -5,39 +5,25 @@
         <thead>
           <tr>
             <th data-code="name">
-              {{
-                  localization.components.documents.tables.headers.number
-              }}
+              {{ localization.components.documents.tables.headers.number }}
             </th>
             <th data-code="name">
-              {{
-                  localization.components.documents.tables.headers.name
-              }}
+              {{ localization.components.documents.tables.headers.name }}
             </th>
             <th data-code="name">
-              {{
-                  localization.components.documents.tables.headers.type
-              }}
+              {{ localization.components.documents.tables.headers.type }}
             </th>
             <th data-code="name">
-              {{
-                  localization.components.documents.tables.headers.entity
-              }}
+              {{ localization.components.documents.tables.headers.entity }}
             </th>
             <th data-code="name">
-              {{
-                  localization.components.documents.tables.headers.organization
-              }}
+              {{ localization.components.documents.tables.headers.organization }}
             </th>
             <th data-code="name">
-              {{
-                  localization.components.documents.tables.headers.responsible
-              }}
+              {{ localization.components.documents.tables.headers.responsible }}
             </th>
             <th data-code="name">
-              {{
-                  localization.components.documents.tables.headers.created
-              }}
+              {{ localization.components.documents.tables.headers.created }}
             </th>
           </tr>
         </thead>
@@ -50,53 +36,60 @@
               {{ getCurrentTemplate(doc.templateId).name }}
             </td>
             <td :class="$style.blueText" data-code="type">
-              {{ getCurrentType(+getTypeId(doc.templateId)).name
-              }}
-              </td>
-              <td :class="$style.blueText" data-code="entity">
-                {{ doc.entityType }}
-              </td>
-              <td :class="$style.blueText" data-code="organization">
-                {{ getCurrentOrg(doc.organizationId)?.name }}
-              </td>
-              <td :class="$style.blueText" data-code="responsible">
-                {{ doc.userId }}
-              </td>
-              <td :class="$style.blueText" data-code="created">
-                {{ doc.createdAt }}
-              </td>
-              </tr>
-              </tbody>
-              </table>
-              </div>
-              </div>
-              <Pagination :range=paginated.total :page-count="paginated?.pageCount" :current-page="page" :limit="limit"
-                @on-next-page="nextPage(paginated?.pageCount)" @on-prev-page="prevPage" @on-select-page="selectPage"
-                @on-change-limit="changeLimit" />
+              {{ getCurrentType(+getTypeId(doc.templateId)).name }}
+            </td>
+            <td :class="$style.blueText" data-code="entity">
+              {{ doc.entityType }}
+            </td>
+            <td :class="$style.blueText" data-code="organization">
+              {{ getCurrentOrg(doc.organizationId)?.name }}
+            </td>
+            <td :class="$style.blueText" data-code="responsible">
+              {{ doc.userId }}
+            </td>
+            <td :class="$style.blueText" data-code="created">
+              {{ doc.createdAt }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <Pagination
+    :range="paginated.total"
+    :page-count="paginated.pageCount"
+    :current-page="page"
+    :limit="limit"
+    @on-next-page="nextPage(paginated.pageCount)"
+    @on-prev-page="prevPage"
+    @on-select-page="selectPage"
+    @on-change-limit="changeLimit"
+  />
 </template>
-
 
 <script setup>
 import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { computed } from "@vue/reactivity";
 
-import Pagination from "@/gnzs-controls/gnzs-pagination/gnzs-pagination.vue"
+import Pagination from "@/gnzs-controls/gnzs-pagination/gnzs-pagination.vue";
 
 import { useInitializationStore } from "@/stores/initializationStore";
 import { useDocumentStore } from "@/stores/documentStore";
-import { useDocTemplateStore } from "@/stores/doctemplateStore"
-import { useDocTypeStore } from "@/stores/doctypeStore"
+import { useDocTemplateStore } from "@/stores/doctemplateStore";
+import { useDocTypeStore } from "@/stores/doctypeStore";
 import { useOrganizationsStore } from "@/stores/organizationsStore";
 
 const initializationStore = useInitializationStore();
 const localization = computed(() => initializationStore.localization);
 
-const { getCurrentItem: getCurrentTemplate, getTypeId } = storeToRefs(useDocTemplateStore());
+const { getCurrentItem: getCurrentTemplate, getTypeId } = storeToRefs(
+  useDocTemplateStore()
+);
 const { getCurrentItem: getCurrentOrg } = storeToRefs(useOrganizationsStore());
 const { getCurrentItem: getCurrentType } = storeToRefs(useDocTypeStore());
 const { paginated, page, limit } = storeToRefs(useDocumentStore());
-const { nextPage, prevPage, selectPage, changeLimit } = useDocumentStore()
+const { nextPage, prevPage, selectPage, changeLimit } = useDocumentStore();
 
 const { loadPaginated } = useDocumentStore();
 
@@ -106,5 +99,5 @@ onMounted(async () => {
 </script>
 
 <style lang="scss" module>
-@import './style.scss';
+@import "./style.scss";
 </style>

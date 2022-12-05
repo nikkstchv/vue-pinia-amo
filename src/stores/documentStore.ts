@@ -5,6 +5,7 @@ import { useDocTemplateStore } from "./doctemplateStore";
 import { useOrganizationsStore } from "./organizationsStore";
 import * as api from "@/api/docflow";
 
+
 const initItem = () => ({
   entityType: 0,
   entityId: 0,
@@ -14,7 +15,7 @@ const initItem = () => ({
   organizationId: 0,
   settlementAccountId: 0,
   isSigned: "",
-  userId: "",
+  userId: 0,
   isDeleted: "",
   createdAt: 0,
 });
@@ -26,6 +27,8 @@ export const useDocumentStore = defineStore("document", {
     page: 1,
     limit: 25,
     total: 0,
+    userId: 0,
+    entityType: 0,
     isLoading: false,
     currOrgId: "",
     currSettlmentId: "",
@@ -154,6 +157,8 @@ export const useDocumentStore = defineStore("document", {
 
         await api.addDocument({
           ...this.newItem,
+          userId: this.userId,
+          entityType: this.entityType,
           number: number,
           templateId: +this.currTemplateId,
           organizationId: +this.currOrgId,

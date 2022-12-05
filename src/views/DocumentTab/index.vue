@@ -18,7 +18,8 @@
         <div :class="$style.inputDesc">{{ localization.tab.titles.document }}</div>
         <GnzsDropdown :items="getTemplatesList" v-model="currTemplateId" :class="$style.orgInput" positive-only />
       </div>
-      <GnzsButton :loading="isLoading" @click="addItem" :class="$style.templateBtn"> {{ localization.buttons.create }}
+      <GnzsButton :loading="isLoading" @click="addItem" :class="$style.templateBtn">
+        {{ localization.buttons.create }}
       </GnzsButton>
     </div>
 
@@ -34,8 +35,7 @@
         <div>
           <p>
             {{ getCurrTemplateName(document.templateId) }}
-            №{{ document.number || "--" }}
-            от {{ document.createdAt }}
+            №{{ document.number || "--" }} от {{ document.createdAt }}
           </p>
           <p :class="$style.docDescription">
             {{ getCurrOrganizationName(document.organizationId) }},
@@ -48,17 +48,17 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
-import { storeToRefs } from 'pinia';
-import { useRoute } from 'vue-router';
+import { onMounted } from "vue";
+import { storeToRefs } from "pinia";
 import { computed } from "@vue/reactivity";
+import { useRoute } from "vue-router";
 
 import { useInitializationStore } from "@/stores/initializationStore";
-import { useOrganizationsStore } from "@/stores/organizationsStore"
+import { useOrganizationsStore } from "@/stores/organizationsStore";
 import { useDocumentStore } from "@/stores/documentStore";
 
-import Icons from "@/gnzs-controls/gnzs-icons-sprite/gnzs-icons-sprite.vue"
-import Header from "@/components/TabHeader"
+import Icons from "@/gnzs-controls/gnzs-icons-sprite/gnzs-icons-sprite.vue";
+import Header from "@/components/TabHeader";
 import Section from "@/gnzs-controls/gnzs-section/gnzs-section.vue";
 import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";
 import GnzsDropdown from "@/gnzs-controls/gnzs-dropdown/gnzs-dropdown.vue";
@@ -66,20 +66,37 @@ import GnzsDropdown from "@/gnzs-controls/gnzs-dropdown/gnzs-dropdown.vue";
 import init from "@/init";
 
 const { mappedOrgs } = storeToRefs(useOrganizationsStore());
-const { items: documents, isLoading, currOrgId, currSettlmentId, currTemplateId, getSettlementsList, getTemplatesList, getCurrTemplateName, getCurrOrganizationName, getCurrSettlementName } = storeToRefs(useDocumentStore());
-const { loadItems: loadDocuments, addItem } = useDocumentStore()
+const {
+  items: documents,
+  userId,
+  entityType,
+  isLoading,
+  currOrgId,
+  currSettlmentId,
+  currTemplateId,
+  getSettlementsList,
+  getTemplatesList,
+  getCurrTemplateName,
+  getCurrOrganizationName,
+  getCurrSettlementName,
+} = storeToRefs(useDocumentStore());
+const { loadItems: loadDocuments, addItem } = useDocumentStore();
 
 // computed
 const localization = computed(() => useInitializationStore().localization);
 
-onMounted(async () => {
-  const route = useRoute()
-  await init(route)
-  loadDocuments()
-})
+const route = useRoute();
 
+userId.value = route.query['user-id'] || 0,
+entityType.value =  route.query['entity-type'] || 0,
+
+onMounted(async () => {
+  const route = useRoute();
+  await init(route);
+  loadDocuments();
+});
 </script>
 
 <style lang="scss" module>
-@import './style.scss';
+@import "./style.scss";
 </style>

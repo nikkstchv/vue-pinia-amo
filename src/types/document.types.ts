@@ -20,6 +20,8 @@ export class DocumentState {
   page: number;
   limit: number;
   total: number;
+  userId: number;
+  entityType: number;
   isLoading: boolean;
   currOrgId: string;
   currSettlmentId: string;
