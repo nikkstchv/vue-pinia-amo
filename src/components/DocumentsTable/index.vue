@@ -42,43 +42,37 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="doc in documents" :key="doc.id">
+          <tr v-for="doc in paginated.data" :key="doc.id">
             <td :class="$style.blueText" data-code="number">
               {{ doc.number }}
             </td>
             <td :class="$style.blueText" data-code="name">
-              {{ getCurrentTemplate(doc.templateId)?.name }}
+              {{ getCurrentTemplate(doc.templateId).name }}
             </td>
             <td :class="$style.blueText" data-code="type">
-              {{ getCurrentType(+getTypeId(doc.templateId))?.name }}
-            </td>
-            <td :class="$style.blueText" data-code="entity">
-              {{ doc.entityType }}
-            </td>
-            <td :class="$style.blueText" data-code="organization">
-              {{ getCurrentOrg(doc.organizationId)?.name }}
-            </td>
-            <td :class="$style.blueText" data-code="responsible">
-              {{ doc.userId }}
-            </td>
-            <td :class="$style.blueText" data-code="created">
-              {{ doc.createdAt }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <Pagination />
-  <!-- v-if="isDataNotEmpty"
-                 :page-count="documents?.pageCount"
-                 :current-page="documents?.page"
-                 :limit=""
-                 @on-prev-page=""
-                 @on-next-page=""
-                 @on-select-page=""
-                 @on-change-limit=""
-                      -->
+              {{ getCurrentType(+getTypeId(doc.templateId)).name
+              }}
+              </td>
+              <td :class="$style.blueText" data-code="entity">
+                {{ doc.entityType }}
+              </td>
+              <td :class="$style.blueText" data-code="organization">
+                {{ getCurrentOrg(doc.organizationId)?.name }}
+              </td>
+              <td :class="$style.blueText" data-code="responsible">
+                {{ doc.userId }}
+              </td>
+              <td :class="$style.blueText" data-code="created">
+                {{ doc.createdAt }}
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </div>
+              </div>
+              <Pagination :range=paginated.total :page-count="paginated?.pageCount" :current-page="page" :limit="limit"
+                @on-next-page="nextPage(paginated?.pageCount)" @on-prev-page="prevPage" @on-select-page="selectPage"
+                @on-change-limit="changeLimit" />
 </template>
 
 
@@ -101,13 +95,13 @@ const localization = computed(() => initializationStore.localization);
 const { getCurrentItem: getCurrentTemplate, getTypeId } = storeToRefs(useDocTemplateStore());
 const { getCurrentItem: getCurrentOrg } = storeToRefs(useOrganizationsStore());
 const { getCurrentItem: getCurrentType } = storeToRefs(useDocTypeStore());
-const { items: documents } = storeToRefs(useDocumentStore());
+const { paginated, page, limit } = storeToRefs(useDocumentStore());
+const { nextPage, prevPage, selectPage, changeLimit } = useDocumentStore()
 
-const { loadItems } = useDocumentStore();
-
+const { loadPaginated } = useDocumentStore();
 
 onMounted(async () => {
-  await loadItems();
+  await loadPaginated();
 });
 </script>
 

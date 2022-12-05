@@ -19,7 +19,7 @@ import GnzsDropdown from "@/gnzs-controls/gnzs-dropdown-new/gnzs-dropdown.vue";
     },
     limit: {
       type: Number,
-      default: displayItemsLimits[1].value,
+      default: displayItemsLimits[0].value,
     },
     displayItemsLimits: {
       type: Array as PropType<displayItemsLimit[]>,

@@ -7,22 +7,25 @@ import * as api from "@/api/docflow";
 
 const initItem = () => ({
   entityType: 0,
-  entityId: 0, 
-  url: '',
-  number: '',
+  entityId: 0,
+  url: "",
+  number: "",
   templateId: 0,
   organizationId: 0,
   settlementAccountId: 0,
-  isSigned: '',
-  userId: '',
-  isDeleted: '',
-  createdAt: 0
-})
-
+  isSigned: "",
+  userId: "",
+  isDeleted: "",
+  createdAt: 0,
+});
 
 export const useDocumentStore = defineStore("document", {
   state: (): DocumentState => ({
     items: [],
+    paginated: [],
+    page: 1,
+    limit: 0,
+    total: 0,
     isLoading: false,
     currOrgId: "",
     currSettlmentId: "",
@@ -73,14 +76,51 @@ export const useDocumentStore = defineStore("document", {
   },
 
   actions: {
+    async nextPage(total: number) {
+      console.log("%cdocumentStore.ts line:80 total", "color: #007acc;", total);
+      if (this.page < total) {
+        this.page = this.page + 1;
+        await this.loadPaginated();
+      }
+    },
+
+    async prevPage() {
+      if (this.page > 1) {
+        this.page = this.page - 1;
+        await this.loadPaginated();
+      }
+    },
+
+    async selectPage(page: number) {
+      this.page = page;
+      await this.loadPaginated();
+    },
+
+    async changeLimit(limit: number) {
+      this.limit = limit;
+      await this.loadPaginated();
+    },
+
     async loadItems() {
       try {
-        // this.items = await api.getDocuments();
-        this.items = await api.getPaginatedDocuments(1, 2, "ю");
+        this.items = await api.getDocuments();
       } catch (error) {
         console.debug(error);
       }
     },
+
+    async loadPaginated() {
+      try {
+        this.paginated = await api.getPaginatedDocuments(
+          this.page,
+          this.limit,
+          ""
+        );
+      } catch (error) {
+        console.debug(error);
+      }
+    },
+
     async addItem() {
       try {
         // padStart polyfill START
@@ -135,4 +175,4 @@ export const useDocumentStore = defineStore("document", {
       }
     },
   },
-}); 
+});
