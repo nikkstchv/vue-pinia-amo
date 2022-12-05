@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.header" v-once>
     <svg :class="$style.headerLogo">
-      <use xlink:href="#gnzs-docflow-icon__company-logo"></use>
+      <use xlink:href="#gnzs-1c-icon__company-logo"></use>
     </svg>
     <span :class="$style.headerTitle">ГЕНЕЗИС: Документы 2.0</span>
 
