@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { getAccountInfo, getDevJwtToken, getDNAInfo, verifyAndDecodeToken } from "@/api/gnzs-core-api";
-// import { getUserAvatar } from "@/utilities/stores/helper";
+import { getUserAvatar } from "@/utilities/stores/helper";
 import { GNZS_WIDGET_ID } from "./constants";
 import { useIframeStore } from "./iframeStore";
 import setEvents from "@/events";
@@ -84,19 +84,19 @@ export const useInitializationStore = defineStore({
           token = await getDevJwtToken(
             import.meta.env.VITE_APP_DEVELOPER_API_TOKEN,
             GNZS_WIDGET_ID,
-            import.meta.env.VITE_APP_DEVELOPER_AMO_ACCOUNT_ID
-          ); // Указываем id аккаунта, на котором тестируем и разрабатываем
+            import.meta.env.VITE_APP_DEVELOPER_AMO_ACCOUNT_ID // Указываем id аккаунта, на котором тестируем и разрабатываем
+          ); 
           console.debug("DEVELOPMENT MODE", { token });
         }
 
         this.token = token;
         this.lang = lang;
         this.decodeToken = await verifyAndDecodeToken(GNZS_WIDGET_ID);
-        // this.extAccountId = +this.decodeToken.account_id;
-        // this.accountData = await getAccountInfo();
+        this.extAccountId = +this.decodeToken.account_id;
+        this.accountData = await getAccountInfo();
         // this.DNAInfo = await getDNAInfo();
-        // this.amoUserId = +currUrl?.searchParams?.get("user-id") || +this.decodeToken.user_id || import.meta.env.VITE_APP_DEVELOPER_AMO_USER_ID;
-        // this.setUsers();  - пофиксить
+        this.amoUserId = Number(currUrl.searchParams.get("user-id")) || +this.decodeToken.user_id || import.meta.env.VITE_APP_DEVELOPER_AMO_USER_ID;
+        this.setUsers();
 
         setEvents(iframeName);
         iframeStore.setIframeName(iframeName);
@@ -116,7 +116,9 @@ export const useInitializationStore = defineStore({
       const { amoUsers, amoUserGroups, amoSubdomain, amoTopLevelDomain, amoObjectAmocrm } = <AccountDataDto>this.accountData;
       let avatars: UsersAvatartDto[];
 
-      amoObjectAmocrm ? avatars = amoObjectAmocrm._users_avatars : avatars = [];
+        amoObjectAmocrm ? avatars = amoObjectAmocrm._users_avatars : avatars = [];
+        {/* console.log('%cindex.vue line:87 accountData-->store', 'color: #007acc; ', this.accountData); */}
+
 
       this.users = amoUsers.map(user => {
         return {
@@ -128,7 +130,6 @@ export const useInitializationStore = defineStore({
           isAdmin: user.is_admin || false,
         };
       });
-
     },
 
   },

@@ -21,6 +21,7 @@ export class DocumentState {
   limit: number;
   total: number;
   userId: number;
+  entityId: number;
   entityType: number;
   isLoading: boolean;
   currOrgId: string;

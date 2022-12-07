@@ -38,8 +38,8 @@
             №{{ document.number || "--" }} от {{ document.createdAt }}
           </p>
           <p :class="$style.docDescription">
-            {{ getCurrOrganizationName(document.organizationId) }},
-            {{ getCurrSettlementName(document.settlementAccountId) }}
+            {{ getCurrOrganizationName(document.organizationId) || "--"}},
+            {{ getCurrSettlementName(document.settlementAccountId) || "--"}}
           </p>
         </div>
       </div>
@@ -69,6 +69,7 @@ const { mappedOrgs } = storeToRefs(useOrganizationsStore());
 const {
   items: documents,
   userId,
+  entityId,
   entityType,
   isLoading,
   currOrgId,
@@ -87,8 +88,12 @@ const localization = computed(() => useInitializationStore().localization);
 
 const route = useRoute();
 
-userId.value = route.query['user-id'] || 0,
-entityType.value =  route.query['entity-type'] || 0,
+userId.value = +route.query['user-id'] || 0;
+entityId.value = +route.query['entity-id'] || 0;
+entityType.value = +route.query['entity-type'] || 0;
+console.log('%cindex.vue line:93 object', 'color: #007acc;', entityType.value);
+
+
 
 onMounted(async () => {
   const route = useRoute();

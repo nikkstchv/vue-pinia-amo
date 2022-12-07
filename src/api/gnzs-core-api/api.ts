@@ -10,7 +10,7 @@ export const API_CORE = axios.create({
 });
 
 API_CORE.interceptors.request.use((req: any) => {
-  req.headers["X-Account-Id"] = useInitializationStore().amoAccountId || '';
+  req.headers["X-Account-Id"] = useInitializationStore().extAccountId || '';
   req.headers["X-Widget-Id"] = GNZS_WIDGET_ID;
   req.headers["X-Auth-Token"] = useInitializationStore().token || '';
   return req;

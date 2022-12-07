@@ -4,25 +4,25 @@
       <table :class="$style.table">
         <thead>
           <tr>
-            <th data-code="name">
+            <th data-code="number">
               {{ localization.components.documents.tables.headers.number }}
             </th>
             <th data-code="name">
               {{ localization.components.documents.tables.headers.name }}
             </th>
-            <th data-code="name">
+            <th data-code="type">
               {{ localization.components.documents.tables.headers.type }}
             </th>
-            <th data-code="name">
+            <th data-code="entity">
               {{ localization.components.documents.tables.headers.entity }}
             </th>
-            <th data-code="name">
+            <th data-code="organization">
               {{ localization.components.documents.tables.headers.organization }}
             </th>
-            <th data-code="name">
+            <th data-code="responsible">
               {{ localization.components.documents.tables.headers.responsible }}
             </th>
-            <th data-code="name">
+            <th data-code="created">
               {{ localization.components.documents.tables.headers.created }}
             </th>
           </tr>
@@ -33,19 +33,20 @@
               {{ doc.number }}
             </td>
             <td :class="$style.blueText" data-code="name">
-              {{ getCurrentTemplate(doc.templateId).name }}
+              {{ getCurrentTemplate(doc.templateId)?.name }}
             </td>
             <td :class="$style.blueText" data-code="type">
               {{ getCurrentType(+getTypeId(doc.templateId)).name }}
             </td>
             <td :class="$style.blueText" data-code="entity">
-              {{ doc.entityType }}
+              <a target="_blank" :href="`https://${accountData.amoSubdomain}.amocrm.ru/${entityTypesList[doc.entityType]}/detail/${doc.entityId}`">{{ doc.entityId
+              }}</a>
             </td>
             <td :class="$style.blueText" data-code="organization">
               {{ getCurrentOrg(doc.organizationId)?.name }}
             </td>
             <td :class="$style.blueText" data-code="responsible">
-              {{ doc.userId }}
+             {{ accountData.amoUsers.find(el => el.id = doc.userId ).name}}
             </td>
             <td :class="$style.blueText" data-code="created">
               {{ doc.createdAt }}
@@ -83,15 +84,26 @@ import { useOrganizationsStore } from "@/stores/organizationsStore";
 const initializationStore = useInitializationStore();
 const localization = computed(() => initializationStore.localization);
 
+
+
 const { getCurrentItem: getCurrentTemplate, getTypeId } = storeToRefs(
   useDocTemplateStore()
 );
+const { accountData } = storeToRefs(useInitializationStore());
 const { getCurrentItem: getCurrentOrg } = storeToRefs(useOrganizationsStore());
 const { getCurrentItem: getCurrentType } = storeToRefs(useDocTypeStore());
 const { paginated, page, limit } = storeToRefs(useDocumentStore());
 const { nextPage, prevPage, selectPage, changeLimit } = useDocumentStore();
 
 const { loadPaginated } = useDocumentStore();
+ 
+const entityTypesList = {
+  1: "leads",
+  2: "contacts",
+  3: "companies",
+  12: "customers"
+}
+
 
 onMounted(async () => {
   await loadPaginated();

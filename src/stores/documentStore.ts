@@ -7,8 +7,8 @@ import * as api from "@/api/docflow";
 
 
 const initItem = () => ({
-  entityType: 0,
   entityId: 0,
+  entityType: 0,
   url: "",
   number: "",
   templateId: 0,
@@ -28,6 +28,7 @@ export const useDocumentStore = defineStore("document", {
     limit: 25,
     total: 0,
     userId: 0,
+    entityId: 0,
     entityType: 0,
     isLoading: false,
     currOrgId: "",
@@ -125,27 +126,6 @@ export const useDocumentStore = defineStore("document", {
 
     async addItem() {
       try {
-        // padStart polyfill START
-        if (!String.prototype.padStart) {
-          String.prototype.padStart = function padStart(
-            targetLength,
-            padString
-          ) {
-            targetLength = targetLength >> 0; //floor if number or convert non-number to 0;
-            padString = String(padString || " ");
-            if (this.length > targetLength) {
-              return String(this);
-            } else {
-              targetLength = targetLength - this.length;
-              if (targetLength > padString.length) {
-                padString += padString.repeat(targetLength / padString.length); //append to original to ensure we are longer than needed
-              }
-              return padString.slice(0, targetLength) + String(this);
-            }
-          };
-        }
-        // padStart polyfill END
-
         this.isLoading = true;
 
         const template = await api.getTemplateById(+this.currTemplateId);
@@ -158,6 +138,7 @@ export const useDocumentStore = defineStore("document", {
         await api.addDocument({
           ...this.newItem,
           userId: this.userId,
+          entityId: this.entityId,
           entityType: this.entityType,
           number: number,
           templateId: +this.currTemplateId,
