@@ -46,7 +46,7 @@
               {{ getCurrentOrg(doc.organizationId)?.name }}
             </td>
             <td :class="$style.blueText" data-code="responsible">
-             {{ accountData.amoUsers.find(el => el.id = doc.userId ).name}}
+            {{userName(doc.userId)}}
             </td>
             <td :class="$style.blueText" data-code="created">
               {{ doc.createdAt }}
@@ -104,6 +104,7 @@ const entityTypesList = {
   12: "customers"
 }
 
+const userName = id => accountData.value.amoUsers.find(el => el.id = id).name;
 
 onMounted(async () => {
   await loadPaginated();
