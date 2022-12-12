@@ -49,9 +49,9 @@ const addItem = () => {
   router.push('newOrganization')
 }
 
-onMounted(async () => {
-  await loadItems();
-});
+// onMounted(async () => {
+//   await loadItems();
+// });
 </script>
 
 <style lang="scss" module>
