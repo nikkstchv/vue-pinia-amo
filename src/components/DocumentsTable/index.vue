@@ -84,8 +84,6 @@ import { useOrganizationsStore } from "@/stores/organizationsStore";
 const initializationStore = useInitializationStore();
 const localization = computed(() => initializationStore.localization);
 
-
-
 const { getCurrentItem: getCurrentTemplate, getTypeId } = storeToRefs(
   useDocTemplateStore()
 );

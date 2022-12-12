@@ -137,7 +137,7 @@
 
 .inputContainer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-top: 30px;
   width: 100%;
 }
@@ -145,7 +145,8 @@
 .orgColumn {
   display: flex;
   flex-direction: column;
-  flex-basis: 47%;
+  flex-basis: 40%;
+  margin-right: 100px;
 }
 
 .orgHeader {
@@ -166,6 +167,7 @@
 }
 
 .inputTitle {
+  width: 200px;
   margin-bottom: 3px;
 }
 

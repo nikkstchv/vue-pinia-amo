@@ -117,8 +117,6 @@ export const useInitializationStore = defineStore({
       let avatars: UsersAvatartDto[];
 
         amoObjectAmocrm ? avatars = amoObjectAmocrm._users_avatars : avatars = [];
-        {/* console.log('%cindex.vue line:87 accountData-->store', 'color: #007acc; ', this.accountData); */}
-
 
       this.users = amoUsers.map(user => {
         return {

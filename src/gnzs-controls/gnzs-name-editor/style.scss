@@ -39,7 +39,7 @@
   }
 
   .name {
-    width: 350px;
+    // width: 350px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -57,7 +57,8 @@
   input {
     position: relative;
     top: -1px;
-    flex-grow: 1;
+    width: 120px;
+    // flex-grow: 1;
     border: 0;
     outline: 0;
     background-color: transparent;
@@ -93,7 +94,7 @@
   position: relative;
   display: flex;
   min-width: 0;
-  max-width: 28%;
+  max-width: 20%;
   overflow: hidden;
   font-size: 18px;
   color: #131420;

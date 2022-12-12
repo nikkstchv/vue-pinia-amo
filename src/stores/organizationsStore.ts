@@ -58,7 +58,7 @@ export const useOrganizationsStore = defineStore('organizations', {
       return (id: number) => state.items.find(item => +item.id == id)?.name
     },
     isItemChanged(state) {
-      return JSON.stringify(state.currItemCopy) === JSON.stringify(state.currItem)
+      return JSON.stringify(state.currItemCopy) !== JSON.stringify(state.currItem)
     }
   },
 
