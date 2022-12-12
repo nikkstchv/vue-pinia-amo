@@ -14,7 +14,8 @@ export class OrganizationsState {
   items: Organization[];
   mappedOrgs: mappedOrgs[];
   currItem: Organization;
-  currItemCopy: {};
-  newItem: {};
+  currItemCopy: object;
+  newItem: object;
   editMode: boolean;
+  settlementsList: SettlementList[]
 }  

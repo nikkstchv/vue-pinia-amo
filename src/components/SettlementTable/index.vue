@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.main">
     <div :class="$style.orgHeader">{{ initializationStore.localization.views.adSettings.headers.settlement }}</div>
-    <div v-for="item in currItemsList" :key="item.id">
+    <div v-for="item in items" :key="item.id">
       <SettlementEditor :item-id="item.id" @save-click="updateItem(item.id, $event)"
         @remove-click="deleteItem(item.id)" />
     </div>
@@ -19,6 +19,7 @@
 import { computed, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 
+import { useOrganizationsStore } from "@/stores/organizationsStore";
 import { useInitializationStore } from "@/stores/initializationStore";
 import { useSettlementStore } from "@/stores/settlementStore";
 import { useIframeStore } from "@/stores/iframeStore";
@@ -26,11 +27,18 @@ import { useIframeStore } from "@/stores/iframeStore";
 import SettlementEditor from "@/components/SettlementEditor";
 import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";
 
-const { addItem, setCurrItemAsNew, setItemCopy, updateItem, itemAddModeToggle, loadItems, setCurrItemsList } = useSettlementStore();
+const { addItem, setCurrItemAsNew, setItemCopy, updateItem, itemAddModeToggle, loadItems } = useSettlementStore();
+// const { setSettlementsList } = useOrganizationsStore();
 const { currItemsList, isAddMode } = storeToRefs(useSettlementStore());
 
 const initializationStore = useInitializationStore();
 const { openConfirmModal } = useIframeStore();
+
+const props = defineProps({
+  items: {
+    required: false
+  }
+});
 
 // computed
 const localization = computed(() => initializationStore.localization);
@@ -54,7 +62,6 @@ const deleteItem = (id) => {
 
 onMounted(async () => {
   await loadItems();
-  setCurrItemsList()
 });
 </script>
 

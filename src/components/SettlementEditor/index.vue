@@ -70,7 +70,7 @@ import { useInitializationStore } from "@/stores/initializationStore"
 import { useSettlementStore } from "@/stores/settlementStore"
 import { useIframeStore } from "@/stores/iframeStore"
 
-const { setCurrItem, setItemCopy, setCurrItemsList, cancelItemChanges, updateItem, addItem, disableAddMode } = useSettlementStore()
+const { setCurrItem, setItemCopy, cancelItemChanges, updateItem, addItem, disableAddMode } = useSettlementStore()
 const { items, currItem, isItemChanged } = storeToRefs(useSettlementStore())
 const { openConfirmModal } = useIframeStore()
 
@@ -118,7 +118,6 @@ const onSaveClick = async () => {
   } else {
     currItem.value.corporateEntityId = routeId
     await addItem(currItem.value);
-    setCurrItemsList(routeId)
   }
 }
 

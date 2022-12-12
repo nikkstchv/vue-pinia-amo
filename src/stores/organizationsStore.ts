@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import type { OrganizationsState, Organization, SettlementList } from "../types/organizations.types";
 import { useHeaderStore } from "@/stores/headerStore";
+import { useSettlementStore } from "./settlementStore";
 import * as api from "@/api/docflow";
 
 
@@ -41,7 +42,8 @@ export const useOrganizationsStore = defineStore('organizations', {
     currItem: {},
     currItemCopy: {},
     newItem: initItem(),
-    editMode: false
+    editMode: false,
+    settlementsList: []
   }),
 
   getters: {
@@ -63,6 +65,10 @@ export const useOrganizationsStore = defineStore('organizations', {
   },
 
   actions: {
+    setSettlementsList() {
+      this.settlementsList = useSettlementStore().items.filter(item => item.corporateEntityId === this.currItem.id)
+    },
+
     setMappedOrgs() {
       this.mappedOrgs = this.items.map(item => ({
         value: item.id,

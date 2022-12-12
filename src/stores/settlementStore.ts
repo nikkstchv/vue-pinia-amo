@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import type { SettlementState, Settlement } from "@/types/settlement.types";
 import * as api from "@/api/docflow";
-import { useHeaderStore } from "./headerStore";
+import { useOrganizationsStore } from "./organizationsStore";
 
 const initItem = () => ({
   corporateEntityId: 0,
@@ -21,7 +21,7 @@ export const useSettlementStore = defineStore('settlement', {
     currItem: {},
     currItemCopy: {},
     newItem: initItem(),
-    isAddMode: false,
+    isAddMode: false
   }),
 
   getters: {
@@ -55,11 +55,6 @@ export const useSettlementStore = defineStore('settlement', {
       this.currItem = { ...this.newItem }
     },
 
-    setCurrItemsList() {
-      const routeId: number = useHeaderStore().currentRouteId;
-      this.currItemsList = [...this.getCurrItems(routeId)]
-    },
-
     setItemCopy() {
       this.currItemCopy = { ...this.currItem }      
     },
@@ -80,6 +75,7 @@ export const useSettlementStore = defineStore('settlement', {
         await api.addSettlement(item);
         this.items = await api.getSettlements();
         this.itemAddModeToggle();
+        useOrganizationsStore().setSettlementsList()
       } catch (error) {
        console.debug(error)
       }
@@ -97,7 +93,7 @@ export const useSettlementStore = defineStore('settlement', {
       try {
         await api.deleteSettlement(id);
         this.items = await api.getSettlements();
-        this.setCurrItemsList();
+        // this.setCurrItemsList();
       } catch (error) {
        console.debug(error)
       }
