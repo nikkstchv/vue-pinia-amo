@@ -53,7 +53,7 @@ export const useDocTemplateStore = defineStore('doctemplate', {
     },
 
     isItemChanged(state) {
-      return JSON.stringify(state.currItemCopy) === JSON.stringify(state.currItem)
+      return JSON.stringify(state.currItemCopy) !== JSON.stringify(state.currItem)
     }
   },
 

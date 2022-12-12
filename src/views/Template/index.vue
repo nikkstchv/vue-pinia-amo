@@ -1,12 +1,12 @@
 <template>
   <div :class="$style.container">
-    <GnzsHeader :fixed="true" :mainTitle="localization.title" :mainRoute="getMainRoute"
+    <GnzsHeader :fixed="isItemChanged" :mainTitle="localization.title" :mainRoute="getMainRoute"
       :currentTitle="getCurrentTitle(routeId)" :editableTitle="false" :isFullScreen="true">
       <template #buttons>
         <GnzsButton type="cancel" @click="onCancelClick">{{
-            isItemChanged ? localization.buttons.back : localization.buttons.cancel
+            !isItemChanged ? localization.buttons.back : localization.buttons.cancel
         }}</GnzsButton>
-        <GnzsButton :disabled="isItemChanged" type="primary" @click="onSaveClick">{{ localization.buttons.save }}
+        <GnzsButton :disabled="!isItemChanged" type="primary" @click="onSaveClick">{{ localization.buttons.save }}
         </GnzsButton>
       </template>
     </GnzsHeader>
@@ -116,7 +116,7 @@ const getMainRoute = computed(() => isNotMainPage ? PATHS.ADVANCED_SETTINGS.name
 
 
 const onCancelClick = () => {
-  if (isItemChanged.value) {
+  if (!isItemChanged.value) {
     goToMainRoute();
   } else {
     cancelItemChanges()

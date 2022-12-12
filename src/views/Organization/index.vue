@@ -148,7 +148,7 @@ const getMainRoute = computed(() => isNotMainPage ? PATHS.ADVANCED_SETTINGS.name
 
 //clicks
 const onCancelClick = () => {
-  if (isItemChanged.value) {
+  if (!isItemChanged.value) {
     goToMainRoute();
   } else {
     cancelItemChanges()
