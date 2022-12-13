@@ -22,7 +22,7 @@ import { computed, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 
 import { useInitializationStore } from "@/stores/initializationStore";
-import { useDocTypeStore } from "@/stores/doctypeStore";
+import { useDocTypeStore } from "@/stores/docTypeStore";
 import { useIframeStore } from "@/stores/iframeStore";
 
 import GnzsNameEditor from "@/gnzs-controls/gnzs-name-editor/gnzs-name-editor.vue";

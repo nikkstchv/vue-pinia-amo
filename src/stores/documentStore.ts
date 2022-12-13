@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import type { DocumentState } from "../types/document.types";
 import { useSettlementStore } from "./settlementStore";
-import { useDocTemplateStore } from "./doctemplateStore";
+import { useDocTemplateStore } from "./docTemplateStore";
 import { useOrganizationsStore } from "./organizationsStore";
 import * as api from "@/api/docflow";
 
@@ -113,6 +113,7 @@ export const useDocumentStore = defineStore("document", {
     },
 
     async loadPaginated() {
+      console.log('%cdocum');
       try {
         this.paginated = await api.getPaginatedDocuments(
           this.page,

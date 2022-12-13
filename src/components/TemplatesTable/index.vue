@@ -33,7 +33,7 @@
 <script setup>
 import { computed, onMounted } from "vue";
 import { useInitializationStore } from "@/stores/initializationStore";
-import { useDocTemplateStore } from "@/stores/doctemplateStore";
+import { useDocTemplateStore } from "@/stores/docTemplateStore";
 
 import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";
 import { useRouter } from "vue-router";

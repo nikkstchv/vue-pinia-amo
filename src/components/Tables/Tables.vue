@@ -12,7 +12,6 @@ import DocumentsTable from "@/components/DocumentsTable"
 import { useInitializationStore } from "@/stores/initializationStore";
 
 const initializationStore = useInitializationStore();
-
 </script>
 
 <style lang="scss" module>

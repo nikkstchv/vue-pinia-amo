@@ -81,8 +81,8 @@ import { computed } from "@vue/reactivity";
 
 import { useIframeStore } from "@/stores/iframeStore";
 import { useHeaderStore } from "@/stores/headerStore";
-import { useDocTypeStore } from "@/stores/doctypeStore"
-import { useDocTemplateStore } from "@/stores/doctemplateStore";
+import { useDocTypeStore } from "@/stores/docTypeStore"
+import { useDocTemplateStore } from "@/stores/docTemplateStore";
 import { useInitializationStore } from "@/stores/initializationStore";
 
 import PATHS from "@/router/paths"

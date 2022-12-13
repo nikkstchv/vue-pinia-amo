@@ -2,7 +2,7 @@ import PATHS from '@/router/paths';
 import { useInitializationStore } from "@/stores/initializationStore";
 import { useOrganizationsStore } from "./stores/organizationsStore";
 import { useSettlementStore } from './stores/settlementStore';
-import { useDocTemplateStore } from './stores/doctemplateStore';
+import { useDocTemplateStore } from './stores/docTemplateStore';
 
 export default async function (route: any) {
   const initializationStore = useInitializationStore();

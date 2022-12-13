@@ -1,7 +1,7 @@
 <template>
   <div :class="[$style.root, $style.bots]">
     <div :class="$style.tableContainer">
-      <table :class="$style.table">
+      <table :class="$style.table" v-if="!isDataEmpty">
         <thead>
           <tr>
             <th data-code="number">
@@ -56,6 +56,7 @@
           </tr>
         </tbody>
       </table>
+      <div v-else>Нет сгенерированных документов</div>
     </div>
   </div>
   <Pagination
@@ -76,11 +77,10 @@ import { storeToRefs } from "pinia";
 import { computed } from "@vue/reactivity";
 
 import Pagination from "@/gnzs-controls/gnzs-pagination/gnzs-pagination.vue";
-
 import { useInitializationStore } from "@/stores/initializationStore";
 import { useDocumentStore } from "@/stores/documentStore";
-import { useDocTemplateStore } from "@/stores/doctemplateStore";
-import { useDocTypeStore } from "@/stores/doctypeStore";
+import { useDocTemplateStore } from "@/stores/docTemplateStore";
+import { useDocTypeStore } from "@/stores/docTypeStore";
 import { useOrganizationsStore } from "@/stores/organizationsStore";
 
 const initializationStore = useInitializationStore();
@@ -104,6 +104,8 @@ const entityTypesList = {
   12: "customers"
 }
 
+
+const isDataEmpty = computed(() => paginated.value.length === 0)
 const userName = id => accountData.value.amoUsers.find(el => el.id = id).name;
 
 onMounted(async () => {
