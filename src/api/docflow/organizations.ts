@@ -16,9 +16,9 @@ export const addOrganization = async (newItem: object) => {
 }
 
 export const updateOrganization = async (id: number, item: object) => {
-  return API_DOCFLOW.put(`organizations/${id}`, {...item}).then(response => response?.data);
+  return API_DOCFLOW.put(`organizations/${id}`, { ...item }).then(response => response?.data);
 }
 
 export const deleteOrganization = async (id: number) => {
   return API_DOCFLOW.delete(`organizations/${id}`).then(response => response?.data);
-}
+} 

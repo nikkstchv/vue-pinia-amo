@@ -5,7 +5,7 @@ export default {
   },
   ORGANIZATION: {
     name: "Organization",
-    path: "/organization/:id",
+    path: "/organizations/:id",
   },
   NEW_ORGANIZATION: {
     name: "newOrganization",

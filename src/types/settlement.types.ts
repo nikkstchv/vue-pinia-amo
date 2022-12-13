@@ -6,7 +6,7 @@ export class SettlementState {
   items: Settlement[];
   currItemsList: Settlement[];
   currItem: Settlement;
-  currItemCopy: {};
-  newItem: {};
+  currItemCopy: object;
+  newItem: object;
   isAddMode: boolean;
 }

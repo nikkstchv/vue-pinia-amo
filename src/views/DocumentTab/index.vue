@@ -4,7 +4,7 @@
   <Section>
     <div :class="$style.rowFlex">
       <div :class="$style.fieldsWrapper">
-        <div :class="$style.inputDesc">{{ localization.tab.titles.organization }}</div>
+        <div :class="$style.inputDesc">{{ localization.tab.titles.organizations }}</div>
         <GnzsDropdown :items="mappedOrgs" v-model="currOrgId" :class="[$style.inputName, $style.orgInput]"
           positive-only />
       </div>
@@ -38,7 +38,7 @@
             №{{ document.number || "--" }} от {{ document.createdAt }}
           </p>
           <p :class="$style.docDescription">
-            {{ getCurrOrganizationName(document.organizationId) || "--"}},
+            {{ getCurrOrganizationName(document.organizationsId) || "--"}},
             {{ getCurrSettlementName(document.settlementAccountId) || "--"}}
           </p>
         </div>

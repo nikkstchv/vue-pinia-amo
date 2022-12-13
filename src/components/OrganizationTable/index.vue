@@ -6,7 +6,7 @@
           <tr>
             <th data-code="name">
               {{
-                  localization.components.organizations.tables.headers.name
+  localization.components.organizations.tables.headers.name
               }}
             </th>
           </tr>
@@ -14,7 +14,7 @@
         <tbody>
           <tr v-for="item in items" :key="item.id">
             <td :class="$style.blueText" data-code="name">
-              <router-link :to="`organization/${item.id}`">{{ item.name }}</router-link>
+              <router-link :to="`organizations/${item.id}`">{{ item.name }}</router-link>
             </td>
           </tr>
         </tbody>
@@ -27,7 +27,6 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useRouter } from 'vue-router';
 import { computed } from "@vue/reactivity";
@@ -48,10 +47,6 @@ const router = useRouter();
 const addItem = () => {
   router.push('newOrganization')
 }
-
-// onMounted(async () => {
-//   await loadItems();
-// });
 </script>
 
 <style lang="scss" module>

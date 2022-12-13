@@ -29,5 +29,5 @@ export class DocumentState {
   currSettlment: Settlement;
   currOrganization: Document;
   currTemplateId: string;
-  newItem: {};
+  newItem: object;
 }

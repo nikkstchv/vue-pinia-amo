@@ -6,8 +6,8 @@ export type Template = {
 
 export class DocTemplateState {
   items: Template[];
-  currItem: {};
-  currItemCopy: {};
-  newItem: {};
+  currItem: object;
+  currItemCopy: object;
+  newItem: object;
   editMode: boolean;
 }

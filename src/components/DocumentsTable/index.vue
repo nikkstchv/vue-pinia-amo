@@ -16,8 +16,8 @@
             <th data-code="entity">
               {{ localization.components.documents.tables.headers.entity }}
             </th>
-            <th data-code="organization">
-              {{ localization.components.documents.tables.headers.organization }}
+            <th data-code="organizations">
+              {{ localization.components.documents.tables.headers.organizations }}
             </th>
             <th data-code="responsible">
               {{ localization.components.documents.tables.headers.responsible }}
@@ -25,25 +25,27 @@
             <th data-code="created">
               {{ localization.components.documents.tables.headers.created }}
             </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="doc in paginated.data" :key="doc.id">
-            <td :class="$style.blueText" data-code="number">
-              {{ doc.number }}
-            </td>
-            <td :class="$style.blueText" data-code="name">
-              {{ getCurrentTemplate(doc.templateId)?.name }}
-            </td>
-            <td :class="$style.blueText" data-code="type">
-              {{ getCurrentType(+getTypeId(doc.templateId)).name }}
-            </td>
-            <td :class="$style.blueText" data-code="entity">
-              <a target="_blank" :href="`https://${accountData.amoSubdomain}.amocrm.ru/${entityTypesList[doc.entityType]}/detail/${doc.entityId}`">{{ doc.entityId
-              }}</a>
-            </td>
-            <td :class="$style.blueText" data-code="organization">
-              {{ getCurrentOrg(doc.organizationId)?.name }}
+            </tr>
+            </thead>
+            <tbody>
+              <tr v-for="doc in paginated.data" :key="doc.id">
+                <td :class="$style.blueText" data-code="number">
+                  {{ doc.number }}
+                </td>
+                <td :class="$style.blueText" data-code="name">
+                  {{ getCurrentTemplate(doc.templateId)?.name }}
+                </td>
+                <td :class="$style.blueText" data-code="type">
+                  {{ getCurrentType(+getTypeId(doc.templateId)).name }}
+                </td>
+                <td :class="$style.blueText" data-code="entity">
+                  <a target="_blank"
+                    :href="`https://${accountData.amoSubdomain}.amocrm.ru/${entityTypesList[doc.entityType]}/detail/${doc.entityId}`">{{
+                    doc.entityId
+                    }}</a>
+                </td>
+                <td :class="$style.blueText" data-code="organizations">
+                  {{ getCurrentOrg(doc.organizationsId)?.name }}
             </td>
             <td :class="$style.blueText" data-code="responsible">
             {{userName(doc.userId)}}

@@ -92,27 +92,27 @@ export const useOrganizationsStore = defineStore('organizations', {
     setCurrItem() {
       const currId: number = useHeaderStore().currentRouteId;
       this.currItem = { ...this.getCurrentItem(currId) }
-    }, 
+    },
 
     setItemCopy() {
-      this.currItemCopy = { ...this.currItem }      
+      this.currItemCopy = { ...this.currItem }
     },
 
     async loadItems() {
       try {
         this.items = (await api.getOrganizations());
       } catch (error) {
-       console.debug(error)
+        console.debug(error)
       }
     },
 
 
     async addItem() {
       try {
-        await api.addOrganization({...this.currItem});
+        await api.addOrganization({ ...this.currItem });
         this.newItem = initItem();
       } catch (error) {
-       console.debug(error)
+        console.debug(error)
       }
     },
 
@@ -122,7 +122,7 @@ export const useOrganizationsStore = defineStore('organizations', {
         await this.loadItems()
         this.setItemCopy()
       } catch (error) {
-       console.debug(error)
+        console.debug(error)
       }
     },
 
@@ -131,7 +131,7 @@ export const useOrganizationsStore = defineStore('organizations', {
         await api.deleteOrganization(id);
         await this.loadItems()
       } catch (error) {
-       console.debug(error)
+        console.debug(error)
       }
     }
   }

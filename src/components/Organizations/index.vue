@@ -1,7 +1,7 @@
 <template>
   <Section :header="localization.views.adSettings.headers.organizations">
     <template v-slot:description>{{
-        localization.views.adSettings.descriptions.organizations
+  localization.views.adSettings.descriptions.organizations
     }}</template>
     <OrganizationTable />
   </Section>

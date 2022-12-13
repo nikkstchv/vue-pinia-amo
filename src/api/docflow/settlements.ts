@@ -16,7 +16,7 @@ export const addSettlement = async (newItem: object) => {
 }
 
 export const updateSettlement = async (id: number, item: object) => {
-  return API_DOCFLOW.put(`settlement-accounts/${id}`, {...item}).then(response => response?.data);
+  return API_DOCFLOW.put(`settlement-accounts/${id}`, { ...item }).then(response => response?.data);
 }
 
 export const deleteSettlement = async (id: number) => {

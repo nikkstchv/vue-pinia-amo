@@ -49,24 +49,10 @@ export const useInitializationStore = defineStore({
       const isAdminPanel = state.decodeToken?.is_gnzs_admin_panel ? true : false;
       return isUserAdmin || isAdminPanel ? true : false;
     },
-
-    // getDataToChatra: (state): DataToChatra => {
-    //   const { amoUserId } = state;
-    //   const currentUser = state.accountData?.amoUsers.find(user => +user?.id === amoUserId);
-    //   return {
-    //     name: currentUser?.name,
-    //     email: currentUser?.login,
-    //     phone: currentUser?.phone_number,
-    //     extAccountId: state.accountData?.id,
-    //     amoSubdomain: state.accountData?.amoSubdomain,
-    //   };
-    // },
-
-    // isAccountForTest: (state): boolean => state.extAccountId === 28830832,
   },
 
   actions: {
-    saveActiveTab(currTab): void {
+    saveActiveTab(currTab: any): void {
       this.currActiveTab = currTab
     },
 
@@ -94,7 +80,6 @@ export const useInitializationStore = defineStore({
         this.decodeToken = await verifyAndDecodeToken(GNZS_WIDGET_ID);
         this.extAccountId = +this.decodeToken.account_id;
         this.accountData = await getAccountInfo();
-        // this.DNAInfo = await getDNAInfo();
         this.amoUserId = Number(currUrl.searchParams.get("user-id")) || +this.decodeToken.user_id || import.meta.env.VITE_APP_DEVELOPER_AMO_USER_ID;
         this.setUsers();
 

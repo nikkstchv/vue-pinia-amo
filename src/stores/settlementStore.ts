@@ -93,7 +93,6 @@ export const useSettlementStore = defineStore('settlement', {
       try {
         await api.deleteSettlement(id);
         this.items = await api.getSettlements();
-        // this.setCurrItemsList();
       } catch (error) {
        console.debug(error)
       }

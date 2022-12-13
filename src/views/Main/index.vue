@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.container">
     <GznsHeader :fixed="isChanged" :mainTitle="localization.title" />
-    <GnzsTabs :tabs="tabs" :current="currActiveTab" @change="setActiveTab">
+    <GnzsTabs :tabs="tabs" :current="currActiveTab" @change="saveActiveTab($event)">
       <div gnzs-tab-id="account" :class="$style.columnFlex">
         <Account />
         <Organizations />
@@ -49,10 +49,6 @@ const tabs = [
   { id: "tables", title: "Таблицы" },
   { id: "variables", title: "Переменные" },
 ];
-
-const setActiveTab = (tab: any) => {
-  saveActiveTab(tab);
-};
 
 const initializationStore = useInitializationStore();
 const localization = computed(() => initializationStore.localization);

@@ -11,7 +11,7 @@ export default {
 
   tab: {
     titles: {
-      organization: 'Юр.лицо',
+      organizations: 'Юр.лицо',
       settlement: 'Р/счет',
       document: 'Документ'
     }
@@ -33,7 +33,7 @@ export default {
 
   confirm: {
     deleteQuestion: {
-      organization: 'Вы действительно хотите удалить это юр.лицо?',
+      organizations: 'Вы действительно хотите удалить это юр.лицо?',
       type: 'Вы действительно хотите удалить этот тип документа?',
       template: 'Вы действительно хотите удалить этот шаблон?',
       settlement: 'Вы действительно хотите удалить этот счёт?'
@@ -85,7 +85,7 @@ export default {
         document_type: "Тип документа"
       }
     },
-    organization: {
+    organizations: {
       description: 'Введите данные о юр. лице',
       headers: {
         text: 'Настройки'
@@ -132,7 +132,7 @@ export default {
           name: 'Название',
           type: 'Тип',
           entity: 'Сущность',
-          organization: 'Организация',
+          organizations: 'Организация',
           responsible: 'Ответственный',
           created: 'Дата создания'
         }

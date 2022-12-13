@@ -12,7 +12,7 @@ const initItem = () => ({
   url: "",
   number: "",
   templateId: 0,
-  organizationId: 0,
+  organizationsId: 0,
   settlementAccountId: 0,
   isSigned: "",
   userId: 0,
@@ -142,7 +142,7 @@ export const useDocumentStore = defineStore("document", {
           entityType: this.entityType,
           number: number,
           templateId: +this.currTemplateId,
-          organizationId: +this.currOrgId,
+          organizationsId: +this.currOrgId,
           settlementAccountId: +this.currSettlmentId,
           createdAt: new Date().toLocaleDateString("ru-RU", {}),
         });

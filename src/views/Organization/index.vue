@@ -11,7 +11,7 @@
           </template>
           </GnzsHeader>
           <Section>
-            <div :class="$style.orgHeader">{{ localization.views.organization.description }}</div>
+            <div :class="$style.orgHeader">{{ localization.views.organizations.description }}</div>
             <div :class="$style.inputContainer" v-if="currItem">
               <div :class="$style.orgColumn">
                 <div :class="$style.inputWrapper">
@@ -99,7 +99,7 @@
               </div>
             </div>
             <GnzsButton v-if="editMode" :type="`remove`" @click="onRemoveClick">
-              {{ localization.views.organization.buttons.delete }}
+              {{ localization.views.organizations.buttons.delete }}
             </GnzsButton>
           </Section>
           <Section>
@@ -166,7 +166,7 @@ const onRemoveClick = () => {
     name: "",
     id: routeId,
     confirmEventName: 'deleteOrganization',
-    text: localization.value.confirm.deleteQuestion.organization,
+    text: localization.value.confirm.deleteQuestion.organizations,
     declineText: localization.value.buttons.cancel,
     acceptText: localization.value.buttons.yes
   });
