@@ -5,6 +5,7 @@ import { useSettlementStore } from './stores/settlementStore';
 import { useDocTemplateStore } from './stores/docTemplateStore';
 
 export default async function (route: any) {
+  console.log('%cinit.ts line:8 route.query', 'color: #007acc;', route.query);
   const initializationStore = useInitializationStore();
   await initializationStore.iframeInit();
 

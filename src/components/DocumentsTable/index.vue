@@ -33,10 +33,10 @@
                   {{ doc.number }}
                 </td>
                 <td :class="$style.blueText" data-code="name">
-                  {{ getCurrentTemplate(doc.templateId)?.name }}
+                  {{ getCurrentTemplate(doc.templateId)?.name && "--" }}
                 </td>
                 <td :class="$style.blueText" data-code="type">
-                  {{ getCurrentType(+getTypeId(doc.templateId)).name }}
+                  {{ getCurrentType(+getTypeId(doc.templateId))?.name && "--"}}
                 </td>
                 <td :class="$style.blueText" data-code="entity">
                   <a target="_blank"
@@ -108,8 +108,8 @@ const entityTypesList = {
 const isDataEmpty = computed(() => paginated.value.length === 0)
 const userName = id => accountData.value.amoUsers.find(el => el.id = id).name;
 
-onMounted(async () => {
-  await loadPaginated();
+onMounted(() => {
+  loadPaginated();
 });
 </script>
 

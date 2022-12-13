@@ -6,7 +6,7 @@ import { useIframeStore } from "./iframeStore";
 import setEvents from "@/events";
 
 // types
-import type { AccountDataDto, DataToChatra, InitializationState, UsersAvatartDto } from "../types/initialization.types";
+import type { AccountDataDto, InitializationState, UsersAvatartDto } from "../types/initialization.types";
 
 // localizations
 import RU from "@/localizations/ru";
@@ -34,6 +34,8 @@ export const useInitializationStore = defineStore({
   }),
 
   getters: {
+    isInsideAmo: (state) => state.decodeToken?.iss && state.decodeToken.iss.includes(".amocrm.") ? true : false,
+
     isDevMode: (): boolean => import.meta.env.DEV,
 
     localization: (state) => {
@@ -82,10 +84,10 @@ export const useInitializationStore = defineStore({
         this.accountData = await getAccountInfo();
         this.amoUserId = Number(currUrl.searchParams.get("user-id")) || +this.decodeToken.user_id || import.meta.env.VITE_APP_DEVELOPER_AMO_USER_ID;
         this.setUsers();
-
         setEvents(iframeName);
         iframeStore.setIframeName(iframeName);
         iframeStore.resizeWindow();
+        console.log('%cinitializationStore.ts line:88 iframeName', 'color: #007acc;', iframeName);
 
         this.isLoad = false;
       } catch (error: any) {
@@ -97,7 +99,7 @@ export const useInitializationStore = defineStore({
     },
 
     setUsers(): void {
-
+      console.log('%cinitializationStore.ts line:102 this.decodeToken', 'color: #007acc;', this.decodeToken);
       const { amoUsers, amoUserGroups, amoSubdomain, amoTopLevelDomain, amoObjectAmocrm } = <AccountDataDto>this.accountData;
       let avatars: UsersAvatartDto[];
 

@@ -1,6 +1,6 @@
 export type Template = {
   id: string,
-  name: string,
+  name: string, 
   [key: string]: string,
 }
 

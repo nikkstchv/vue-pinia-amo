@@ -3,15 +3,15 @@ import { useInitializationStore } from "@/stores/initializationStore";
 import { useOrganizationsStore } from "@/stores/organizationsStore"
 import * as api from "@/api/docflow";
 
-
-
 import router from "@/router"
 import PATHS from "@/router/paths"
 
+import { useRoute } from "vue-router";
+const route = useRoute();
+
 // types
 import type { HeaderState } from "@/types/header.types";
-
-const getCurrItem = async (id: string) => await api.getOrganizationById(+id)
+// const getCurrItem = async (id: string) => await api.getOrganizationById(+id)
 
 export const useHeaderStore = defineStore("header", {
   state: (): HeaderState => ({
@@ -39,7 +39,8 @@ export const useHeaderStore = defineStore("header", {
 
   actions: {
     goToMainRoute(): void {
-      router.push({ name: PATHS.ADVANCED_SETTINGS.name });
+      console.log('%cheaderStore.ts line:42 route.query', 'color: #007acc;', route.query);
+      router.push({ name: PATHS.ADVANCED_SETTINGS.name, query: { ...route.query } });
     },
 
     setCurrentRouteName(routeName: string): void {

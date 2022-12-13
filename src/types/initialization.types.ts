@@ -20,6 +20,7 @@ export class DecodeTokenDto {
   user_id: number;
   iat: number;
   is_gnzs_admin_panel?: boolean;
+  iss: string;
 }
 
 export class AccountDataDto {

@@ -14,7 +14,7 @@
         <tbody>
           <tr v-for="item in items" :key="item.id">
             <td :class="$style.blueText" data-code="name">
-              <router-link :to="`organizations/${item.id}`">{{ item.name }}</router-link>
+              <a @click="changeRoute(item.id)">{{ item.name }}</a>
             </td>
           </tr>
         </tbody>
@@ -28,7 +28,7 @@
 
 <script setup>
 import { storeToRefs } from "pinia";
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { computed } from "@vue/reactivity";
 
 import { useInitializationStore } from "@/stores/initializationStore";
@@ -43,9 +43,14 @@ const { loadItems } = useOrganizationsStore();
 const localization = computed(() => initializationStore.localization);
 
 const router = useRouter();
+const route = useRoute()
+
+const changeRoute = (id) => {
+  router.push({ path: `organizations/${id}`, query: { ...route.query } })
+}
 
 const addItem = () => {
-  router.push('newOrganization')
+  router.push({ path: '/newOrganization', query: { ...route.query } })
 }
 </script>
 

@@ -113,7 +113,6 @@ export const useDocumentStore = defineStore("document", {
     },
 
     async loadPaginated() {
-      console.log('%cdocum');
       try {
         this.paginated = await api.getPaginatedDocuments(
           this.page,

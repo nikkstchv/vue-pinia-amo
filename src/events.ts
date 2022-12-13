@@ -1,5 +1,5 @@
-// import { useDocTypeStore } from "@/stores/docTypeStore";
-// import { useDocTemplateStore } from "@/stores/docTemplateStore";
+import { useDocTypeStore } from "@/stores/docTypeStore";
+import { useDocTemplateStore } from "@/stores/docTemplateStore";
 import { useOrganizationsStore } from "@/stores/organizationsStore";
 import { useHeaderStore } from "@/stores/headerStore";
 import { useSettlementStore } from "@/stores/settlementStore"

@@ -40,8 +40,8 @@ const addTypeButtonClick = () => {
   itemAddModeToggle();
 };
 
-const deleteItem = async (id, name) => {
-  await openConfirmModal({
+const deleteItem = (id, name) => {
+  openConfirmModal({
     name: name,
     id: id,
     confirmEventName: 'deleteItem',

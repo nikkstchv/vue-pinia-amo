@@ -15,9 +15,7 @@
           <tbody>
             <tr v-for="item in items" :key="item.id">
               <td :class="$style.blueText" data-code="name">
-                <router-link :to="'template/' + item.id">{{
-                    item.name
-                }}</router-link>
+                <a @click="changeRoute(item.id)">{{ item.name }}</a>
               </td>
             </tr>
           </tbody>
@@ -32,11 +30,13 @@
 
 <script setup>
 import { computed, onMounted } from "vue";
+import { useRoute, useRouter } from 'vue-router';
+
 import { useInitializationStore } from "@/stores/initializationStore";
 import { useDocTemplateStore } from "@/stores/docTemplateStore";
 
 import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";
-import { useRouter } from "vue-router";
+
 
 const docTemplateStore = useDocTemplateStore();
 const initializationStore = useInitializationStore();
@@ -46,8 +46,15 @@ const localization = computed(() => initializationStore.localization);
 const items = computed(() => docTemplateStore.items);
 
 const router = useRouter();
+const route = useRoute()
+
+const changeRoute = (id) => {
+  router.push({ path: `template/${id}`, query: { ...route.query } })
+}
+
 const addItem = () => {
-  router.push('newTemplate')
+  router.push({ path: '/newTemplate', query: { ...route.query } })
+
 }
 
 onMounted(async () => {

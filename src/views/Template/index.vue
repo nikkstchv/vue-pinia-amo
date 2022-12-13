@@ -100,7 +100,7 @@ const routeId = +route.params.id;
 
 const { getCurrentTitle, currItem, editMode, isItemChanged } = storeToRefs(useDocTemplateStore());
 
-const { loadItems, saveItem, setItemCopy, setCurrItem, setEditMode, cancelItemChanges, addItem } = useDocTemplateStore();
+const { loadItems, saveItem, setItemCopy, setCurrItem, setEditMode, cancelItemChanges, addItem, browserConfirm } = useDocTemplateStore();
 const { setCurrentRouteId, isNotMainPage, goToMainRoute } = useHeaderStore();
 const { openConfirmModal } = useIframeStore();
 const { items } = useDocTypeStore()
@@ -133,14 +133,25 @@ const onSaveClick = () => {
 }
 
 const onRemoveClick = () => {
-  openConfirmModal({
-    name: '',
-    id: routeId,
-    confirmEventName: 'deleteTemplate',
-    text: localization.value.confirm.deleteQuestion.template,
-    declineText: localization.value.buttons.cancel,
-    acceptText: localization.value.buttons.yes
-  });
+  if (useInitializationStore().isInsideAmo) {
+    openConfirmModal({
+      name: '',
+      id: routeId,
+      confirmEventName: 'deleteTemplate',
+      text: localization.value.confirm.deleteQuestion.template,
+      declineText: localization.value.buttons.cancel,
+      acceptText: localization.value.buttons.yes
+    });
+  } else {
+    browserConfirm({
+      name: '',
+      id: routeId,
+      confirmEventName: 'deleteTemplate',
+      text: localization.value.confirm.deleteQuestion.template,
+      declineText: localization.value.buttons.cancel,
+      acceptText: localization.value.buttons.yes
+    })
+  }
 }
 
 onMounted(() => {

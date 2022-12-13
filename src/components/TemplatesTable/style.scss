@@ -64,6 +64,10 @@ justify-content: center;
       }
   }
 
+  td.blueText:hover {
+    cursor: pointer;
+  }
+
   .cellInner{
       display: flex;
       align-items: center;
