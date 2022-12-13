@@ -18,6 +18,10 @@
       default: () => [],
       require: true,
     },
+    current: {
+      type: String,
+      require: true
+    }
   });
 
   onMounted(() => {
@@ -28,7 +32,7 @@
   const emit = defineEmits(["change"]);
   const style = useCssModule();
 
-  let currentTab: Ref<Tab> = shallowRef(props.tabs?.find((el: Tab) => el?.main) || props.tabs[0]);
+let currentTab: Ref<Tab> = shallowRef(props.tabs.find(tab => tab.id === props.current) || props.tabs[0]);
   let tabsList: Ref<TabRef[]> = ref([]);
   let tabsRef: Ref<HTMLElement | null> = ref(null);
 

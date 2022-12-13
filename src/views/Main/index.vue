@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.container">
     <GznsHeader :fixed="isChanged" :mainTitle="localization.title" />
-    <GnzsTabs :tabs="tabs" @change="setActiveTab">
+    <GnzsTabs :tabs="tabs" :current="currActiveTab" @change="setActiveTab">
       <div gnzs-tab-id="account" :class="$style.columnFlex">
         <Account />
         <Organizations />
@@ -42,16 +42,16 @@ import init from "@/init";
 
 const { saveActiveTab } = useInitializationStore();
 const { currActiveTab } = storeToRefs(useInitializationStore());
+
 const tabs = [
   { id: "account", title: "Подключение Google" },
   { id: "templates", title: "Шаблоны" },
   { id: "tables", title: "Таблицы" },
   { id: "variables", title: "Переменные" },
 ];
-const activeTab = ref(currActiveTab.value);
+
 const setActiveTab = (tab: any) => {
   saveActiveTab(tab);
-  activeTab.value = currActiveTab.value;
 };
 
 const initializationStore = useInitializationStore();

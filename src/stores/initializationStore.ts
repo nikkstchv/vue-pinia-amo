@@ -66,7 +66,7 @@ export const useInitializationStore = defineStore({
   },
 
   actions: {
-    saveActiveTab(currTab: any): void {
+    saveActiveTab(currTab): void {
       this.currActiveTab = currTab
     },
 
