@@ -20,7 +20,6 @@ import { storeToRefs } from "pinia";
 
 import { useInitializationStore } from "@/stores/initializationStore";
 import { useSettlementStore } from "@/stores/settlementStore";
-import { useIframeStore } from "@/stores/iframeStore";
 
 import SettlementEditor from "@/components/SettlementEditor";
 import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";
@@ -29,7 +28,6 @@ const { addItem, setCurrItemAsNew, setItemCopy, updateItem, itemAddModeToggle, l
 const { isAddMode } = storeToRefs(useSettlementStore());
 
 const initializationStore = useInitializationStore();
-const { openConfirmModal } = useIframeStore();
 
 const props = defineProps({
   items: {

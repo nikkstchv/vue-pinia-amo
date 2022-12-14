@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import { useInitializationStore } from "@/stores/initializationStore";
 import { useOrganizationsStore } from "@/stores/organizationsStore"
-import * as api from "@/api/docflow";
 
 import router from "@/router"
 import PATHS from "@/router/paths"
@@ -36,16 +35,16 @@ export const useHeaderStore = defineStore("header", {
   },
 
   actions: {
-    goToMainRoute(): void {
+    goToMainRoute() {
       const route = useRoute()
       const query = route ? route.query : {}
       router.push({ name: PATHS.ADVANCED_SETTINGS.name, query: { ...query } });
     },
 
-    setCurrentRouteName(routeName: string): void {
+    setCurrentRouteName(routeName: string) {
       this.currentRouteName = routeName;
     },
-    setCurrentRouteId(routeId: number): void {
+    setCurrentRouteId(routeId: number) {
       this.currentRouteId = routeId;
     },
   },

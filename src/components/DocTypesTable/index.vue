@@ -55,7 +55,7 @@ const deleteItem = (id, name) => {
       name: '',
       id: id,
       confirmEventName: 'deleteType',
-      text: localization.value.confirm.deleteQuestion.template,
+      text: localization.value.confirm.deleteQuestion.type,
       declineText: localization.value.buttons.cancel,
       acceptText: localization.value.buttons.yes
     })

@@ -1,11 +1,11 @@
 import { defineStore } from "pinia";
-import type { OrganizationsState, Organization, SettlementList } from "../types/organizations.types";
+import type { OrganizationsState, Organization, NewOrganization } from "../types/organizations.types";
 import { useHeaderStore } from "@/stores/headerStore";
 import { useSettlementStore } from "./settlementStore";
 import * as api from "@/api/docflow";
 
 
-const initItem = () => ({
+const initItem = (): NewOrganization => ({
   name: "",
   inn: "",
   kpp: "",
@@ -53,20 +53,20 @@ export const useOrganizationsStore = defineStore('organizations', {
         return () => state.newItem
       }
       return (id: number | string) => {
-        return state.items.find(item => +item.id == id)
+        return state.items.find(item => item.id == id)
       };
     },
     getCurrentTitle(state) {
-      return (id: number) => state.items.find(item => +item.id == id)?.name
+      return (id: number) => state.items.find(item => item.id == id)?.name
     },
-    isItemChanged(state) {
+    isItemChanged(state): boolean {
       return JSON.stringify(state.currItemCopy) !== JSON.stringify(state.currItem)
     }
   },
 
   actions: {
     setSettlementsList() {
-      this.settlementsList = useSettlementStore().items.filter(item => item.corporateEntityId === this.currItem.id)
+      this.settlementsList = useSettlementStore().items.filter(item => +item.corporateEntityId === this.currItem.id)
     },
 
     setMappedOrgs() {
@@ -135,8 +135,8 @@ export const useOrganizationsStore = defineStore('organizations', {
       }
     },
 
-    async browserConfirm({ name, id, confirmEventName, text, declineText, acceptText }:
-      { name: string, id: number, confirmEventName: string, text: string, declineText: string, acceptText: string }) {
+    async browserConfirm({ id, text }:
+      { id: number, text: string }) {
       let shouldDelete = confirm(text);
       if (shouldDelete) {
         this.removeItem(id);

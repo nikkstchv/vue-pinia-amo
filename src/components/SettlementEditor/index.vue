@@ -136,7 +136,7 @@ const onRemoveClick = () => {
       name: '',
       id: props.itemId,
       confirmEventName: 'deleteSettlement',
-      text: localization.value.confirm.deleteQuestion.template,
+      text: localization.value.confirm.deleteQuestion.settlement,
       declineText: localization.value.buttons.cancel,
       acceptText: localization.value.buttons.yes
     })

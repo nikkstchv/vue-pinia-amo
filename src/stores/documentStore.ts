@@ -1,12 +1,12 @@
 import { defineStore } from "pinia";
-import type { DocumentState } from "../types/document.types";
+import type { DocumentState, NewDocument } from "../types/document.types";
 import { useSettlementStore } from "./settlementStore";
 import { useDocTemplateStore } from "./docTemplateStore";
 import { useOrganizationsStore } from "./organizationsStore";
 import * as api from "@/api/docflow";
 
 
-const initItem = () => ({
+const initItem = (): NewDocument => ({
   entityId: 0,
   entityType: 0,
   url: "",
@@ -120,7 +120,7 @@ export const useDocumentStore = defineStore("document", {
           this.limit,
           ""
         );
-        // this.isLoad = true
+        this.isLoad = false
       } catch (error) {
         console.debug(error);
       }

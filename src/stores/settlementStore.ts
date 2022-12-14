@@ -1,9 +1,9 @@
 import { defineStore } from "pinia";
-import type { SettlementState, Settlement } from "@/types/settlement.types";
+import type { SettlementState, Settlement, CurrItem, NewSettlement } from "@/types/settlement.types";
 import * as api from "@/api/docflow";
 import { useOrganizationsStore } from "./organizationsStore";
 
-const initItem = () => ({
+const initItem = (): NewSettlement => ({
   corporateEntityId: 0,
   name: "",
   bankName: "",
@@ -51,7 +51,7 @@ export const useSettlementStore = defineStore('settlement', {
       this.currItem = { ...this.getCurrentItem(id) }
     },
 
-    setCurrItemAsNew(id: number) {
+    setCurrItemAsNew() {
       this.currItem = { ...this.newItem }
     },
 
@@ -70,7 +70,7 @@ export const useSettlementStore = defineStore('settlement', {
        console.debug(error)
       }
     },
-    async addItem(item: object) {
+    async addItem(item: NewSettlement) {
       try {
         await api.addSettlement(item);
         this.items = await api.getSettlements();
@@ -97,8 +97,8 @@ export const useSettlementStore = defineStore('settlement', {
        console.debug(error)
       }
     },
-    async browserConfirm({ name, id, confirmEventName, text, declineText, acceptText }:
-      { name: string, id: number, confirmEventName: string, text: string, declineText: string, acceptText: string }) {
+    async browserConfirm({ id, text }:
+      { id: number, text: string }) {
       let shouldDelete = confirm(text);
       if (shouldDelete) {
         this.removeItem(id);

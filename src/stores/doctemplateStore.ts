@@ -1,9 +1,9 @@
 import { defineStore } from "pinia";
-import type { DocTemplateState, Template } from "../types/doctemplate.types";
+import type { DocTemplateState, Template, NewTemplate } from "../types/doctemplate.types";
 import * as api from "@/api/docflow";
 import { useHeaderStore } from "./headerStore";
 
-const initItem = () => ({
+const initItem = (): NewTemplate => ({
   name: "",
   requiredSign: false,
   prefix: "",
@@ -50,10 +50,10 @@ export const useDocTemplateStore = defineStore('doctemplate', {
     },
 
     getCurrentTitle(state) {
-      return (id: number) => state.items.find(item => +item.id == id)?.name
+      return (id: number): string | undefined => state.items.find(item => +item.id == id)?.name
     },
 
-    isItemChanged(state) {
+    isItemChanged(state): boolean {
       return JSON.stringify(state.currItemCopy) !== JSON.stringify(state.currItem)
     }
   },

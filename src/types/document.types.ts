@@ -1,22 +1,36 @@
 export type Document = {
-  [key: string]: string;
+  id: number,
+  entityId: number,
+  entityType: number,
+  url: string,
+  number: string,
+  templateId: number,
+  organizationsId: number,
+  settlementAccountId: number,
+  isSigned: string,
+  userId: number,
+  isDeleted: string,
+  createdAt: number,
 };
 
-export type Paginated = {
-  [key: string]: string;
+export type NewDocument = {
+  entityId: number,
+  entityType: number,
+  url: string,
+  number: string,
+  templateId: number,
+  organizationsId: number,
+  settlementAccountId: number,
+  isSigned: string,
+  userId: number,
+  isDeleted: string,
+  createdAt: number,
 };
 
-export type Settlement = {
-  [key: string]: string;
-};
-
-export type Template = {
-  [key: string]: string;
-};
 
 export class DocumentState {
   items: Document[];
-  paginated: Paginated[];
+  paginated: Document[];
   page: number;
   limit: number;
   total: number;
@@ -26,9 +40,9 @@ export class DocumentState {
   isLoading: boolean;
   currOrgId: string;
   currSettlmentId: string;
-  currSettlment: Settlement;
-  currOrganization: Document;
+  currSettlment: object;
+  currOrganization: object;
   currTemplateId: string;
-  newItem: object;
+  newItem: NewDocument;
   isLoad: boolean;
 }

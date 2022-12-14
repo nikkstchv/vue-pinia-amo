@@ -1,4 +1,4 @@
-import type { RouteRecord, RouteRecordName } from "vue-router";
+import type { RouteRecordName } from "vue-router";
 
 export class HeaderState {
   currentRouteName: RouteRecordName | string;
