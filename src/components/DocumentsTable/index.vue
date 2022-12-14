@@ -108,9 +108,9 @@ const entityTypesList = {
 const isDataEmpty = computed(() => paginated.value.length === 0)
 const userName = id => accountData.value?.amoUsers.find(el => el.id = id).name;
 
-onMounted(() => {
-  loadPaginated();
-});
+// onMounted(() => {
+//   loadPaginated();
+// });
 </script>
 
 <style lang="scss" module>

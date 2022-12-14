@@ -46,17 +46,6 @@ const addItemButtonClick = () => {
   setItemCopy();
 };
 
-// const deleteItem = (id) => {
-//   openConfirmModal({
-//     name: "",
-//     id: id,
-//     confirmEventName: 'deleteSettlement',
-//     text: localization.value.confirm.deleteQuestion.settlement,
-//     declineText: localization.value.buttons.cancel,
-//     acceptText: localization.value.buttons.yes
-//   });
-// }
-
 onMounted(async () => {
   await loadItems();
 });

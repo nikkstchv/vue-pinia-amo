@@ -135,7 +135,7 @@ const onRemoveClick = () => {
     browserConfirm({
       name: '',
       id: props.itemId,
-      confirmEventName: 'deleteTemplate',
+      confirmEventName: 'deleteSettlement',
       text: localization.value.confirm.deleteQuestion.template,
       declineText: localization.value.buttons.cancel,
       acceptText: localization.value.buttons.yes

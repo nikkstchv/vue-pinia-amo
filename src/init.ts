@@ -3,19 +3,20 @@ import { useInitializationStore } from "@/stores/initializationStore";
 import { useOrganizationsStore } from "./stores/organizationsStore";
 import { useSettlementStore } from './stores/settlementStore';
 import { useDocTemplateStore } from './stores/docTemplateStore';
+import { useDocumentStore } from './stores/documentStore';
 
 export default async function (route: any) {
-  console.log('%cinit.ts line:8 route.query', 'color: #007acc;', route.query);
   const initializationStore = useInitializationStore();
   await initializationStore.iframeInit();
 
   switch (route.name) {
     case PATHS.ADVANCED_SETTINGS.name: {
-      await useOrganizationsStore().loadItems();
+      // await useOrganizationsStore().loadItems();
     }
       break;
     case PATHS.DOCUMENT_TAB.name:
       {
+        await useDocumentStore().loadPaginated()
         await useOrganizationsStore().loadItems();
         useOrganizationsStore().setMappedOrgs();
         await useSettlementStore().loadItems();

@@ -175,7 +175,7 @@ const onRemoveClick = () => {
     browserConfirm({
       name: '',
       id: routeId,
-      confirmEventName: 'deleteTemplate',
+      confirmEventName: 'deleteOrganization',
       text: localization.value.confirm.deleteQuestion.template,
       declineText: localization.value.buttons.cancel,
       acceptText: localization.value.buttons.yes

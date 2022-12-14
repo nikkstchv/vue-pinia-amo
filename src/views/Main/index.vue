@@ -22,12 +22,10 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
 import { computed } from "@vue/reactivity";
-
-import { useInitializationStore } from "@/stores/initializationStore";
 
 import TemplateSetup from "@/components/TemplateSetup/index.vue";
 import TemplateTypes from "@/components/TemplateTypes/TemplateTypes.vue";
@@ -41,6 +39,12 @@ import GznsHeader from "@/gnzs-controls/gnzs-header/gnzs-header.vue";
 import GnzsTabs from "@/gnzs-controls/gnzs-tabs/gnzs-tabs.vue";
 
 import init from "@/init";
+
+import { useInitializationStore } from "@/stores/initializationStore";
+import { useOrganizationsStore } from "@/stores/organizationsStore";
+import { useDocTemplateStore } from "@/stores/docTemplateStore";
+import { useDocumentStore } from "@/stores/documentStore";
+import { useDocTypeStore } from "@/stores/docTypeStore";
 
 const { saveActiveTab } = useInitializationStore();
 const { currActiveTab, isLoad } = storeToRefs(useInitializationStore()); 
@@ -57,9 +61,34 @@ const localization = computed(() => initializationStore.localization);
 
 const isChanged = true;
 
+const loadData = async () => {
+  switch (currActiveTab.value) {
+    case "account": {
+      await useOrganizationsStore().loadItems();
+    }
+      break;
+    case "templates": {
+      await useDocTemplateStore().loadItems();
+      await useDocTypeStore().loadItems();
+
+    }
+      break;
+    case "tables": {
+      await useDocumentStore().loadPaginated();
+    }
+      break;
+  }
+}
+
+watch(currActiveTab, () => {
+  loadData()
+})
+
+
 onMounted(async () => {
   const route = useRoute()
   await init(route)
+  await loadData()
 })
 </script>
 

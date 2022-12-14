@@ -45,7 +45,7 @@ const deleteItem = (id, name) => {
   openConfirmModal({
     name: name,
     id: id,
-    confirmEventName: 'deleteItem',
+    confirmEventName: 'deleteType',
     text: localization.value.confirm.deleteQuestion.type,
     declineText: localization.value.buttons.cancel,
     acceptText: localization.value.buttons.yes
@@ -54,7 +54,7 @@ const deleteItem = (id, name) => {
     browserConfirm({
       name: '',
       id: id,
-      confirmEventName: 'deleteTemplate',
+      confirmEventName: 'deleteType',
       text: localization.value.confirm.deleteQuestion.template,
       declineText: localization.value.buttons.cancel,
       acceptText: localization.value.buttons.yes
@@ -62,9 +62,9 @@ const deleteItem = (id, name) => {
   }
 }
 
-onMounted(async () => {
-  return await loadItems();
-});
+// onMounted(async () => {
+//   return await loadItems();
+// });
 </script>
 
 <style lang="scss" module>
