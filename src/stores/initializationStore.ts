@@ -34,6 +34,12 @@ export const useInitializationStore = defineStore({
   }),
 
   getters: {
+    userName: (state) => {
+      return (id: number) => {
+        return state.accountData?.amoUsers.find(user => user.id === id)?.name
+      }
+    },
+
     isInsideAmo: (state) => state.decodeToken?.iss && state.decodeToken.iss.includes(".amocrm.") ? true : false,
 
     isDevMode: (): boolean => import.meta.env.DEV,
@@ -84,8 +90,6 @@ export const useInitializationStore = defineStore({
         this.amoUserId = Number(currUrl.searchParams.get("user-id")) || +this.decodeToken.user_id || import.meta.env.VITE_APP_DEVELOPER_AMO_USER_ID;
         this.setUsers();
         setEvents(iframeName);
-        console.log('%cinitializationStore.ts line:88 iframeName', 'color: #007acc;', iframeName);
-
         iframeStore.setIframeName(iframeName);
         iframeStore.resizeWindow();
 
@@ -99,7 +103,6 @@ export const useInitializationStore = defineStore({
     },
 
     setUsers(): void {
-      console.log('%cinitializationStore.ts line:102 this.decodeToken', 'color: #007acc;', this.decodeToken);
       const { amoUsers, amoUserGroups, amoSubdomain, amoTopLevelDomain, amoObjectAmocrm } = <AccountDataDto>this.accountData;
       let avatars: UsersAvatartDto[];
 

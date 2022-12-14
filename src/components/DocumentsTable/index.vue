@@ -33,10 +33,10 @@
                   {{ doc.number }}
                 </td>
                 <td :class="$style.blueText" data-code="name">
-                  {{ getCurrentTemplate(doc.templateId)?.name && "--" }}
+                  {{ getCurrentTemplate(doc.templateId)?.name}}
                 </td>
                 <td :class="$style.blueText" data-code="type">
-                  {{ getCurrentType(+getTypeId(doc.templateId))?.name && "--"}}
+                  {{ getCurrentType(+getTypeId(doc.templateId))?.name}}
                 </td>
                 <td :class="$style.blueText" data-code="entity">
                   <a target="_blank"
@@ -86,10 +86,9 @@ import { useOrganizationsStore } from "@/stores/organizationsStore";
 const initializationStore = useInitializationStore();
 const localization = computed(() => initializationStore.localization);
 
-const { getCurrentItem: getCurrentTemplate, getTypeId } = storeToRefs(
-  useDocTemplateStore()
-);
-const { accountData } = storeToRefs(useInitializationStore());
+const { getCurrentItem: getCurrentTemplate, getTypeId } = storeToRefs(useDocTemplateStore());
+const { userName } = useInitializationStore();
+const { accountData, users } = storeToRefs(useInitializationStore());
 const { getCurrentItem: getCurrentOrg } = storeToRefs(useOrganizationsStore());
 const { getCurrentItem: getCurrentType } = storeToRefs(useDocTypeStore());
 const { paginated, page, limit } = storeToRefs(useDocumentStore());
@@ -104,13 +103,13 @@ const entityTypesList = {
   12: "customers"
 }
 
-
 const isDataEmpty = computed(() => paginated.value.length === 0)
-const userName = id => accountData.value?.amoUsers.find(el => el.id = id).name;
 
-// onMounted(() => {
-//   loadPaginated();
-// });
+onMounted(() => {
+  // loadPaginated();
+  console.log('%cinitializationStore.ts line:102 this.users', 'color: #007acc;', users.value);
+
+});
 </script>
 
 <style lang="scss" module>

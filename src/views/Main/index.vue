@@ -74,6 +74,8 @@ const loadData = async () => {
     }
       break;
     case "tables": {
+      await useDocTemplateStore().loadItems();
+      await useDocTypeStore().loadItems();
       await useDocumentStore().loadPaginated();
     }
       break;
