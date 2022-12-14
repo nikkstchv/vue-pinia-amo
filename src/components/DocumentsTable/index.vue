@@ -56,10 +56,10 @@
           </tr>
         </tbody>
       </table>
-      <div v-else>Нет сгенерированных документов</div>
+      <div v-else :class="$style.noData">Нет сгенерированных документов</div>
     </div>
   </div>
-  <Pagination
+  <Pagination v-show="!isDataEmpty"
     :range="paginated.total"
     :page-count="paginated.pageCount"
     :current-page="page"
@@ -72,7 +72,6 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { computed } from "@vue/reactivity";
 
@@ -88,28 +87,20 @@ const localization = computed(() => initializationStore.localization);
 
 const { getCurrentItem: getCurrentTemplate, getTypeId } = storeToRefs(useDocTemplateStore());
 const { userName } = useInitializationStore();
-const { accountData, users } = storeToRefs(useInitializationStore());
+const { accountData } = storeToRefs(useInitializationStore());
 const { getCurrentItem: getCurrentOrg } = storeToRefs(useOrganizationsStore());
 const { getCurrentItem: getCurrentType } = storeToRefs(useDocTypeStore());
 const { paginated, page, limit } = storeToRefs(useDocumentStore());
 const { nextPage, prevPage, selectPage, changeLimit } = useDocumentStore();
 
-const { loadPaginated } = useDocumentStore();
- 
+const isDataEmpty = computed(() => paginated.value.length === 0)
+
 const entityTypesList = {
   1: "leads",
   2: "contacts",
   3: "companies",
   12: "customers"
 }
-
-const isDataEmpty = computed(() => paginated.value.length === 0)
-
-onMounted(() => {
-  // loadPaginated();
-  console.log('%cinitializationStore.ts line:102 this.users', 'color: #007acc;', users.value);
-
-});
 </script>
 
 <style lang="scss" module>

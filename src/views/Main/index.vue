@@ -1,23 +1,26 @@
 <template>
   <div :class="$style.container">
-    <GznsHeader :fixed="isChanged" :mainTitle="localization.title" />
-    <GnzsTabs v-if="!isLoad" :tabs="tabs" :current="currActiveTab" @change="saveActiveTab($event)">
-      <div gnzs-tab-id="account" :class="$style.columnFlex">
-        <Account />
-        <Organizations />
-      </div>
-      <div gnzs-tab-id="templates" :class="$style.columnFlex">
-        <TemplateSetup />
-        <TemplateTypes />
-      </div>
-      <div gnzs-tab-id="tables">
-        <Tables />
-      </div>
-      <div gnzs-tab-id="variables">
-        <Variables />
-      </div>
-    </GnzsTabs>
-    <GnzsSpinner v-else-if="isLoad" :class="$style.spinner" />
+  <!-- <div :class="[$style.root, $style.bots]"> -->
+  <!-- <div :class="$style.tableContainer"> -->
+  <GznsHeader :fixed="isChanged" :mainTitle="localization.title" />
+  <GnzsTabs v-if="!isLoad" :tabs="tabs" :current="currActiveTab" @change="saveActiveTab($event)">
+    <div gnzs-tab-id="account" :class="$style.columnFlex">
+      <Account />
+      <Organizations />
+    </div>
+    <div gnzs-tab-id="templates" :class="$style.columnFlex">
+      <TemplateSetup />
+      <TemplateTypes />
+    </div>
+    <div gnzs-tab-id="tables">
+      <Tables />
+    </div>
+    <div gnzs-tab-id="variables">
+      <Variables />
+    </div>
+  </GnzsTabs>
+  <GnzsSpinner v-else-if="isLoad" />
+  <!-- </div> -->
   </div>
 </template>
 
