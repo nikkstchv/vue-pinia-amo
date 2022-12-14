@@ -108,7 +108,7 @@ export const useInitializationStore = defineStore({
 
         amoObjectAmocrm ? avatars = amoObjectAmocrm._users_avatars : avatars = [];
 
-        this.users = amoUsers.map(user => {
+        this.users = amoUsers.map((user) => {
         return {
           id: +user.id,
           name: user.name,

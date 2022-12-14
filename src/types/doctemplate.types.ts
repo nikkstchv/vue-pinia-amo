@@ -10,4 +10,6 @@ export class DocTemplateState {
   currItemCopy: object;
   newItem: object;
   editMode: boolean;
+  isLoad: boolean;
+
 }

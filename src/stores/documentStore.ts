@@ -37,6 +37,7 @@ export const useDocumentStore = defineStore("document", {
     currOrganization: {},
     currTemplateId: "",
     newItem: initItem(),
+    isLoad: true
   }),
 
   getters: {
@@ -119,6 +120,7 @@ export const useDocumentStore = defineStore("document", {
           this.limit,
           ""
         );
+        // this.isLoad = true
       } catch (error) {
         console.debug(error);
       }

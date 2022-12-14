@@ -8,4 +8,6 @@ export class DocTypeState {
   items: Type[];
   isAddMode: boolean;
   inputValue: string;
+  isLoad: boolean;
+
 }

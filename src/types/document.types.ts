@@ -30,4 +30,5 @@ export class DocumentState {
   currOrganization: Document;
   currTemplateId: string;
   newItem: object;
+  isLoad: boolean;
 }

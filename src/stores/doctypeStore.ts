@@ -7,7 +7,8 @@ export const useDocTypeStore = defineStore('doctype', {
   state: (): DocTypeState => ({
     items: [],
     isAddMode: false,
-    inputValue: ''
+    inputValue: '',
+    isLoad: true
   }),
 
   getters: {
@@ -26,8 +27,9 @@ export const useDocTypeStore = defineStore('doctype', {
     async loadItems() {
       try {
         this.items = await api.getTypes();
+        this.isLoad = false
       } catch (error) {
-       console.debug(error)
+        console.debug(error)
       }
     },
     async addItem(inputValue: string) {
@@ -37,7 +39,7 @@ export const useDocTypeStore = defineStore('doctype', {
         this.items = await api.getTypes();
         this.inputValue = '';
       } catch (error) {
-       console.debug(error)
+        console.debug(error)
       }
     },
     async updateItem(id: number, name: string) {
@@ -45,7 +47,7 @@ export const useDocTypeStore = defineStore('doctype', {
         await api.updateType(id, name);
         await this.loadItems()
       } catch (error) {
-       console.debug(error)
+        console.debug(error)
       }
     },
     async removeItem(typeId: number) {
@@ -53,7 +55,7 @@ export const useDocTypeStore = defineStore('doctype', {
         await api.deleteType(typeId);
         this.items = await api.getTypes();
       } catch (error) {
-       console.debug(error)
+        console.debug(error)
       }
     },
 

@@ -28,7 +28,8 @@ export const useDocTemplateStore = defineStore('doctemplate', {
     currItem: {},
     currItemCopy: {},
     newItem: initItem(),
-    editMode: false
+    editMode: false,
+    isLoad: true
   }),
 
   getters: {
@@ -42,7 +43,7 @@ export const useDocTemplateStore = defineStore('doctemplate', {
       }
     },
 
-    getTypeId(state){
+    getTypeId(state) {
       return (id: number) => {
         return state.items.find(item => +item.id == id)?.documentType
       }
@@ -83,8 +84,9 @@ export const useDocTemplateStore = defineStore('doctemplate', {
     async loadItems() {
       try {
         this.items = (await api.getTemplates());
+        this.isLoad = false
       } catch (error) {
-       console.debug(error)
+        console.debug(error)
       }
     },
 
@@ -93,7 +95,7 @@ export const useDocTemplateStore = defineStore('doctemplate', {
         await api.addTemplate({ ...this.currItem });
         this.newItem = initItem();
       } catch (error) {
-       console.debug(error)
+        console.debug(error)
       }
     },
 
@@ -103,7 +105,7 @@ export const useDocTemplateStore = defineStore('doctemplate', {
         await this.loadItems()
         this.setItemCopy()
       } catch (error) {
-       console.debug(error)
+        console.debug(error)
       }
     },
 
@@ -112,7 +114,7 @@ export const useDocTemplateStore = defineStore('doctemplate', {
         await api.deleteTemplate(id);
         await this.loadItems()
       } catch (error) {
-       console.debug(error)
+        console.debug(error)
       }
     },
 

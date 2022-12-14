@@ -1,22 +1,19 @@
 <template>
   <div :class="$style.container">
     <GznsHeader :fixed="isChanged" :mainTitle="localization.title" />
-    <GnzsTabs
-      v-if="!isLoad"
-      :tabs="tabs"
-      :current="currActiveTab"
-      @change="saveActiveTab($event)"
-    >
+    <GnzsTabs v-if="!isLoad" :tabs="tabs" :current="currActiveTab" @change="saveActiveTab($event)">
       <div gnzs-tab-id="account" :class="$style.columnFlex">
         <Account />
         <Organizations />
       </div>
       <div gnzs-tab-id="templates" :class="$style.columnFlex">
-        <TemplateSetup />
-        <TemplateTypes />
+        <TemplateSetup v-if="!isTemplatesLoad"/>
+        <TemplateTypes v-if="!isTypesLoad"/>
+        <GnzsSpinner v-else="isTypesLoad" />
       </div>
       <div gnzs-tab-id="tables">
-        <Tables />
+        <Tables v-if="!isDocumentsLoad"/>
+        <GnzsSpinner v-else="isDocumentsLoad" />
       </div>
       <div gnzs-tab-id="variables">
         <Variables />
@@ -53,6 +50,9 @@ import { useDocTypeStore } from "@/stores/docTypeStore";
 
 const { saveActiveTab } = useInitializationStore();
 const { currActiveTab, isLoad } = storeToRefs(useInitializationStore());
+const { isLoad: isTemplatesLoad } = storeToRefs(useDocTemplateStore());
+const { isLoad: isDocumentsLoad } = storeToRefs(useDocumentStore());
+const { isLoad: isTypesLoad } = storeToRefs(useDocTypeStore());
 
 const tabs = [
   { id: "account", title: "Подключение Google" },
