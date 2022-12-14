@@ -40,7 +40,7 @@
                 </td>
                 <td :class="$style.blueText" data-code="entity">
                   <a target="_blank"
-                    :href="`https://${accountData.amoSubdomain}.amocrm.ru/${entityTypesList[doc.entityType]}/detail/${doc.entityId}`">{{
+                    :href="`https://${accountData?.amoSubdomain}.amocrm.ru/${entityTypesList[doc.entityType]}/detail/${doc.entityId}`">{{
                     doc.entityId
                     }}</a>
                 </td>
@@ -106,7 +106,7 @@ const entityTypesList = {
 
 
 const isDataEmpty = computed(() => paginated.value.length === 0)
-const userName = id => accountData.value.amoUsers.find(el => el.id = id).name;
+const userName = id => accountData.value?.amoUsers.find(el => el.id = id).name;
 
 onMounted(() => {
   loadPaginated();

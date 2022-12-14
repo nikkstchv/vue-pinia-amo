@@ -53,6 +53,7 @@ const changeRoute = (id) => {
 }
 
 const addItem = () => {
+  console.log('%addItem.vue line:56 route.query', 'color: #007acc;', route.query);
   router.push({ path: '/newTemplate', query: { ...route.query } })
 
 }

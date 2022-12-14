@@ -7,11 +7,9 @@ import router from "@/router"
 import PATHS from "@/router/paths"
 
 import { useRoute } from "vue-router";
-const route = useRoute();
 
 // types
 import type { HeaderState } from "@/types/header.types";
-// const getCurrItem = async (id: string) => await api.getOrganizationById(+id)
 
 export const useHeaderStore = defineStore("header", {
   state: (): HeaderState => ({
@@ -30,7 +28,7 @@ export const useHeaderStore = defineStore("header", {
     async getCurrentTitle(state) {
       if (this.isNewOrganizationPage) return useInitializationStore().localization.views.newOrganization.headers;
       if (this.isOrganizationPage) {
-        const result = await useOrganizationsStore().getCurrentItem(state.currentRouteId)
+        const result = useOrganizationsStore().getCurrentItem(state.currentRouteId)
         return result?.name;
       }
       return "";
@@ -39,8 +37,9 @@ export const useHeaderStore = defineStore("header", {
 
   actions: {
     goToMainRoute(): void {
-      console.log('%cheaderStore.ts line:42 route.query', 'color: #007acc;', route.query);
-      router.push({ name: PATHS.ADVANCED_SETTINGS.name, query: { ...route.query } });
+      const route = useRoute()
+      const query = route ? route.query : {}
+      router.push({ name: PATHS.ADVANCED_SETTINGS.name, query: { ...query } });
     },
 
     setCurrentRouteName(routeName: string): void {

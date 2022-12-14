@@ -41,7 +41,7 @@ import GnzsTabs from "@/gnzs-controls/gnzs-tabs/gnzs-tabs.vue";
 import init from "@/init";
 
 const { saveActiveTab } = useInitializationStore();
-const { currActiveTab } = storeToRefs(useInitializationStore());
+const { currActiveTab, isLoad } = storeToRefs(useInitializationStore()); 
 
 const tabs = [
   { id: "account", title: "Подключение Google" },

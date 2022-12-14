@@ -56,5 +56,13 @@ export const useDocTypeStore = defineStore('doctype', {
        console.debug(error)
       }
     },
+
+    async browserConfirm({ name, id, confirmEventName, text, declineText, acceptText }:
+      { name: string, id: number, confirmEventName: string, text: string, declineText: string, acceptText: string }) {
+      let shouldDelete = confirm(text);
+      if (shouldDelete) {
+        this.removeItem(id);
+      }
+    }
   }
 })

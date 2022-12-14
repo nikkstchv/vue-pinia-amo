@@ -134,7 +134,7 @@ const route = useRoute()
 const routeId = +route.params.id
 
 const { getCurrentTitle, currItem, editMode, isItemChanged, settlementsList } = storeToRefs(useOrganizationsStore())
-const { loadItems, saveItem, setItemCopy, setCurrItem, setEditMode, cancelItemChanges, addItem, setSettlementsList } = useOrganizationsStore()
+const { loadItems, saveItem, setItemCopy, setCurrItem, setEditMode, cancelItemChanges, addItem, setSettlementsList, browserConfirm } = useOrganizationsStore()
 const { setCurrentRouteId, isNotMainPage, goToMainRoute } = useHeaderStore()
 const { openConfirmModal } = useIframeStore()
 
@@ -162,6 +162,7 @@ const onSaveClick = () => {
 }
 
 const onRemoveClick = () => {
+  if (useInitializationStore().isInsideAmo) {
   openConfirmModal({
     name: "",
     id: routeId,
@@ -170,6 +171,16 @@ const onRemoveClick = () => {
     declineText: localization.value.buttons.cancel,
     acceptText: localization.value.buttons.yes
   });
+  } else {
+    browserConfirm({
+      name: '',
+      id: routeId,
+      confirmEventName: 'deleteTemplate',
+      text: localization.value.confirm.deleteQuestion.template,
+      declineText: localization.value.buttons.cancel,
+      acceptText: localization.value.buttons.yes
+    })
+  }
 }
 
 onMounted(async () => {

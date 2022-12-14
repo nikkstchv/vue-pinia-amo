@@ -34,13 +34,14 @@ const { openConfirmModal } = useIframeStore();
 const initializationStore = useInitializationStore();
 
 const { items, isAddMode } = storeToRefs(useDocTypeStore());
-const { addItem, updateItem, itemAddModeToggle, loadItems } = useDocTypeStore();
+const { addItem, updateItem, itemAddModeToggle, loadItems, browserConfirm } = useDocTypeStore();
 
 const addTypeButtonClick = () => {
   itemAddModeToggle();
 };
 
 const deleteItem = (id, name) => {
+  if (useInitializationStore().isInsideAmo) {
   openConfirmModal({
     name: name,
     id: id,
@@ -49,6 +50,16 @@ const deleteItem = (id, name) => {
     declineText: localization.value.buttons.cancel,
     acceptText: localization.value.buttons.yes
   });
+  } else {
+    browserConfirm({
+      name: '',
+      id: id,
+      confirmEventName: 'deleteTemplate',
+      text: localization.value.confirm.deleteQuestion.template,
+      declineText: localization.value.buttons.cancel,
+      acceptText: localization.value.buttons.yes
+    })
+  }
 }
 
 onMounted(async () => {

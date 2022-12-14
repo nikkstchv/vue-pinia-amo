@@ -55,8 +55,8 @@ export const getFirstAndLastDay = (currentYear: number, currentMonth: number): f
 };
 
 export const getUserAvatar = (userId: number, avatars: UsersAvatartDto[], amoSubdomain: string, amoTopLevelDomain: string): string | void => {
-  const avatar = avatars.find(el => el.id === userId)?.avatar;
-  if (avatar) return 'https://' + amoSubdomain + '.amocrm.' + amoTopLevelDomain + avatar;
+  // const avatar = avatars.find(el => el.id === userId)?.avatar;
+  // if (avatar) return 'https://' + amoSubdomain + '.amocrm.' + amoTopLevelDomain + avatar;
 }
 
 export const currectIntervals = (intervals: any): boolean => {

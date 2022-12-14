@@ -70,7 +70,7 @@ import { useInitializationStore } from "@/stores/initializationStore"
 import { useSettlementStore } from "@/stores/settlementStore"
 import { useIframeStore } from "@/stores/iframeStore"
 
-const { setCurrItem, setItemCopy, cancelItemChanges, updateItem, addItem, disableAddMode } = useSettlementStore()
+const { setCurrItem, setItemCopy, cancelItemChanges, updateItem, addItem, disableAddMode, browserConfirm } = useSettlementStore()
 const { items, currItem, isItemChanged } = storeToRefs(useSettlementStore())
 const { openConfirmModal } = useIframeStore()
 
@@ -122,14 +122,25 @@ const onSaveClick = async () => {
 }
 
 const onRemoveClick = () => {
-  openConfirmModal({
-    name: "",
-    id: props.itemId,
-    confirmEventName: 'deleteSettlement',
-    text: localization.value.confirm.deleteQuestion.settlement,
-    declineText: localization.value.buttons.cancel,
-    acceptText: localization.value.buttons.yes
-  });
+  if (useInitializationStore().isInsideAmo) {
+    openConfirmModal({
+      name: "",
+      id: props.itemId,
+      confirmEventName: 'deleteSettlement',
+      text: localization.value.confirm.deleteQuestion.settlement,
+      declineText: localization.value.buttons.cancel,
+      acceptText: localization.value.buttons.yes
+    });
+  } else {
+    browserConfirm({
+      name: '',
+      id: props.itemId,
+      confirmEventName: 'deleteTemplate',
+      text: localization.value.confirm.deleteQuestion.template,
+      declineText: localization.value.buttons.cancel,
+      acceptText: localization.value.buttons.yes
+    })
+  }
   editClose();
 }
 

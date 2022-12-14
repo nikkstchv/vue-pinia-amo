@@ -2,8 +2,7 @@
   <div :class="$style.main">
     <div :class="$style.orgHeader">{{ initializationStore.localization.views.adSettings.headers.settlement }}</div>
     <div v-for="item in items" :key="item.id">
-      <SettlementEditor :item-id="item.id" @save-click="updateItem(item.id, $event)"
-        @remove-click="deleteItem(item.id)" />
+      <SettlementEditor :item-id="item.id" @save-click="updateItem(item.id, $event)" />
     </div>
   </div>
   <div :class="$style.rowFlex" v-if="!isAddMode">
@@ -19,7 +18,6 @@
 import { computed, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 
-import { useOrganizationsStore } from "@/stores/organizationsStore";
 import { useInitializationStore } from "@/stores/initializationStore";
 import { useSettlementStore } from "@/stores/settlementStore";
 import { useIframeStore } from "@/stores/iframeStore";
@@ -28,8 +26,7 @@ import SettlementEditor from "@/components/SettlementEditor";
 import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";
 
 const { addItem, setCurrItemAsNew, setItemCopy, updateItem, itemAddModeToggle, loadItems } = useSettlementStore();
-// const { setSettlementsList } = useOrganizationsStore();
-const { currItemsList, isAddMode } = storeToRefs(useSettlementStore());
+const { isAddMode } = storeToRefs(useSettlementStore());
 
 const initializationStore = useInitializationStore();
 const { openConfirmModal } = useIframeStore();
@@ -49,16 +46,16 @@ const addItemButtonClick = () => {
   setItemCopy();
 };
 
-const deleteItem = (id) => {
-  openConfirmModal({
-    name: "",
-    id: id,
-    confirmEventName: 'deleteSettlement',
-    text: localization.value.confirm.deleteQuestion.settlement,
-    declineText: localization.value.buttons.cancel,
-    acceptText: localization.value.buttons.yes
-  });
-}
+// const deleteItem = (id) => {
+//   openConfirmModal({
+//     name: "",
+//     id: id,
+//     confirmEventName: 'deleteSettlement',
+//     text: localization.value.confirm.deleteQuestion.settlement,
+//     declineText: localization.value.buttons.cancel,
+//     acceptText: localization.value.buttons.yes
+//   });
+// }
 
 onMounted(async () => {
   await loadItems();

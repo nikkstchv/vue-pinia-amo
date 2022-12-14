@@ -92,10 +92,17 @@ export const useSettlementStore = defineStore('settlement', {
     async removeItem(id: number) {
       try {
         await api.deleteSettlement(id);
-        this.items = await api.getSettlements();
+        await this.loadItems()
       } catch (error) {
        console.debug(error)
       }
     },
+    async browserConfirm({ name, id, confirmEventName, text, declineText, acceptText }:
+      { name: string, id: number, confirmEventName: string, text: string, declineText: string, acceptText: string }) {
+      let shouldDelete = confirm(text);
+      if (shouldDelete) {
+        this.removeItem(id);
+      }
+    }
   }
 })

@@ -133,6 +133,7 @@ const onSaveClick = () => {
 }
 
 const onRemoveClick = () => {
+  console.log('%cisInsideAmo line:136 object', 'color: #007acc;', useInitializationStore().isInsideAmo);
   if (useInitializationStore().isInsideAmo) {
     openConfirmModal({
       name: '',

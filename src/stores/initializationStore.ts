@@ -65,7 +65,6 @@ export const useInitializationStore = defineStore({
       const iframeStore = useIframeStore();
 
       try {
-
         let token: string = currUrl.searchParams.get("token") || "";
 
         if (!token?.length && this.isDevMode) {
@@ -85,9 +84,10 @@ export const useInitializationStore = defineStore({
         this.amoUserId = Number(currUrl.searchParams.get("user-id")) || +this.decodeToken.user_id || import.meta.env.VITE_APP_DEVELOPER_AMO_USER_ID;
         this.setUsers();
         setEvents(iframeName);
+        console.log('%cinitializationStore.ts line:88 iframeName', 'color: #007acc;', iframeName);
+
         iframeStore.setIframeName(iframeName);
         iframeStore.resizeWindow();
-        console.log('%cinitializationStore.ts line:88 iframeName', 'color: #007acc;', iframeName);
 
         this.isLoad = false;
       } catch (error: any) {
@@ -105,7 +105,7 @@ export const useInitializationStore = defineStore({
 
         amoObjectAmocrm ? avatars = amoObjectAmocrm._users_avatars : avatars = [];
 
-      this.users = amoUsers.map(user => {
+        this.users = amoUsers.map(user => {
         return {
           id: +user.id,
           name: user.name,
