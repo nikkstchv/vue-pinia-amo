@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.container">
     <GznsHeader :fixed="isChanged" :mainTitle="localization.title" />
-    <GnzsTabs :tabs="tabs" :current="currActiveTab" @change="saveActiveTab($event)">
+    <GnzsTabs v-if="!isLoad" :tabs="tabs" :current="currActiveTab" @change="saveActiveTab($event)">
       <div gnzs-tab-id="account" :class="$style.columnFlex">
         <Account />
         <Organizations />
@@ -17,6 +17,7 @@
         <Variables />
       </div>
     </GnzsTabs>
+    <GnzsSpinner v-else-if="isLoad" :class="$style.spinner" />
   </div>
 </template>
 
@@ -35,6 +36,7 @@ import Variables from "@/components/Variables/Variables.vue";
 import Account from "@/components/Account/Account.vue";
 import Tables from "@/components/Tables/Tables.vue";
 
+import GnzsSpinner from "@/gnzs-controls/gnzs-spinner/gnzs-spinner.vue";
 import GznsHeader from "@/gnzs-controls/gnzs-header/gnzs-header.vue";
 import GnzsTabs from "@/gnzs-controls/gnzs-tabs/gnzs-tabs.vue";
 

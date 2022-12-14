@@ -1,14 +1,16 @@
 <template>
   <div :class="$style.spinner">
-    <span :class="$style.spinnerIcon"></span>
+      <span :class="$style.spinnerIcon"></span>
   </div>
 </template>
 
 <style lang="scss" module>
-  .spinner {
+.spinner {
     position: relative;
     height: 22px;
     width: 22px;
+    margin: auto;
+      top: 40vh;
   }
 
   .spinnerIcon {
