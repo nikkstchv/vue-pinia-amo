@@ -29,14 +29,13 @@
 </template> 
 
 <script setup>
-import { computed, onMounted } from "vue";
+import { computed } from "vue";
 import { useRoute, useRouter } from 'vue-router';
 
 import { useInitializationStore } from "@/stores/initializationStore";
 import { useDocTemplateStore } from "@/stores/docTemplateStore";
 
 import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";
-
 
 const docTemplateStore = useDocTemplateStore();
 const initializationStore = useInitializationStore();
@@ -56,10 +55,6 @@ const addItem = () => {
   router.push({ path: '/newTemplate', query: { ...route.query } })
 
 }
-
-// onMounted(async () => {
-//   return await docTemplateStore.loadItems();
-// });
 </script>
 
 <style lang="scss" module>
