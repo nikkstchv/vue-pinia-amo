@@ -103,7 +103,7 @@
             </GnzsButton>
           </Section>
           <Section>
-          <SettlementTable :items="settlementsList" />
+          <SettlementTable :items="getCurrItems(routeId)" />
     </Section>
   </div>
 
@@ -132,6 +132,8 @@ import PATHS from "@/router/paths"
 
 const route = useRoute()
 const routeId = +route.params.id
+
+const { getCurrItems } = storeToRefs(useSettlementStore())
 
 const { getCurrentTitle, currItem, editMode, isItemChanged, settlementsList } = storeToRefs(useOrganizationsStore())
 const { loadItems, saveItem, setItemCopy, setCurrItem, setEditMode, cancelItemChanges, addItem, setSettlementsList, browserConfirm } = useOrganizationsStore()
@@ -173,12 +175,8 @@ const onRemoveClick = () => {
   });
   } else {
     browserConfirm({
-      name: '',
       id: routeId,
-      confirmEventName: 'deleteOrganization',
       text: localization.value.confirm.deleteQuestion.template,
-      declineText: localization.value.buttons.cancel,
-      acceptText: localization.value.buttons.yes
     })
   }
 }

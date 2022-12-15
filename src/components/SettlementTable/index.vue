@@ -14,7 +14,7 @@
     @add-mode-toggle="itemAddModeToggle()" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 
@@ -23,6 +23,7 @@ import { useSettlementStore } from "@/stores/settlementStore";
 
 import SettlementEditor from "@/components/SettlementEditor";
 import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";
+import type { Settlement } from "@/types/settlement.types";
 
 const { addItem, setCurrItemAsNew, setItemCopy, updateItem, itemAddModeToggle, loadItems } = useSettlementStore();
 const { isAddMode } = storeToRefs(useSettlementStore());
@@ -31,7 +32,8 @@ const initializationStore = useInitializationStore();
 
 const props = defineProps({
   items: {
-    required: false
+    type: Array<Settlement>,
+    required: true
   }
 });
 

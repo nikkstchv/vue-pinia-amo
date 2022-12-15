@@ -92,7 +92,8 @@ export const useSettlementStore = defineStore('settlement', {
     async removeItem(id: number) {
       try {
         await api.deleteSettlement(id);
-        await this.loadItems()
+        // await this.loadItems()
+        this.items = await api.getSettlements()
       } catch (error) {
        console.debug(error)
       }

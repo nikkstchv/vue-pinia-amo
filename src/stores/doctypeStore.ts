@@ -53,7 +53,7 @@ export const useDocTypeStore = defineStore('doctype', {
     async removeItem(typeId: number) {
       try {
         await api.deleteType(typeId);
-        this.items = await api.getTypes();
+        await this.loadItems();
       } catch (error) {
         console.debug(error)
       }

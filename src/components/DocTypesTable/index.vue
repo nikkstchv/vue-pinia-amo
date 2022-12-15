@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted } from "vue";
+import { computed } from "vue";
 import { storeToRefs } from "pinia";
 
 import { useInitializationStore } from "@/stores/initializationStore";
@@ -34,7 +34,7 @@ const { openConfirmModal } = useIframeStore();
 const initializationStore = useInitializationStore();
 
 const { items, isAddMode } = storeToRefs(useDocTypeStore());
-const { addItem, updateItem, itemAddModeToggle, loadItems, browserConfirm } = useDocTypeStore();
+const { addItem, updateItem, itemAddModeToggle, browserConfirm } = useDocTypeStore();
 
 const addTypeButtonClick = () => {
   itemAddModeToggle();
@@ -62,9 +62,6 @@ const deleteItem = (id, name) => {
   }
 }
 
-// onMounted(async () => {
-//   return await loadItems();
-// });
 </script>
 
 <style lang="scss" module>
