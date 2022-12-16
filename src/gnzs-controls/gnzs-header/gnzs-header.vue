@@ -3,6 +3,7 @@
 import { computed, nextTick, onMounted, onUnmounted, ref, useCssModule, type Ref } from "vue";
 import { useIframeStore } from "@/stores/iframeStore";
 import { useRoute, useRouter } from "vue-router";
+import PATHS from "@/router/paths";
 
 const props = defineProps({
   mainTitle: {
@@ -66,7 +67,7 @@ const setIsScrolled = (): void => {
 const goToMainRoute = (): void => {
   if (props.mainRoute === "") return;
   // router.push({ name: props.mainRoute });
-  router.push({ path: '/', query: { ...route.query } })
+  router.push({ path: PATHS.ADVANCED_SETTINGS.path, query: { ...route.query } })
   emit("goToMainRoute");
 };
 
