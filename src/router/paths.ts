@@ -9,15 +9,15 @@ export default {
   },
   NEW_ORGANIZATION: {
     name: "newOrganization",
-    path: "/newOrganization",
+    path: "/organization/add",
   },
   TEMPLATE: {
     name: "Template",
-    path: "/template/:id",
+    path: "/templates/:id",
   },
   NEW_TEMPLATE: {
     name: "newTemplate",
-    path: "/newTemplate",
+    path: "/templates/add",
   },
   DOCUMENT_TAB: {
     name: "documentTab",

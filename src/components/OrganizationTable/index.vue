@@ -31,6 +31,8 @@ import { storeToRefs } from "pinia";
 import { useRoute, useRouter } from 'vue-router';
 import { computed } from "@vue/reactivity";
 
+import PATHS from "@/router/paths"
+
 import { useInitializationStore } from "@/stores/initializationStore";
 import { useOrganizationsStore } from "@/stores/organizationsStore";
 
@@ -46,11 +48,11 @@ const router = useRouter();
 const route = useRoute()
 
 const changeRoute = (id) => {
-  router.push({ path: `organizations/${id}`, query: { ...route.query } })
+  router.push({ name: PATHS.ORGANIZATION.name, params: { id: id }, query: { ...route.query } })
 }
 
 const addItem = () => {
-  router.push({ path: '/newOrganization', query: { ...route.query } })
+  router.push({ path: PATHS.NEW_ORGANIZATION.path, query: { ...route.query } })
 }
 </script>
 

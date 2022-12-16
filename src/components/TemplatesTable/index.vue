@@ -32,6 +32,8 @@
 import { computed } from "vue";
 import { useRoute, useRouter } from 'vue-router';
 
+import PATHS from "@/router/paths";
+
 import { useInitializationStore } from "@/stores/initializationStore";
 import { useDocTemplateStore } from "@/stores/docTemplateStore";
 
@@ -48,11 +50,11 @@ const router = useRouter();
 const route = useRoute()
 
 const changeRoute = (id) => {
-  router.push({ path: `template/${id}`, query: { ...route.query } })
+  router.push({ name: PATHS.TEMPLATE.name, params: { id: id }, query: { ...route.query } })
 }
 
 const addItem = () => {
-  router.push({ path: '/newTemplate', query: { ...route.query } })
+  router.push({ path: PATHS.NEW_TEMPLATE.path, query: { ...route.query } })
 
 }
 </script>
