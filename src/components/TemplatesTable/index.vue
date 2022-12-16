@@ -50,7 +50,7 @@ const router = useRouter();
 const route = useRoute()
 
 const changeRoute = (id) => {
-  router.push({ name: PATHS.TEMPLATE.name, params: { id: id }, query: { ...route.query } })
+  router.push({ name: PATHS.TEMPLATE.name, params: { id }, query: { ...route.query } })
 }
 
 const addItem = () => {
