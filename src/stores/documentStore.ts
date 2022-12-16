@@ -44,7 +44,7 @@ export const useDocumentStore = defineStore("document", {
     getSettlementsList(state) {
       return useSettlementStore()
         .items.filter((item) => {
-          return item.corporateEntityId === state.currOrgId;
+          return item.corporateEntityId === +state.currOrgId;
         })
         .map((item) => ({
           value: item.id,
@@ -115,11 +115,11 @@ export const useDocumentStore = defineStore("document", {
 
     async loadPaginated() {
       try {
-        this.paginated = await api.getPaginatedDocuments(
-          this.page,
-          this.limit,
-          ""
-        );
+        this.paginated = await api.getPaginatedDocuments({
+          page: this.page,
+          limit: this.limit,
+          search: ''
+        });
         this.isLoad = false
       } catch (error) {
         console.debug(error);

@@ -1,16 +1,22 @@
 import { API_DOCFLOW } from "./api";
 
+type PaginatedDto = {
+  page: number,
+  limit: number,
+  search: string
+}
 
 export const getDocuments = async () => {
   return API_DOCFLOW.get('documents').then(response => response?.data);
 }
 
-export const getPaginatedDocuments = async (page: number, limit: number, search: string) => {
+export const getPaginatedDocuments = async (query: PaginatedDto) => {
+  console.log('%cdocuments.ts line:21 params', 'color: #007acc;', query);
   return API_DOCFLOW.get(
-    `documents/paginated?page=${page}&limit=${limit}&search=${search}`
+    'documents/paginated',
+    { params: { ...query } }
   ).then((response) => response?.data);
 };
-
 
 export const getDocumentById = async (id: number) => {
   return API_DOCFLOW.get(`documents/${id}`).then(response => response?.data);
