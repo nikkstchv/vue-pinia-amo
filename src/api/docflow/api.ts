@@ -10,7 +10,8 @@ export const API_DOCFLOW = axios.create({
 });
 
 API_DOCFLOW.interceptors.request.use((req: any) => {
-  req.headers["X-Account-Id"] = useInitializationStore().extAccountId || '30413944';
+  // req.headers["X-Account-Id"] = useInitializationStore().extAccountId || '30413944';
+  req.headers["X-Account-Id"] = useInitializationStore().extAccountId;
   req.headers["X-Platform-Id"] = "1";
   req.headers["X-Auth-Token"] = useInitializationStore().token || "";
   return req;

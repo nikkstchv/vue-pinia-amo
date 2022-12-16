@@ -145,7 +145,7 @@
 .orgColumn {
   display: flex;
   flex-direction: column;
-  flex-basis: 40%;
+  flex-basis: 30%;
   margin-right: 100px;
 }
 
@@ -164,6 +164,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 15px;
+  width: 500px;
 }
 
 .inputTitle {

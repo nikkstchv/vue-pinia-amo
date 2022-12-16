@@ -3,6 +3,7 @@ import type { OrganizationsState, Organization, NewOrganization } from "../types
 import { useHeaderStore } from "@/stores/headerStore";
 import { useSettlementStore } from "./settlementStore";
 import * as api from "@/api/docflow";
+import type { CurrItem } from "@/types/settlement.types";
 
 
 const initItem = (): NewOrganization => ({
@@ -116,7 +117,7 @@ export const useOrganizationsStore = defineStore('organizations', {
       }
     },
 
-    async saveItem(id: number, currItem: Organization) {
+    async saveItem(id: number, currItem: CurrItem) {
       try {
         await api.updateOrganization(id, currItem);
         await this.loadItems()

@@ -60,10 +60,6 @@ export type NewOrganization = {
   createdAt: string
 }
 
-// export type Settlement = {
-//   [key: string]: string,
-// }
-
 export type MappedOrg = {
   value: number,
   title: string

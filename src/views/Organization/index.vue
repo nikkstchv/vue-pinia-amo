@@ -109,7 +109,7 @@
 
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useRoute } from 'vue-router';
@@ -135,7 +135,7 @@ const routeId = +route.params.id
 
 const { getCurrItems } = storeToRefs(useSettlementStore())
 
-const { getCurrentTitle, currItem, editMode, isItemChanged, settlementsList } = storeToRefs(useOrganizationsStore())
+const { getCurrentTitle, currItem, editMode, isItemChanged } = storeToRefs(useOrganizationsStore())
 const { loadItems, saveItem, setItemCopy, setCurrItem, setEditMode, cancelItemChanges, addItem, setSettlementsList, browserConfirm } = useOrganizationsStore()
 const { setCurrentRouteId, isNotMainPage, goToMainRoute } = useHeaderStore()
 const { openConfirmModal } = useIframeStore()
