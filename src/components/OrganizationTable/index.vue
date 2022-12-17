@@ -40,7 +40,6 @@ import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";
 
 const initializationStore = useInitializationStore();
 const { items } = storeToRefs(useOrganizationsStore());
-const { loadItems } = useOrganizationsStore();
 
 const localization = computed(() => initializationStore.localization);
 
