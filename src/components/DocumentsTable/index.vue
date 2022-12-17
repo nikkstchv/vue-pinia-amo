@@ -93,7 +93,9 @@ const { getCurrentItem: getCurrentType } = storeToRefs(useDocTypeStore());
 const { paginated, page, limit } = storeToRefs(useDocumentStore());
 const { nextPage, prevPage, selectPage, changeLimit } = useDocumentStore();
 
-const isDataEmpty = computed(() => paginated.value.length === 0)
+// const isDataEmpty = computed(() => paginated.value.length === 0)
+const isDataEmpty = true
+
 
 const entityTypesList = {
   1: "leads",
