@@ -21,7 +21,8 @@ export const useSettlementStore = defineStore('settlement', {
     currItem: {},
     currItemCopy: {},
     newItem: initItem(),
-    isAddMode: false
+    isAddMode: false,
+    isLoad: true
   }),
 
   getters: {
@@ -56,7 +57,7 @@ export const useSettlementStore = defineStore('settlement', {
     },
 
     setItemCopy() {
-      this.currItemCopy = { ...this.currItem }      
+      this.currItemCopy = { ...this.currItem }
     },
 
     cancelItemChanges() {
@@ -66,8 +67,9 @@ export const useSettlementStore = defineStore('settlement', {
     async loadItems() {
       try {
         this.items = await api.getSettlements();
+        this.isLoad = false
       } catch (error) {
-       console.debug(error)
+        console.debug(error)
       }
     },
     async addItem(item: NewSettlement) {
@@ -77,7 +79,7 @@ export const useSettlementStore = defineStore('settlement', {
         this.itemAddModeToggle();
         useOrganizationsStore().setSettlementsList()
       } catch (error) {
-       console.debug(error)
+        console.debug(error)
       }
     },
     async updateItem(id: number, item: Settlement) {
@@ -86,7 +88,7 @@ export const useSettlementStore = defineStore('settlement', {
         await this.loadItems()
         this.setItemCopy()
       } catch (error) {
-       console.debug(error)
+        console.debug(error)
       }
     },
     async removeItem(id: number) {
@@ -95,7 +97,7 @@ export const useSettlementStore = defineStore('settlement', {
         // await this.loadItems()
         this.items = await api.getSettlements()
       } catch (error) {
-       console.debug(error)
+        console.debug(error)
       }
     },
     async browserConfirm({ id, text }:

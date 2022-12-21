@@ -41,4 +41,5 @@ export class SettlementState {
   currItemCopy: object;
   newItem: NewSettlement;
   isAddMode: boolean;
+  isLoad: boolean;
 }
