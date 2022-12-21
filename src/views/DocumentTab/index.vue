@@ -84,7 +84,7 @@ const {
   getCurrOrganizationName,
   getCurrSettlementName,
 } = storeToRefs(useDocumentStore());
-const { loadItems: loadDocuments, addItem } = useDocumentStore();
+const { addItem } = useDocumentStore();
 
 // computed
 const localization = computed(() => useInitializationStore().localization);
@@ -96,11 +96,10 @@ entityId.value = +route.query['entity-id'] || 0;
 entityType.value = +route.query['entity-type'] || 0;
 
 
-
 onMounted(async () => {
   const route = useRoute();
   await init(route);
-  // loadDocuments();
+  console.log('%cindex.vue line:103 entityType.value', 'color: #007acc;', entityType.value);
 });
 </script>
 

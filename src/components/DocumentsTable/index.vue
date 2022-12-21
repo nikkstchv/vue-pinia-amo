@@ -17,7 +17,9 @@
               {{ localization.components.documents.tables.headers.entity }}
             </th>
             <th data-code="organizations">
-              {{ localization.components.documents.tables.headers.organizations }}
+              {{
+                localization.components.documents.tables.headers.organizations
+              }}
             </th>
             <th data-code="responsible">
               {{ localization.components.documents.tables.headers.responsible }}
@@ -25,30 +27,31 @@
             <th data-code="created">
               {{ localization.components.documents.tables.headers.created }}
             </th>
-            </tr>
-            </thead>
-            <tbody>
-              <tr v-for="doc in paginated.data" :key="doc.id">
-                <td :class="$style.blueText" data-code="number">
-                  {{ doc.number }}
-                </td>
-                <td :class="$style.blueText" data-code="name">
-                  {{ getCurrentTemplate(doc.templateId)?.name}}
-                </td>
-                <td :class="$style.blueText" data-code="type">
-                  {{ getCurrentType(+getTypeId(doc.templateId))?.name}}
-                </td>
-                <td :class="$style.blueText" data-code="entity">
-                  <a target="_blank"
-                    :href="`https://${accountData?.amoSubdomain}.amocrm.ru/${entityTypesList[doc.entityType]}/detail/${doc.entityId}`">{{
-                    doc.entityId
-                    }}</a>
-                </td>
-                <td :class="$style.blueText" data-code="organizations">
-                  {{ getCurrentOrg(doc.organizationsId)?.name }}
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="doc in paginated.data" :key="doc.id">
+            <td :class="$style.blueText" data-code="number">
+              {{ doc.number }}
+            </td>
+            <td :class="$style.blueText" data-code="name">
+              {{ getCurrentTemplate(doc.templateId)?.name }}
+            </td>
+            <td :class="$style.blueText" data-code="type">
+              {{ getCurrentType(+getTypeId(doc.templateId))?.name }}
+            </td>
+            <td :class="$style.blueText" data-code="entity">
+              <a
+                target="_blank"
+                :href="linkToEntity(doc.entityType, doc.entityId)"
+                >{{ doc.entityId }}</a
+              >
+            </td>
+            <td :class="$style.blueText" data-code="organizations">
+              {{ getCurrentOrg(doc.organizationsId)?.name }}
             </td>
             <td :class="$style.blueText" data-code="responsible">
-            {{userName(doc.userId)}}
+              {{ userName(doc.userId) }}
             </td>
             <td :class="$style.blueText" data-code="created">
               {{ doc.createdAt }}
@@ -59,7 +62,8 @@
       <div v-else :class="$style.noData">Нет сгенерированных документов</div>
     </div>
   </div>
-  <Pagination v-show="!isDataEmpty"
+  <Pagination
+    v-show="!isDataEmpty"
     :range="paginated.total"
     :page-count="paginated.pageCount"
     :current-page="page"
@@ -85,7 +89,9 @@ import { useOrganizationsStore } from "@/stores/organizationsStore";
 const initializationStore = useInitializationStore();
 const localization = computed(() => initializationStore.localization);
 
-const { getCurrentItem: getCurrentTemplate, getTypeId } = storeToRefs(useDocTemplateStore());
+const { getCurrentItem: getCurrentTemplate, getTypeId } = storeToRefs(
+  useDocTemplateStore()
+);
 const { userName } = useInitializationStore();
 const { accountData } = storeToRefs(useInitializationStore());
 const { getCurrentItem: getCurrentOrg } = storeToRefs(useOrganizationsStore());
@@ -93,14 +99,18 @@ const { getCurrentItem: getCurrentType } = storeToRefs(useDocTypeStore());
 const { paginated, page, limit } = storeToRefs(useDocumentStore());
 const { nextPage, prevPage, selectPage, changeLimit } = useDocumentStore();
 
-const isDataEmpty = computed(() => paginated.value.length === 0)
+const isDataEmpty = computed(() => paginated.value.length === 0);
 
 const entityTypesList = {
   1: "leads",
   2: "contacts",
   3: "companies",
-  12: "customers"
-}
+  12: "customers",
+};
+
+const linkToEntity = (entityType, entityId) => {
+  return `https://${accountData?.amoSubdomain}.amocrm.ru/${entityTypesList[entityType]}/detail/${entityId}`;
+};
 </script>
 
 <style lang="scss" module>

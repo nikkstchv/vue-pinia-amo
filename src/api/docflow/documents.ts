@@ -11,7 +11,6 @@ export const getDocuments = async () => {
 }
 
 export const getPaginatedDocuments = async (query: PaginatedDto) => {
-  console.log('%cdocuments.ts line:21 params', 'color: #007acc;', query);
   return API_DOCFLOW.get(
     'documents/paginated',
     { params: { ...query } }
