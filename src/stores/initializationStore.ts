@@ -93,7 +93,6 @@ export const useInitializationStore = defineStore({
         iframeStore.setIframeName(iframeName);
         iframeStore.resizeWindow();
         this.isLoad = false;
-        console.log('%cinitializationStore.ts line:96 this.de', 'color: #007acc;', this.decodeToken);
       } catch (error: any) {
         console.debug(error);
         if (error?.response?.data?.statusCode === 403) {

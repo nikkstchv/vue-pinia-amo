@@ -38,6 +38,7 @@ export class DocumentState {
   entityId: number;
   entityType: number;
   isLoading: boolean;
+  isTabLoading: boolean;
   currOrgId: string;
   currSettlmentId: string;
   currSettlment: object;

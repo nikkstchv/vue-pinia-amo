@@ -49,6 +49,8 @@
   justify-content: space-between;
   align-items: flex-end;
   margin-bottom: 25px;
+  // max-width: 400px;
+  max-width: 100%;
 }
 
 .rowFlexDocField {
@@ -84,6 +86,10 @@
 
 .templateContainer {
   width: 80%;
+}
+
+.fieldsWrapper {
+  width: 40%;
 }
 
 .inputContainer {
@@ -122,7 +128,7 @@
 }
 
 .orgInput {
-  width: 100%;
+  width: 80%;
 }
 
 .templateInput {

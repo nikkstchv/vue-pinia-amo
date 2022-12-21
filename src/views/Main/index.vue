@@ -1,25 +1,31 @@
 <template>
   <div :class="$style.container">
     <GznsHeader :fixed="isChanged" :mainTitle="localization.title" />
-    <GnzsTabs v-if="!isLoad" :tabs="tabs" :current="currActiveTab" @change="saveActiveTab($event)">
+    <GnzsTabs
+      v-if="!isLoad"
+      :tabs="tabs"
+      :current="currActiveTab"
+      @change="saveActiveTab($event)"
+    >
       <div gnzs-tab-id="account" :class="$style.columnFlex">
         <Account />
-        <Organizations />
+        <Organizations v-if="!isOrganizationsLoad" />
+        <GnzsSpinner v-else="isOrganizationsLoad" />
       </div>
       <div gnzs-tab-id="templates" :class="$style.columnFlex">
-        <TemplateSetup v-if="!isTemplatesLoad"/>
-        <TemplateTypes v-if="!isTypesLoad"/>
+        <TemplateSetup v-if="!isTemplatesLoad" />
+        <TemplateTypes v-if="!isTypesLoad" />
         <GnzsSpinner v-else="isTypesLoad" />
       </div>
       <div gnzs-tab-id="tables">
-        <Tables v-if="!isDocumentsLoad"/>
+        <Tables v-if="!isDocumentsLoad" />
         <GnzsSpinner v-else="isDocumentsLoad" />
       </div>
       <div gnzs-tab-id="variables">
         <Variables />
       </div>
     </GnzsTabs>
-    <GnzsSpinner v-else-if="isLoad" />
+    <GnzsSpinner v-else="isLoad" />
   </div>
 </template>
 
@@ -49,10 +55,11 @@ import { useDocumentStore } from "@/stores/documentStore";
 import { useDocTypeStore } from "@/stores/docTypeStore";
 
 const { saveActiveTab } = useInitializationStore();
-const { currActiveTab, isLoad } = storeToRefs(useInitializationStore());
+const { currActiveTab, isLoad, token } = storeToRefs(useInitializationStore());
 const { isLoad: isTemplatesLoad } = storeToRefs(useDocTemplateStore());
 const { isLoad: isDocumentsLoad } = storeToRefs(useDocumentStore());
 const { isLoad: isTypesLoad } = storeToRefs(useDocTypeStore());
+const { isLoad: isOrganizationsLoad } = storeToRefs(useOrganizationsStore());
 
 const tabs = [
   { id: "account", title: "Подключение Google" },
@@ -95,8 +102,10 @@ watch(currActiveTab, () => {
 
 onMounted(async () => {
   const route = useRoute();
-  await init(route);
-  await loadData();
+  if (!token.value) {
+    await init(route);
+    await loadData();
+  }
 });
 </script>
 

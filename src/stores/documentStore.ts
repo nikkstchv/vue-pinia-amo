@@ -37,7 +37,9 @@ export const useDocumentStore = defineStore("document", {
     currOrganization: {},
     currTemplateId: "",
     newItem: initItem(),
-    isLoad: true
+    isLoad: true,
+    isTabLoading: true,
+
   }),
 
   getters: {
@@ -108,6 +110,7 @@ export const useDocumentStore = defineStore("document", {
     async loadItems() {
       try {
         this.items = await api.getDocuments();
+        this.isTabLoading = false;
       } catch (error) {
         console.debug(error);
       }
@@ -129,7 +132,6 @@ export const useDocumentStore = defineStore("document", {
     async addItem() {
       try {
         this.isLoading = true;
-
         const template = await api.getTemplateById(+this.currTemplateId);
         const counter = template.nextNumber
           .toString()
@@ -155,6 +157,8 @@ export const useDocumentStore = defineStore("document", {
         });
 
         this.loadItems();
+        this.isLoading = false;
+
       } catch (error) {
         console.debug(error);
       } finally {

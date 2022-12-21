@@ -44,7 +44,10 @@ export const useOrganizationsStore = defineStore('organizations', {
     currItemCopy: {},
     newItem: initItem(),
     editMode: false,
-    settlementsList: []
+    settlementsList: [],
+    isLoad: true,
+    isCurrentLoad: true
+
   }),
 
   getters: {
@@ -93,6 +96,7 @@ export const useOrganizationsStore = defineStore('organizations', {
     setCurrItem() {
       const currId: number = useHeaderStore().currentRouteId;
       this.currItem = { ...this.getCurrentItem(currId) }
+      this.isCurrentLoad = false
     },
 
     setItemCopy() {
@@ -101,7 +105,8 @@ export const useOrganizationsStore = defineStore('organizations', {
 
     async loadItems() {
       try {
-        this.items = (await api.getOrganizations());
+        this.items = await api.getOrganizations();
+        this.isLoad = false;
       } catch (error) {
         console.debug(error)
       }

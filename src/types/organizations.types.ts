@@ -102,5 +102,7 @@ export class OrganizationsState {
   currItemCopy: object;
   newItem: NewOrganization;
   editMode: boolean;
-  settlementsList: Settlement[]
+  settlementsList: Settlement[];
+  isLoad: boolean;
+  isCurrentLoad: boolean;
 }  

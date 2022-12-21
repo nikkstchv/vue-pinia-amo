@@ -1,22 +1,21 @@
 <template>
   <Icons />
   <Header />
-  <Section>
+  <Section v-if="!isTabLoading">
     <div :class="$style.rowFlex">
       <div :class="$style.fieldsWrapper">
         <div :class="$style.inputDesc">{{ localization.tab.titles.organizations }}</div>
-        <GnzsDropdown :items="mappedOrgs" v-model="currOrgId" :class="[$style.inputName, $style.orgInput]"
-          positive-only />
+        <GnzsDropdown :items="mappedOrgs" v-model="currOrgId" :class="[$style.inputName]" />
       </div>
-      <div>
+      <div :class="$style.fieldsWrapper">
         <div :class="$style.inputDesc">{{ localization.tab.titles.settlement }}</div>
-        <GnzsDropdown :items="getSettlementsList" v-model="currSettlmentId" :class="$style.orgInput" positive-only />
+        <GnzsDropdown :items="getSettlementsList" v-model="currSettlmentId" />
       </div>
     </div>
     <div :class="$style.rowFlex">
       <div :class="$style.templateContainer">
         <div :class="$style.inputDesc">{{ localization.tab.titles.document }}</div>
-        <GnzsDropdown :items="getTemplatesList" v-model="currTemplateId" :class="$style.orgInput" positive-only />
+        <GnzsDropdown :items="getTemplatesList" v-model="currTemplateId" :class="$style.orgInput" />
       </div>
       <GnzsButton :loading="isLoading" @click="addItem" :class="$style.templateBtn">
         {{ localization.buttons.create }}
@@ -45,6 +44,7 @@
       </div>
     </div>
   </Section>
+  <GnzsSpinner v-else-if="isTabLoading" />
 </template>
 
 <script setup>
@@ -62,6 +62,8 @@ import Header from "@/components/TabHeader";
 import Section from "@/gnzs-controls/gnzs-section/gnzs-section.vue";
 import GnzsButton from "@/gnzs-controls/gnzs-button/gnzs-button.vue";
 import GnzsDropdown from "@/gnzs-controls/gnzs-dropdown/gnzs-dropdown.vue";
+import GnzsSpinner from "@/gnzs-controls/gnzs-spinner/gnzs-spinner.vue";
+
 
 import init from "@/init";
 
@@ -72,6 +74,7 @@ const {
   entityId,
   entityType,
   isLoading,
+  isTabLoading,
   currOrgId,
   currSettlmentId,
   currTemplateId,
@@ -97,7 +100,7 @@ entityType.value = +route.query['entity-type'] || 0;
 onMounted(async () => {
   const route = useRoute();
   await init(route);
-  loadDocuments();
+  // loadDocuments();
 });
 </script>
 
