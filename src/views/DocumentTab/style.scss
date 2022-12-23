@@ -50,7 +50,7 @@
   align-items: flex-end;
   margin-bottom: 25px;
   // max-width: 400px;
-  max-width: 100%;
+  width: 400px;
 }
 
 .rowFlexDocField {
@@ -89,7 +89,7 @@
 }
 
 .fieldsWrapper {
-  width: 40%;
+  width: 47%;
 }
 
 .inputContainer {
@@ -128,7 +128,7 @@
 }
 
 .orgInput {
-  width: 80%;
+  width: 90%;
 }
 
 .templateInput {
@@ -148,3 +148,7 @@
   font-size: 12px;
   margin-top: 2px;
 }
+
+// .tabContainer {
+//   width: 400px;
+// }

@@ -2,6 +2,7 @@
   <Icons />
   <Header />
   <Section v-if="!isTabLoading">
+    <div :class="$style.tabContainer">
     <div :class="$style.rowFlex">
       <div :class="$style.fieldsWrapper">
         <div :class="$style.inputDesc">{{ localization.tab.titles.organizations }}</div>
@@ -42,6 +43,7 @@
           </p>
         </div>
       </div>
+    </div>
     </div>
   </Section>
   <GnzsSpinner v-else-if="isTabLoading" />
@@ -99,7 +101,6 @@ entityType.value = +route.query['entity-type'] || 0;
 onMounted(async () => {
   const route = useRoute();
   await init(route);
-  console.log('%cindex.vue line:103 entityType.value', 'color: #007acc;', entityType.value);
 });
 </script>
 
