@@ -139,13 +139,12 @@ const editClose = () => {
 // computed
 const localization = computed(() => useInitializationStore().localization);
 
-const item = computed(() =>
+const item = ref({})
+item.value = 
   props.itemId
     ? items.value.find((item) => item.id === props.itemId)
-    : newItem.value
-);
+    : newItem.value;
 
-// const itemCopy = ref(item.value);
 let itemCopy = {...item.value};
 
 
@@ -162,7 +161,7 @@ const onEditClick = () => {
 
 const onCancelClick = () => {
   if (isItemChanged.value) {
-    item.value = { ...itemCopy }; // переписать
+    item.value = { ...itemCopy };
   } else {
     editClose();
     disableAddMode();
