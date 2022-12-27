@@ -65,8 +65,8 @@ const localization = computed(() => initializationStore.localization);
 
 const addItemButtonClick = () => {
   itemAddModeToggle();
-  setCurrItemAsNew();
-  setItemCopy();
+  // setCurrItemAsNew();
+  // setItemCopy();
 };
 
 onMounted(async () => {
