@@ -35,13 +35,10 @@ export const useSettlementStore = defineStore('settlement', {
     },
 
     isItemChanged(state) {
-      // return JSON.stringify(state.currItemCopy) !== JSON.stringify(state.currItem)
       return (id: number) => {
         const currItemCopy = this.getCurrentItem(id);
-        // console.log('%csettlementStore.ts line:41 currItemCopy', 'color: #007acc;', currItemCopy);
         return JSON.stringify(currItemCopy) !== JSON.stringify(this.getCurrentItem(id));
       }
-      // переписать так чтоб item и itemCopy вычислялось динамически
     }
   },
 

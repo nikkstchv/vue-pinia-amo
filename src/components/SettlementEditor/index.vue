@@ -98,7 +98,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref, toRaw } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
 
@@ -147,10 +147,9 @@ item.value =
 
 let itemCopy = {...item.value};
 
-
 const isItemChanged = computed(() => {
-  console.log("%cindex.vue line:168 copy", "color: #007acc;", itemCopy);
-  console.log("%cindex.vue line:168 item", "color: #007acc;", item.value);
+  // console.log("%cindex.vue line:168 copy", "color: #007acc;", itemCopy);
+  // console.log("%cindex.vue line:168 item", "color: #007acc;", item.value);
   return JSON.stringify(itemCopy) !== JSON.stringify(item.value);
 });
 
@@ -202,9 +201,9 @@ const onRemoveClick = () => {
   editClose();
 };
 
-onMounted(() => {
-  // itemCopy = { ...item.value };
-});
+// onMounted(() => {
+//   // itemCopy = { ...item.value };
+// });
 </script>
 
 <style lang="scss" module>
