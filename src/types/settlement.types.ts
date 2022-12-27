@@ -37,8 +37,6 @@ export type CurrItem = {
 export class SettlementState {
   items: Settlement[];
   currItemsList: Settlement[];
-  currItem: CurrItem;
-  currItemCopy: object;
   newItem: NewSettlement;
   isAddMode: boolean;
   isLoad: boolean;

@@ -18,8 +18,6 @@ export const useSettlementStore = defineStore('settlement', {
   state: (): SettlementState => ({
     items: [],
     currItemsList: [],
-    currItem: {},
-    currItemCopy: {},
     newItem: initItem(),
     isAddMode: false,
     isLoad: true
@@ -32,13 +30,6 @@ export const useSettlementStore = defineStore('settlement', {
 
     getCurrentItem(state) {
       return (id: number) => state.items.find(item => +item.id == id);
-    },
-
-    isItemChanged(state) {
-      return (id: number) => {
-        const currItemCopy = this.getCurrentItem(id);
-        return JSON.stringify(currItemCopy) !== JSON.stringify(this.getCurrentItem(id));
-      }
     }
   },
 
@@ -49,22 +40,6 @@ export const useSettlementStore = defineStore('settlement', {
 
     itemAddModeToggle() {
       this.isAddMode = !this.isAddMode;
-    },
-
-    setCurrItem(id: number) {
-      this.currItem = { ...this.getCurrentItem(id) }
-    },
-
-    setCurrItemAsNew() {
-      this.currItem = { ...this.newItem }
-    },
-
-    setItemCopy() {
-      this.currItemCopy = { ...this.currItem }
-    },
-
-    cancelItemChanges() {
-      this.currItem = { ...this.currItemCopy }
     },
 
     async loadItems() {
@@ -89,7 +64,6 @@ export const useSettlementStore = defineStore('settlement', {
       try {
         await api.updateSettlement(id, item);
         await this.loadItems()
-        this.setItemCopy()
       } catch (error) {
         console.debug(error)
       }
@@ -97,7 +71,6 @@ export const useSettlementStore = defineStore('settlement', {
     async removeItem(id: number) {
       try {
         await api.deleteSettlement(id);
-        // await this.loadItems()
         this.items = await api.getSettlements()
       } catch (error) {
         console.debug(error)
